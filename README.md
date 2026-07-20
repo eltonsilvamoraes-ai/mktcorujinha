@@ -22,4 +22,4 @@ Fortalecer as vendas do site para viabilizar a transição da empresa do físico
 
 ## Acesso à web
 
-Este ambiente tem busca geral na web liberada (WebSearch). O fetch direto ao domínio `amarcadacorujinha.com.br` (WebFetch) segue bloqueado pela política de rede do ambiente mesmo após tentativa de liberação — voltar a checar as configurações do ambiente, ou usar screenshots/PDFs/planilhas como alternativa enquanto isso não é resolvido.
+Acesso ao domínio `amarcadacorujinha.com.br` liberado em 20/07/2026. Funciona buscar o HTML real da loja (via curl) para auditar estrutura, preços, textos e badges. A ferramenta de fetch com renderização (WebFetch) e a automação de navegador (Playwright/Chromium) não conseguem completar a navegação neste ambiente — então auditorias visuais (como o site realmente aparece na tela) ainda dependem de screenshots enviados pelo usuário.
