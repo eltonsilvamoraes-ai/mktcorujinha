@@ -71,6 +71,34 @@ Fonte: planilha "Painel de Desempenho — Meta Ads" (Google Sheets) + PDF de an�
 3. **ROAS varia de 0x a 18,59x dia a dia** — reforça o aprendizado já registrado: não mexer na campanha com poucos dias de dado.
 4. Margem de contribuição de referência da própria planilha (63,2%) bate com a realizada (63,5%) — a precificação está calibrada.
 
+## Funil completo (Nuvemshop, acumulado até 20/07)
+
+Fonte: painel de estatísticas da Nuvemshop (Comportamento dos visitantes + Comportamento no checkout).
+
+| Etapa | Nº | Perda vs. etapa anterior |
+|---|---|---|
+| Visitas | 3.000 | — |
+| Visualização de categoria | 2.224 | -776 (-25,9%) |
+| Visualização de produto | 1.015 | -1.209 (-54,4%) |
+| Carrinhos criados | 66 | -949 (-93,5%) |
+| Checkout iniciado | 24 | -42 (-63,6%) |
+| Etapa de entrega | 20 | -4 (-16,7%) |
+| Etapa de pagamento | 18 | -2 (-10%) |
+| Pedidos criados | 13 | -5 (-27,8%) |
+| Pedidos pagos | 11 | -2 (-15,4%) |
+
+- **Visitas → vendas: 0,37%** no painel (11 pedidos pagos), **0,43%** contando as 13 vendas reais (2 fechadas manualmente no WhatsApp após carrinho abandonado, fora do fluxo automático de pagamento). Acima do baseline de 0,28% pré-festival.
+- **Checkout iniciado → venda: 45,83%** (painel) — etapa de checkout está saudável.
+- **Carrinho → venda: 19,7%** (13/66) real, contando as 2 recuperações manuais — taxa boa pro setor (referência: 20-30%).
+
+### Onde está o maior vazamento
+
+As duas maiores perdas absolutas do funil são **antes do carrinho**: "categoria → produto" (perde 1.209 visitantes) e "produto → carrinho" (perde 949 — ou seja, **93,5% de quem abre a página de um produto específico não adiciona ao carrinho**). Juntas, essas duas etapas respondem por ~74% de toda a perda do funil.
+
+A partir do carrinho o funil já está saudável (36% → 83% → 90% → 72% → 85% nas etapas seguintes) — não é aí que está o maior problema.
+
+**Implicação prática:** ações que atuam na página de produto (tabela de medidas padronizada, avaliações por SKU, mais confiança na hora de decidir o tamanho) têm mais alavancagem sobre a conversão geral do que ações focadas só em carrinho/checkout (como o teste de frete grátis). Vale prioridade nessa ordem.
+
 ## Leituras acumuladas
 
 - Público quente atual é muito **local** (Jacareí-SP e região) — tende a fechar na loja física mesmo vendo a oferta no site.

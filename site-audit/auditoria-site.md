@@ -29,10 +29,11 @@
 
 ## Pendente — refino
 
-- [ ] Padronizar tabela de medidas em texto em todos os produtos oversized (hoje confirmada em pelo menos um; não confirmado nos demais)
-- [ ] Ativar recuperação de carrinho abandonado (baixa urgência — volume ainda baixo)
-- [ ] Configurar regra na Nuvemshop: peça grátis = sempre a de menor valor, restrita a oversized, não acumula com outras promoções
-- [ ] Automatizar pedido de avaliação por produto no pós-venda (cobertura de reviews hoje é inconsistente entre SKUs)
+- [~] Padronizar tabela de medidas em texto em todos os produtos oversized — **em andamento** (Elton confirmou 20/07, é a maior alavanca de conversão disponível agora, ver funil em `metrics/registro-metricas.md`)
+- [x] Recuperação de carrinho abandonado — **já ativa**. 2 das 13 vendas do período vieram de recuperação manual via WhatsApp após carrinho abandonado — processo funciona na prática, vale manter mesmo com automação rodando
+- [x] Regra da peça grátis na Nuvemshop — **confirmada ativa** (menor valor, restrita a oversized, não acumulável)
+- [~] Automatizar pedido de avaliação por produto no pós-venda — **ferramenta já existe**, Elton vai reforçar cobertura manualmente
+- [x] Frete grátis em R$199 — **confirmado: decisão consciente**, não é resíduo de configuração antiga
 
 ## Hipóteses a investigar
 
@@ -51,9 +52,9 @@ Acesso liberado. Auditoria feita via HTML real da home e da página de produto "
 - **Rodapé institucional**: "A Primeira Marca Cristã Convertida do Brasil" + "Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito." + endereço da fábrica em Jacareí-SP ✅
 - **Fluxo de compra**: Comprar → escolher tamanho → adicionar ao carrinho, sem fricção extra ✅
 
-### Achado novo — frete grátis está em R$199, não R$249
+### Frete grátis em R$199 (não R$249) — confirmado intencional
 
-Tanto a home quanto a página de produto mostram **"Frete Grátis pra Todo Brasil para compras acima de R$199"** — não R$249, que era o valor documentado como "unificado" antes do festival. Pode ser proposital (com o combo do festival custando R$219,80, um limiar de R$199 é mais fácil de bater e ainda estimula quem compra só 1 peça a completar frete grátis) — mas como diverge do que está registrado, vale **confirmar com quem mexeu na configuração** se foi decisão consciente para o período do festival ou se ficou um valor antigo.
+Elton confirmou (20/07) que a mudança de R$249 para R$199 foi decisão consciente para o período do festival, não um valor antigo esquecido. Ver `financeiro/teste-frete-gratis-julho.md` para o próximo teste envolvendo frete.
 
 ### Tabela de medidas — atualização (screenshot de "Oversized Tudo ou Nada - Preto")
 
