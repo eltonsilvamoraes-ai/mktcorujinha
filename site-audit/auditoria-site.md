@@ -22,15 +22,17 @@
 | Selo de festival em produtos fora da promoção | Selo restrito às oversized |
 | Botão flutuante de app antigo | Removido |
 | Checkout não testado | Testado ponta a ponta (3ª peça zera, Pix aparece, pedido completa) |
+| Faixa de ícones da home desalinhada | Confirmado por screenshot: 4 colunas simétricas |
+| Apóstrofo em "Festival de Oversized's" | Confirmado corrigido, testado na home e na coleção ESTAMPADA |
+| Selo "0% OFF" aparecendo fora de promoção | Confirmado ausente em 24+ produtos testados |
+| Tabela de medidas ausente na página de produto | Confirmada presente (em texto) em pelo menos um produto — checar cobertura nos demais |
 
 ## Pendente — refino
 
-- [x] Alinhar texto da faixa de ícones da home — **confirmado resolvido por screenshot** (20/07): 4 colunas simétricas, ícone + título + subtítulo bem distribuídos
-- [x] Corrigir apóstrofo em "Festival de Oversized's" — **não aparece no hero principal** (banner mostra "FESTIVAL DE OVERSIZED" limpo). Não confirmado em páginas de coleção do festival ainda
-- [x] Esconder selo "0% OFF" em produtos fora da promoção — **confirmado resolvido**, inclusive visualmente (moletons e blusas sem selo)
-- [ ] Tabela de medidas visível na página de produto — **parcialmente resolvido**, ver auditoria ao vivo
+- [ ] Padronizar tabela de medidas em texto em todos os produtos oversized (hoje confirmada em pelo menos um; não confirmado nos demais)
 - [ ] Ativar recuperação de carrinho abandonado (baixa urgência — volume ainda baixo)
 - [ ] Configurar regra na Nuvemshop: peça grátis = sempre a de menor valor, restrita a oversized, não acumula com outras promoções
+- [ ] Automatizar pedido de avaliação por produto no pós-venda (cobertura de reviews hoje é inconsistente entre SKUs)
 
 ## Hipóteses a investigar
 
@@ -53,13 +55,11 @@ Acesso liberado. Auditoria feita via HTML real da home e da página de produto "
 
 Tanto a home quanto a página de produto mostram **"Frete Grátis pra Todo Brasil para compras acima de R$199"** — não R$249, que era o valor documentado como "unificado" antes do festival. Pode ser proposital (com o combo do festival custando R$219,80, um limiar de R$199 é mais fácil de bater e ainda estimula quem compra só 1 peça a completar frete grátis) — mas como diverge do que está registrado, vale **confirmar com quem mexeu na configuração** se foi decisão consciente para o período do festival ou se ficou um valor antigo.
 
-### Achado novo — tabela de medidas existe, mas está escondida
+### Tabela de medidas — atualização (screenshot de "Oversized Tudo ou Nada - Preto")
 
-A tabela de medidas **existe** (é a 5ª foto do carrossel de imagens do produto, arquivo "tabela-medidas-oversized..."), mas:
-- Não tem destaque — é só mais uma foto no carrossel, fácil de não ver.
-- A FAQ menciona "recomendamos conferir nossa tabela de medidas" mas o texto não é um link/botão que leva direto até ela.
+Neste produto a tabela de medidas aparece como **texto de verdade dentro da descrição** ("TABELA DE MEDIDAS (ALTURA X LARGURA)" com cm exatos por tamanho: P 76×58, M 78×60, G 80×62, GG 82×64, G1 84×66) — muito melhor do que a versão só-em-imagem que eu tinha visto antes no produto "Only Jesus" (lá, a tabela existe só como a 5ª foto do carrossel, sem texto).
 
-Recomendação: transformar em uma seção própria (aba "Tamanhos" ou botão "Ver tabela de medidas" perto do seletor de tamanho) em vez de depender da pessoa rolar o carrossel de fotos até o fim.
+**Isso sugere inconsistência entre produtos**, não um problema resolvido de forma sistemática: alguns cadastros de produto têm a tabela em texto na descrição, outros só têm a imagem no carrossel (mais fácil de passar batido). Recomendação: padronizar — todo produto oversized deveria ter a tabela em texto na descrição, copiando o padrão do "Tudo ou Nada" pros demais.
 
 ### Confirmado por screenshot (20/07) — topo da home completo
 
@@ -68,18 +68,24 @@ Recomendação: transformar em uma seção própria (aba "Tamanhos" ou botão "V
 - Nenhum "0% OFF" ou "Esgotado" visível em nenhum card de produto, incluindo os fora da promoção (moletons, blusas, cropped) ✅
 - Frete grátis R$199 confirmado visualmente na faixa de ícones e no ticker do topo — reforça o achado do código
 
-### Achado novo — avaliação por produto é rara
+### Achado confirmado com mais dados — avaliação por produto é inconsistente
 
-Nos cards de produto da seção "TOP 05 - OVERSIZED MAIS VENDIDAS", apenas 1 dos 4 produtos visíveis mostra estrelas de avaliação (com contagem baixa, ex. "(1)"). Os outros 3 não mostram nada — sinal de que a maioria dos produtos ainda não acumulou avaliação própria vinculada ao SKU, mesmo a loja tendo boas avaliações agregadas no Google. Quem rola a vitrine rápido não vê prova social na maioria dos cards.
+Vendo a página de coleção "ESTAMPADA" inteira (24 produtos de uma vez), o padrão se confirma em escala: parte dos cards mostra estrelas com contagem (ex. "★★★★★ (6)", "★★★★☆ (7)", "★★★☆☆ (3)"), mas boa parte não mostra nenhuma avaliação. A loja tem um widget de avaliação nativo por produto funcionando de verdade (visto na página de "Oversized Tudo ou Nada" — 4,8 de média, 4 avaliações, com nome, selo de "comprador verificado" e texto), só falta cobertura em mais SKUs.
 
-**Recomendação:** pedir avaliação por produto no pós-venda (e-mail ou WhatsApp automático X dias após a entrega) para popular esse selo direto na vitrine — é mais forte que só ter os depoimentos do Google numa seção separada, porque aparece no momento exato da decisão (olhando o card do produto).
+**Recomendação:** automatizar pedido de avaliação por produto no pós-venda (e-mail/WhatsApp X dias após entrega) — o selo aparece direto no card da vitrine, no momento exato da decisão, o que pesa mais do que os depoimentos do Google isolados numa seção à parte.
+
+### Pontos fortes confirmados na página de produto ("Oversized Tudo ou Nada - Preto")
+
+- **Caixa explicativa do combo** logo abaixo do preço: "Compre 3 e pague 2! Válido para este produto e todos da categoria: Oversized Cristã → ESTAMPADA. Nesta promoção você pode combinar este produto com outros da mesma categoria." — resolve de cara a dúvida mais comum de quem nunca viu a oferta (será que esse produto entra na promoção?) ✅
+- **Opções de entrega detalhadas**: 3 transportadoras com prazo e preço + opção de retirar na loja física em Jacareí-SP com horário de funcionamento — bom para o público local, reduz fricção pra quem prefere retirar ✅
+- **Widget de perguntas e respostas** existe mas está vazio ("Este produto ainda não tem perguntas") — não é problema, só espaço não utilizado ainda.
 
 ### Ainda não verificado
 
-- Apóstrofo em "Oversized's" — não aparece no hero nem na home; pode estar em página de coleção específica do festival ainda não vista.
-- Página de produto completa via screenshot (a tabela de medidas, especificamente onde ela aparece no carrossel).
-- Carrinho e checkout renderizados.
+- Carrinho e checkout renderizados (já testados manualmente antes, mas não visualmente nesta rodada de auditoria).
+- Velocidade de carregamento mobile.
+- Se a tabela de medidas em texto está presente em todos os produtos oversized ou só em alguns.
 
 ## Próxima auditoria ao vivo
 
-Pendente: rodar o mesmo processo pra página de carrinho e para páginas de coleção do festival (onde pode estar o typo do apóstrofo). Velocidade de carregamento mobile ainda não medida.
+Pendente: página de carrinho, velocidade mobile, e uma checagem rápida se a tabela de medidas em texto está em todos os produtos ou só em parte deles.
