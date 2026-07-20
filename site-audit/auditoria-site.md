@@ -25,9 +25,9 @@
 
 ## Pendente — refino
 
-- [ ] Alinhar texto da faixa de ícones da home (não deu pra confirmar visualmente — ver nota na auditoria ao vivo)
-- [ ] Corrigir apóstrofo em "Festival de Oversized's" (não encontrado na home nem na página de produto testada — pode estar em outra página/coleção do festival, checar)
-- [x] Esconder selo "0% OFF" em produtos fora da promoção — **confirmado resolvido** (ver auditoria ao vivo)
+- [x] Alinhar texto da faixa de ícones da home — **confirmado resolvido por screenshot** (20/07): 4 colunas simétricas, ícone + título + subtítulo bem distribuídos
+- [x] Corrigir apóstrofo em "Festival de Oversized's" — **não aparece no hero principal** (banner mostra "FESTIVAL DE OVERSIZED" limpo). Não confirmado em páginas de coleção do festival ainda
+- [x] Esconder selo "0% OFF" em produtos fora da promoção — **confirmado resolvido**, inclusive visualmente (moletons e blusas sem selo)
 - [ ] Tabela de medidas visível na página de produto — **parcialmente resolvido**, ver auditoria ao vivo
 - [ ] Ativar recuperação de carrinho abandonado (baixa urgência — volume ainda baixo)
 - [ ] Configurar regra na Nuvemshop: peça grátis = sempre a de menor valor, restrita a oversized, não acumula com outras promoções
@@ -61,13 +61,24 @@ A tabela de medidas **existe** (é a 5ª foto do carrossel de imagens do produto
 
 Recomendação: transformar em uma seção própria (aba "Tamanhos" ou botão "Ver tabela de medidas" perto do seletor de tamanho) em vez de depender da pessoa rolar o carrossel de fotos até o fim.
 
-### Não verificado (precisa de confirmação visual)
+### Confirmado por screenshot (20/07) — topo da home completo
 
-- Alinhamento da faixa de ícones do topo (frete grátis / parcelamento) — estruturalmente parece correta no código (ícone + texto pareados), mas alinhamento fino de CSS só se vê com o olho.
-- Apóstrofo em "Oversized's" — não apareceu nem na home nem nesta página de produto; pode estar em uma página de coleção específica do festival.
-- Banner hero do festival (Romanos 13:14) — confirmei que existe e linka para a coleção de oversized estampada, mas o conteúdo visual (texto sobre a imagem) não dá pra ler via código, só pela imagem em si.
+- Faixa de ícones (Frete Grátis / 3x Sem Juros / Compre 3 Pague 2 / Primeira Troca Grátis) bem alinhada, 4 colunas simétricas ✅
+- Banner hero do festival: "FESTIVAL DE OVERSIZED", "VÁLIDO ATÉ 31/07", "COMPRE 03 PEÇAS E PAGUE 02! A TERCEIRA PEÇA É GRÁTIS", CTA "COMPRAR >", assinado com "'Revesti-vos de Cristo' — Romanos 13:14" ✅ mensagem clara, identidade forte, verso-âncora presente
+- Nenhum "0% OFF" ou "Esgotado" visível em nenhum card de produto, incluindo os fora da promoção (moletons, blusas, cropped) ✅
+- Frete grátis R$199 confirmado visualmente na faixa de ícones e no ticker do topo — reforça o achado do código
 
-Se quiser esses três pontos fechados com certeza, me manda 2-3 screenshots (topo da home, e a página de produto rolada até o carrossel de fotos) que eu confirmo visualmente.
+### Achado novo — avaliação por produto é rara
+
+Nos cards de produto da seção "TOP 05 - OVERSIZED MAIS VENDIDAS", apenas 1 dos 4 produtos visíveis mostra estrelas de avaliação (com contagem baixa, ex. "(1)"). Os outros 3 não mostram nada — sinal de que a maioria dos produtos ainda não acumulou avaliação própria vinculada ao SKU, mesmo a loja tendo boas avaliações agregadas no Google. Quem rola a vitrine rápido não vê prova social na maioria dos cards.
+
+**Recomendação:** pedir avaliação por produto no pós-venda (e-mail ou WhatsApp automático X dias após a entrega) para popular esse selo direto na vitrine — é mais forte que só ter os depoimentos do Google numa seção separada, porque aparece no momento exato da decisão (olhando o card do produto).
+
+### Ainda não verificado
+
+- Apóstrofo em "Oversized's" — não aparece no hero nem na home; pode estar em página de coleção específica do festival ainda não vista.
+- Página de produto completa via screenshot (a tabela de medidas, especificamente onde ela aparece no carrossel).
+- Carrinho e checkout renderizados.
 
 ## Próxima auditoria ao vivo
 
