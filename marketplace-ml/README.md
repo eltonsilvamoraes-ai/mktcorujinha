@@ -33,7 +33,7 @@ Nome · Preço de venda · Tipo de anúncio (Premium/Clássico) · Marca · Cate
 
 A API pública do Mercado Livre foi fechada — busca, mais vendidos (highlights) e catálogo **exigem token de autenticação**. O site público bloqueia scraping com muro anti-robô. Só metadados de categoria são públicos. Diagnóstico completo e testes em `diagnostico-acesso.md`.
 
-**Bloqueio atual:** falta um token de acesso da API do ML para puxar os dados. Passo a passo em `como-gerar-token-ml.md`.
+**RESOLVIDO (22/07):** token gerado via Client Credentials. Coleta feita pelo endpoint oficial `/highlights` (ranking de mais vendidos). Resultado em `campeoes-ferramentas-ml.xlsx` — 109 campeões em catálogo, 64 com ≤5 concorrentes.
 
 ## Arquivos
 
