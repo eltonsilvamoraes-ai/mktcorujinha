@@ -42,3 +42,12 @@ A API pública do Mercado Livre foi fechada — busca, mais vendidos (highlights
 - `mapeamento-campos-api.md` — de qual endpoint da API vem cada coluna
 - `como-gerar-token-ml.md` — passo a passo para gerar o token de acesso
 - `template-produtos.csv` — planilha com os cabeçalhos prontos
+
+## Construção (22/07) — árvore completa
+
+Varredura da árvore inteira de Construção (MLB1500): **313 sub-subcategorias**, **1.119 produtos campeões em catálogo**, **604 com ≤5 concorrentes**.
+
+- `campeoes-construcao-ml.xlsx` — dataset completo (abas: Leia-me, Todos os campeões, Oportunidades ≤5 conc.)
+- Google Sheets no Drive do Elton: "Construção — Top Oportunidades ML (Corujinha)" — 89 melhores (≤2 concorrentes e top-3 do nicho)
+
+**Método:** endpoint `/highlights` (mais vendidos) rodado em cada folha da árvore. A busca aberta (`/search`) segue bloqueada mesmo com token — não é possível listar "todos os anúncios com +1000 vendas"; o ranking de mais vendidos é a fonte oficial de campeões, e a coluna de concorrentes é o filtro de oportunidade.
