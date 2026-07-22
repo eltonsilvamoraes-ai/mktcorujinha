@@ -20,6 +20,19 @@ Desde ~2023 o Mercado Livre restringiu a API pública. **Todo endpoint que retor
 
 Portanto: **não há caminho anônimo.** Para coletar os dados é obrigatório um token. Ver `como-gerar-token-ml.md`.
 
+## Scraping do site — o que dá e o que não dá (testado 21/07)
+
+| Página | Carrega? | Conteúdo |
+|---|---|---|
+| Departamento `/c/ferramentas` | ✅ Sim | Carrosséis curados: nome, preço, FULL, selo "MAIS VENDIDO", link de catálogo |
+| Produto de catálogo `/p/MLB...` | ❌ Muro anti-robô | — |
+| Listagem/busca `lista.mercadolivre.com.br/...` | ❌ Muro anti-robô | — |
+| Mais vendidos `/mais-vendidos/...` | ❌ Muro anti-robô | — |
+
+**Conclusão do scraping:** só as páginas de departamento `/c/` abrem, e trazem uma **seleção curada** (não o ranking completo). Delas dá pra extrair, sem token: **Nome, Preço, Fulfillment (FULL), se está em catálogo, e o selo "Mais Vendido"**. Amostra real de 16 produtos em `amostra-ferramentas-sem-token.csv`.
+
+**O que o scraping NÃO entrega** (e por isso o token ainda é necessário para a pesquisa completa): Nome do vendedor, Nº de concorrentes ("poucos concorrentes" — o filtro central do projeto), Maior/Menor preço no catálogo, Flex por item, Tipo de anúncio (Premium/Clássico). Tudo isso está nas páginas walled ou só na API.
+
 ## Observação sobre "+1000 vendas"
 
 O ML deixou de expor a quantidade exata vendida por item na API. O filtro numérico "+1000 vendas" exato ficou inviável. **Substituto melhor:** o endpoint `/highlights/{site}/category/{cat}` retorna o *ranking* dos mais vendidos da categoria (posição 1, 2, 3...) — que identifica os campeões de venda de forma mais confiável que um número solto, e é exatamente o que o objetivo do projeto pede.
