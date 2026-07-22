@@ -46,29 +46,43 @@ Sem isso, qualquer otimização de campanha de Vendas fica cega.
 
 ## Ciclo atual — reativação em 21/07/2026 (últimos 10 dias do festival)
 
-### Topo
-- **Orçamento:** R$80/dia (subiu de ~R$44/dia médio do ciclo anterior)
-- **Criativo:** 1 vídeo só — o que mais performou (concentra o sinal do algoritmo, escolha correta)
-- **Objetivo declarado:** confirmar qual evento de otimização está selecionado (ver alerta abaixo)
+Estrutura final confirmada pelo Elton (21/07):
 
-### Fundo (novo — antes estava zerado)
-- **Público:** remarketing da campanha de Topo
-- **Criativo:** 3–5 vídeos de produtos mais vendidos, apresentando as oversized (em vez de só o vídeo "Compre 3 Pague 2")
-- **Motivação:** os dados pediam isso — no ciclo anterior 100% das vendas vieram de Topo e Fundo estava zerado
+### Topo — aquisição (público frio)
+- **Objetivo:** Iniciar Checkout (InitiateCheckout)
+- **Orçamento:** R$50/dia (testou R$80, voltou pra R$50)
+- **Criativo:** 1 vídeo só — o que mais performou
 
-### Alertas e recomendações para este ciclo
+### Fundo — conversão (remarketing quente)
+- **Objetivo:** Compra
+- **Criativo:** catálogo dinâmico do Meta, integrado só com as **oversized estampadas** (coerente: é a categoria da oferta "Compre 3 Pague 2")
+- **Público:** visitou site 30d + iniciou/adicionou carrinho 14d + interagiu no Instagram 30d
 
-1. **R$80/dia provavelmente NÃO tira do modo de aprendizado sozinho** se a otimização for por **Compra**. A regra do Meta é ~50 eventos de otimização/semana por conjunto. Com CPA ~R$50, R$80/dia ≈ 11 compras/semana — bem abaixo de 50. Se o evento de otimização for AddToCart (66 em 15 dias ≈ 4,4/dia), fica mais perto de sair do aprendizado. **Confirmar qual evento está otimizando.**
-2. **Pausar + reativar + mudar orçamento ~60% reinicia a fase de aprendizado** pelas regras do Meta — os primeiros dias não serão estáveis. Não é motivo pra não fazer, só pra não tirar conclusão cedo.
-3. **Frequência do Topo:** com orçamento maior e público frio pequeno, a frequência sobe rápido. Vigiar no Gerenciador; acima de ~3-4 é fadiga chegando. Ter 1 variação de backup pronta.
-4. **Fundo — considerar catálogo dinâmico:** se a Nuvemshop estiver integrada ao Meta Commerce Manager, anúncio dinâmico de catálogo (cada pessoa vê o produto que viu no site) tende a bater criativo fixo, e ataca direto a maior perda do funil (93,5% veem produto e não põem no carrinho).
-5. **Fundo — público amplo:** não restringir só a quem viu o vídeo do Topo; incluir quem visitou site / viu produto / add-to-cart nos últimos 30 dias. O público de remarketing ainda é pequeno (~1.000 views de produto, 66 carrinhos).
-6. **5 vídeos em público pequeno diluem o sinal:** deixar rodar a 1ª semana, depois cortar pros 2-3 melhores. Não interromper antes disso.
+### Leitura desta estrutura
+
+- **Objetivos bem escolhidos:** Topo em Iniciar Checkout (mais eventos que Compra → aprende mais rápido com orçamento pequeno) e Fundo em Compra (público já quente, pode pedir o evento mais fundo). Correto.
+- **Catálogo dinâmico só estampada** ataca direto a maior perda do funil (ver produto → carrinho, 93,5% de perda): cada pessoa revê o produto que olhou. Alinhado à oferta.
+
+### Expectativa de "aprendizado" — estado normal é "limitado"
+
+- **Topo:** ~1,6 checkouts/dia no histórico recente vs. ~7/dia (50/semana) necessários pra sair do aprendizado. Vai ficar em **"aprendizado limitado"** — normal pro volume, NÃO desligar por isso.
+- **Fundo:** remarketing de público pequeno fica em "aprendizado limitado" quase sempre — esperado e OK, remarketing funciona mesmo assim porque o público é quente.
+- Sair do aprendizado de verdade depende de **volume/alcance** (crescer o Topo), não de mexer em configuração.
+
+### Ação recomendada em aberto — exclusão de público
+
+Como as DUAS campanhas agora mandam pro site (Topo=checkout, Fundo=compra), elas podem competir pela mesma pessoa e encarecer ambas:
+1. **No Topo, excluir o público do Fundo** (site 30d / carrinho 14d / IG 30d) → Topo foca em frio puro, Fundo colhe o quente sem concorrência.
+2. **Nas duas, excluir quem já comprou** (30-60d) → não gastar verba de aquisição com cliente atual.
+
+### Outras notas
+
+- **Reativar + mudar orçamento reinicia o aprendizado** pelas regras do Meta — primeiros dias instáveis, não concluir cedo.
+- **Frequência do Topo:** público frio é pequeno; vigiar frequência, acima de ~3-4 é fadiga. Ter 1 vídeo de backup.
 
 ## Pendências
 
 - [ ] Confirmar instalação e disparo do Pixel (responsável: Aline)
-- [ ] Confirmar qual evento de otimização a campanha de Topo está usando (Compra vs. AddToCart) — muda a leitura do "sair do aprendizado"
-- [ ] Verificar se a Nuvemshop está integrada ao Meta Commerce Manager (habilita catálogo dinâmico no Fundo)
+- [ ] **Aplicar exclusões de público** (Fundo fora do Topo; compradores fora das duas) — evita concorrência interna
 - [ ] Ao fim do ciclo (31/07): registrar resultado em `metrics/registro-metricas.md`, comparar Topo vs. Fundo agora que Fundo existe
 - [ ] Construir uma "skill" calibrada de Meta Ads com os aprendizados de cada ciclo
