@@ -1,0 +1,465 @@
+<title>Fábrica da Corujinha</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+  :root{
+    --cotton:#E9E5DB;        /* ground */
+    --paper:#F3F0E8;         /* raised surface */
+    --paper-2:#FBF9F4;       /* highest surface */
+    --ink:#1A2233;           /* text */
+    --ink-soft:#5A6480;      /* muted text */
+    --indigo:#24365E;        /* primary */
+    --indigo-deep:#182747;
+    --thread:#C0721B;        /* accent — sewing thread */
+    --thread-ink:#7A4610;    /* accent text on light */
+    --madder:#9E3B2E;        /* rare detail */
+    --line:rgba(26,34,51,.16);
+    --line-strong:rgba(26,34,51,.34);
+    --weave-a:rgba(26,34,51,.045);
+    --weave-b:rgba(26,34,51,.015);
+    --shadow:0 1px 0 rgba(26,34,51,.05), 0 18px 40px -24px rgba(26,34,51,.35);
+    --cta-ink:#FBF9F4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --cotton:#141B2D;
+      --paper:#1B2340;
+      --paper-2:#212A49;
+      --ink:#ECE7DC;
+      --ink-soft:#9BA6C4;
+      --indigo:#8AA0D4;
+      --indigo-deep:#0F1526;
+      --thread:#DB9038;
+      --thread-ink:#E7A959;
+      --madder:#CE5C4C;
+      --line:rgba(236,231,220,.15);
+      --line-strong:rgba(236,231,220,.32);
+      --weave-a:rgba(236,231,220,.05);
+      --weave-b:rgba(236,231,220,.015);
+      --shadow:0 1px 0 rgba(0,0,0,.2), 0 24px 50px -28px rgba(0,0,0,.7);
+      --cta-ink:#141B2D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --cotton:#141B2D; --paper:#1B2340; --paper-2:#212A49;
+    --ink:#ECE7DC; --ink-soft:#9BA6C4; --indigo:#8AA0D4; --indigo-deep:#0F1526;
+    --thread:#DB9038; --thread-ink:#E7A959; --madder:#CE5C4C;
+    --line:rgba(236,231,220,.15); --line-strong:rgba(236,231,220,.32);
+    --weave-a:rgba(236,231,220,.05); --weave-b:rgba(236,231,220,.015);
+    --shadow:0 1px 0 rgba(0,0,0,.2), 0 24px 50px -28px rgba(0,0,0,.7);
+    --cta-ink:#141B2D;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--cotton);
+    color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+    font-size:18px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:"Bricolage Grotesque","Hanken Grotesk",sans-serif;font-weight:700;line-height:1.02;text-wrap:balance;margin:0;letter-spacing:-.015em}
+  p{margin:0}
+  a{color:inherit}
+  .wrap{width:min(1120px,92vw);margin-inline:auto}
+  .mono{font-family:"Space Mono",ui-monospace,monospace}
+  .eyebrow{
+    font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--thread-ink);
+  }
+  section{position:relative}
+
+  /* stitch line motif */
+  .stitch{border:0;height:0;border-top:2px dashed var(--thread);opacity:.7;margin:0}
+  .stitch-v{width:0;border-left:2px dashed var(--line-strong)}
+
+  /* top bar */
+  header.bar{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--cotton) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;letter-spacing:-.02em;font-size:1.06rem}
+  .brand .owl{width:30px;height:30px;flex:0 0 auto}
+  .brand small{display:block;font-family:"Space Mono",monospace;font-weight:400;font-size:.6rem;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase;margin-top:1px}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.55rem;
+    font-family:"Hanken Grotesk",sans-serif;font-weight:600;font-size:.98rem;
+    padding:.72rem 1.2rem;border-radius:2px;border:1.5px solid transparent;
+    cursor:pointer;text-decoration:none;transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--thread);color:var(--cta-ink);box-shadow:0 10px 24px -12px color-mix(in srgb,var(--thread) 70%, transparent)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--thread);color:var(--thread-ink)}
+  .btn svg{width:18px;height:18px;flex:0 0 auto}
+  .bar .btn{padding:.55rem 1rem;font-size:.9rem}
+
+  /* hero */
+  .hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(2.5rem,6vw,4rem)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,6.4vw,4.7rem);letter-spacing:-.03em}
+  .hero h1 .em{color:var(--thread-ink);font-style:italic;font-weight:800}
+  .hero .lead{margin-top:1.4rem;font-size:clamp(1.05rem,2.1vw,1.24rem);color:var(--ink-soft);max-width:34ch}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .hero-note{margin-top:1.1rem;font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft)}
+
+  /* fabric placeholder panel */
+  .panel{
+    position:relative;border-radius:3px;overflow:hidden;
+    background:
+      repeating-linear-gradient(45deg,var(--weave-a) 0 7px,var(--weave-b) 7px 14px),
+      linear-gradient(150deg,var(--paper-2),var(--paper));
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+  }
+  .panel.stitched{border:1.5px dashed var(--thread);outline:1px solid var(--line);outline-offset:-6px}
+  .panel .cap{
+    position:absolute;left:0;bottom:0;right:0;
+    display:flex;align-items:center;gap:.5rem;
+    padding:.6rem .8rem;font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-soft);
+    background:color-mix(in srgb,var(--paper) 82%, transparent);border-top:1px solid var(--line);
+  }
+  .panel .cap .dot{width:7px;height:7px;border-radius:50%;background:var(--thread)}
+  .hero .panel{aspect-ratio:4/5}
+  .panel .stamp{position:absolute;top:14px;right:14px;font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.14em;color:var(--thread-ink);border:1px solid var(--thread);padding:.25rem .5rem;border-radius:2px;text-transform:uppercase}
+
+  /* credibility marquee-ish strip */
+  .strip{border-block:1px solid var(--line);background:var(--paper)}
+  .strip-in{display:flex;flex-wrap:wrap;gap:.4rem 2.2rem;justify-content:center;padding:1rem 0;font-family:"Space Mono",monospace;font-size:.76rem;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase}
+  .strip-in span{display:inline-flex;align-items:center;gap:.6rem}
+  .strip-in span::before{content:"";width:6px;height:6px;background:var(--thread);border-radius:50%}
+
+  /* generic section */
+  .sec{padding:clamp(3rem,7vw,5.5rem) 0}
+  .sec-head{max-width:60ch}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.9rem)}
+  .sec-head .lead{margin-top:1rem;color:var(--ink-soft);font-size:1.08rem;max-width:52ch}
+
+  /* differentiator split */
+  .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+  .benefits{display:grid;gap:0;margin-top:.5rem}
+  .benefit{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:1.1rem 0;border-top:1px dashed var(--line-strong)}
+  .benefit:last-child{border-bottom:1px dashed var(--line-strong)}
+  .benefit .n{font-family:"Space Mono",monospace;font-size:.8rem;color:var(--thread-ink);padding-top:.15rem}
+  .benefit h3{font-size:1.12rem;font-weight:700;font-family:"Hanken Grotesk",sans-serif;letter-spacing:0}
+  .benefit p{color:var(--ink-soft);font-size:.98rem;margin-top:.2rem}
+
+  /* ficha técnica — signature */
+  .ficha{background:var(--indigo-deep);color:var(--paper-2)}
+  :root:not([data-theme="dark"]) .ficha{--ink-soft:#B7C0DA}
+  .ficha .eyebrow{color:var(--thread)}
+  .ficha h2{color:var(--paper-2)}
+  .ficha-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:2rem}
+  .spec-card{background:color-mix(in srgb,var(--paper-2) 7%, transparent);border:1.5px dashed var(--thread);border-radius:3px;padding:clamp(1.2rem,3vw,2rem)}
+  .spec-card .tag{font-family:"Space Mono",monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--thread);margin-bottom:1rem}
+  .spec-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.7rem 0;border-top:1px solid rgba(255,255,255,.12)}
+  .spec-row:first-of-type{border-top:0}
+  .spec-row .k{color:#B7C0DA;font-size:.9rem}
+  .spec-row .v{font-family:"Space Mono",monospace;font-weight:700;font-size:1rem;color:var(--paper-2);text-align:right}
+  .callouts{display:grid;gap:1rem}
+  .callout{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:1.15rem;border:1px solid rgba(255,255,255,.14);border-radius:3px;background:color-mix(in srgb,var(--paper-2) 5%, transparent)}
+  .callout .ic{width:34px;height:34px;color:var(--thread)}
+  .callout h3{color:var(--paper-2);font-size:1.05rem;font-family:"Hanken Grotesk",sans-serif;font-weight:700}
+  .callout p{color:#B7C0DA;font-size:.94rem;margin-top:.25rem}
+
+  /* produtos grid */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:1.4rem;
+    display:flex;flex-direction:column;gap:.5rem;transition:transform .18s ease,border-color .18s ease,box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--thread);box-shadow:var(--shadow)}
+  .card .k{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--thread-ink)}
+  .card h3{font-size:1.25rem;letter-spacing:-.01em}
+  .card p{color:var(--ink-soft);font-size:.96rem}
+
+  /* processo */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:2.4rem;border-top:2px dashed var(--thread)}
+  .step{padding:1.4rem 1.1rem 0;position:relative}
+  .step + .step{border-left:1px dashed var(--line-strong)}
+  .step .num{position:absolute;top:-1.05rem;left:1.1rem;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--thread);color:var(--cta-ink);display:grid;place-items:center;font-family:"Space Mono",monospace;font-weight:700;font-size:.85rem}
+  .step h3{margin-top:.8rem;font-size:1.05rem;font-family:"Hanken Grotesk",sans-serif;font-weight:700}
+  .step p{color:var(--ink-soft);font-size:.92rem;margin-top:.3rem}
+
+  /* faq */
+  .faq{display:grid;gap:0;margin-top:2rem;max-width:760px}
+  details{border-top:1px dashed var(--line-strong);padding:1.05rem 0}
+  details:last-child{border-bottom:1px dashed var(--line-strong)}
+  summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;font-weight:600;font-size:1.08rem}
+  summary::-webkit-details-marker{display:none}
+  summary .plus{font-family:"Space Mono",monospace;color:var(--thread-ink);flex:0 0 auto;transition:transform .2s ease}
+  details[open] summary .plus{transform:rotate(45deg)}
+  details p{color:var(--ink-soft);margin-top:.7rem;font-size:.98rem;max-width:64ch}
+
+  /* final cta */
+  .final{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .final-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;padding:clamp(2.5rem,6vw,4rem) 0}
+  .final h2{font-size:clamp(1.8rem,4.4vw,3rem);max-width:16ch}
+  .final .lead{color:var(--ink-soft);margin-top:.7rem;max-width:40ch}
+
+  footer{padding:2.5rem 0 3rem;color:var(--ink-soft)}
+  .foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.2rem;font-size:.9rem}
+  .foot-in a{color:var(--thread-ink);text-decoration:none}
+  .foot-in a:hover{text-decoration:underline}
+
+  /* floating whatsapp */
+  .fab{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:.5rem;background:var(--thread);color:var(--cta-ink);padding:.8rem 1.1rem;border-radius:100px;text-decoration:none;font-weight:600;font-size:.95rem;box-shadow:0 14px 34px -12px color-mix(in srgb,var(--thread) 70%, transparent);transition:transform .15s ease}
+  .fab:hover{transform:translateY(-2px)}
+  .fab svg{width:20px;height:20px}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  :focus-visible{outline:2.5px solid var(--thread);outline-offset:3px;border-radius:2px}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero .panel{aspect-ratio:16/11;order:-1}
+    .split{grid-template-columns:1fr}
+    .ficha-wrap{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr;border-top:0}
+    .step{border-top:2px dashed var(--thread);padding-top:1.6rem}
+    .step + .step{border-left:0}
+    .step:nth-child(odd) + .step{border-left:1px dashed var(--line-strong)}
+  }
+  @media (max-width:560px){
+    body{font-size:17px}
+    .cards{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .step + .step{border-left:0}
+    .bar .brand small{display:none}
+    .fab span{display:none}
+    .fab{padding:.85rem;border-radius:50%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+    .btn,.card,.fab{transition:none}
+  }
+</style>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <div class="brand">
+      <svg class="owl" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="var(--thread)" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <path d="M13 16.5c0-2.5 2-4.5 4.5-4.5S22 14 22 16.5M18 16.5c0-2.5 2-4.5 4.5-4.5S27 14 27 16.5" stroke="var(--ink)" stroke-width="1.6" fill="none"/>
+        <circle cx="16" cy="16.5" r="1.7" fill="var(--ink)"/><circle cx="24" cy="16.5" r="1.7" fill="var(--ink)"/>
+        <path d="M20 19l-2 3h4l-2-3zM14 24c1.5 3 4 5 6 5s4.5-2 6-5" stroke="var(--ink)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div>A Marca da Corujinha
+        <small>Fábrica · Confecção própria</small>
+      </div>
+    </div>
+    <a class="btn btn-primary" href="https://wa.me/551239339065?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20f%C3%A1brica%20e%20quero%20um%20or%C3%A7amento%20de%20produ%C3%A7%C3%A3o%20de%20camisetas." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2m0 18.15c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <p class="eyebrow">Fábrica própria — Jacareí / SP</p>
+      <h1>A sua marca, costurada por quem <span class="em">vive de vender a própria.</span></h1>
+      <p class="lead">Somos fábrica <em>e</em> somos marca. Produzimos camisetas oversized e lisas, private label e tiragens para marcas, igrejas e eventos — com o mesmo padrão que exigimos das nossas peças.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://wa.me/551239339065?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20f%C3%A1brica%20e%20quero%20um%20or%C3%A7amento%20de%20produ%C3%A7%C3%A3o%20de%20camisetas." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2m0 18.15c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29"/></svg>
+          Falar com o comercial
+        </a>
+        <a class="btn btn-ghost" href="#ficha">Ver a ficha técnica</a>
+      </div>
+      <p class="hero-note">Do protótipo à entrega · Envio para todo o Brasil</p>
+    </div>
+    <div class="panel stitched reveal" role="img" aria-label="Foto da fábrica — detalhe de costura em camiseta oversized">
+      <span class="stamp">Corujinha · Confecção</span>
+      <div class="cap"><span class="dot"></span> Foto — detalhe da costura / fábrica</div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="wrap strip-in">
+    <span>Produção própria</span>
+    <span>Controle de qualidade interno</span>
+    <span>100% algodão premium</span>
+    <span>Marcas · Igrejas · Eventos</span>
+  </div>
+</div>
+
+<!-- DIFERENCIAL -->
+<section class="sec">
+  <div class="wrap split">
+    <div class="panel reveal" role="img" aria-label="Foto da equipe / máquinas de costura da fábrica" style="aspect-ratio:5/6">
+      <div class="cap"><span class="dot"></span> Foto — chão de fábrica / máquinas</div>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Por que produzir com a gente</p>
+      <h2 class="sec-head" style="font-size:clamp(1.8rem,4vw,2.7rem)">Feito por quem entende dos dois lados do balcão.</h2>
+      <p class="lead" style="color:var(--ink-soft);margin-top:1rem">Não somos só fábrica: temos a nossa própria marca. Isso muda tudo — a gente sabe o que uma peça precisa ter para vender: caimento, toque e durabilidade.</p>
+      <div class="benefits">
+        <div class="benefit"><span class="n">01</span><div><h3>Fábrica própria, sem atravessador</h3><p>Você fala direto com quem produz. Menos ruído, mais controle sobre a sua peça.</p></div></div>
+        <div class="benefit"><span class="n">02</span><div><h3>Modelagem oversized moderna</h3><p>Nossa especialidade. Caimento estruturado que o mercado procura — não é camiseta larga qualquer.</p></div></div>
+        <div class="benefit"><span class="n">03</span><div><h3>Tecido premium de verdade</h3><p>100% algodão fio 30.1 penteado, 180 g/m². A base que sustenta uma marca séria.</p></div></div>
+        <div class="benefit"><span class="n">04</span><div><h3>Sua estampa, sua etiqueta</h3><p>Private label completo: do corte à etiqueta, a peça sai com a cara da sua marca.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FICHA TÉCNICA -->
+<section class="sec ficha" id="ficha">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Ficha técnica</p>
+      <h2 class="sec-head" style="font-size:clamp(1.8rem,4vw,2.9rem)">A ficha técnica da nossa camiseta base.</h2>
+      <p class="lead" style="color:#B7C0DA;margin-top:1rem;max-width:52ch">Transparência de fábrica: exatamente o que você recebe. Outras gramaturas, cores e tecidos entram sob consulta.</p>
+    </div>
+    <div class="ficha-wrap">
+      <div class="spec-card reveal">
+        <div class="tag">Especificação · Base Oversized</div>
+        <div class="spec-row"><span class="k">Tecido</span><span class="v">Malha fio 30.1 penteado</span></div>
+        <div class="spec-row"><span class="k">Composição</span><span class="v">100% algodão · BCI</span></div>
+        <div class="spec-row"><span class="k">Gramatura</span><span class="v">180 g/m²</span></div>
+        <div class="spec-row"><span class="k">Gola</span><span class="v">Ribana canelada 2×1</span></div>
+        <div class="spec-row"><span class="k">Acabamento</span><span class="v">Lavagem premium</span></div>
+        <div class="spec-row"><span class="k">Modelagem</span><span class="v">Oversized</span></div>
+      </div>
+      <div class="callouts reveal">
+        <div class="callout">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7c4 3 12 3 16 0M4 12c4 3 12 3 16 0M4 17c4 3 12 3 16 0" stroke-dasharray="2 2"/></svg>
+          <div><h3>Costura</h3><p>Reforçada nos pontos de maior tensão. Acabamento que aguenta uso e lavagem sem perder a forma.</p></div>
+        </div>
+        <div class="callout">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l-4 5 3 2v11h10V10l3-2-4-5-2 3H10L8 3z"/></svg>
+          <div><h3>Modelagem</h3><p>Oversized com caimento solto e estruturado — o corte que virou assinatura da marca.</p></div>
+        </div>
+        <div class="callout">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 8c0 4 3 6 7 6M19 8c0 4-3 6-7 6"/></svg>
+          <div><h3>Acabamento</h3><p>Lavagem premium: mais maciez, cor firme e toque diferenciado já na primeira vez que veste.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE PRODUZIMOS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">O que produzimos</p>
+      <h2 class="sec-head" style="font-size:clamp(1.8rem,4vw,2.7rem)">Da peça lisa à sua coleção completa.</h2>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><span class="k">Base premium</span><h3>Camisetas lisas</h3><p>Peça base de alta qualidade para estampar, revender ou montar sua linha.</p></div>
+      <div class="card reveal"><span class="k">Nossa especialidade</span><h3>Oversized</h3><p>Caimento moderno e tecido encorpado — o corte mais pedido do mercado.</p></div>
+      <div class="card reveal"><span class="k">Marca completa</span><h3>Private label</h3><p>Sua marca do corte à etiqueta. A gente produz, você assina.</p></div>
+      <div class="card reveal"><span class="k">Sob demanda</span><h3>Igrejas &amp; eventos</h3><p>Congressos, ministérios e campanhas com mensagem, identidade e propósito.</p></div>
+      <div class="card reveal"><span class="k">Volume</span><h3>Atacado</h3><p>Preço de fábrica para quem compra em quantidade e revende.</p></div>
+      <div class="card reveal" style="background:transparent;border-style:dashed;border-color:var(--thread);display:grid;place-content:center;text-align:center;gap:.6rem">
+        <p style="color:var(--ink-soft);font-size:.95rem">Tem um projeto diferente?</p>
+        <a class="btn btn-ghost" href="https://wa.me/551239339065?text=Ol%C3%A1!%20Tenho%20um%20projeto%20de%20confec%C3%A7%C3%A3o%20e%20quero%20conversar." target="_blank" rel="noopener">Conversar sobre ele</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="sec" style="background:var(--paper);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Como funciona</p>
+      <h2 class="sec-head" style="font-size:clamp(1.8rem,4vw,2.7rem)">Do primeiro "oi" à entrega, em cinco passos.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="num">1</span><h3>Você chama no WhatsApp</h3><p>Conta seu projeto: modelo, quantidade e a ideia da sua marca.</p></div>
+      <div class="step reveal"><span class="num">2</span><h3>Catálogo &amp; orçamento</h3><p>Enviamos opções de tecido, modelagem e o orçamento do seu pedido.</p></div>
+      <div class="step reveal"><span class="num">3</span><h3>Amostra aprovada</h3><p>Ajustamos e aprovamos juntos a prova antes de rodar a produção.</p></div>
+      <div class="step reveal"><span class="num">4</span><h3>Produção na fábrica</h3><p>Fabricação com controle de qualidade interno em cada etapa.</p></div>
+      <div class="step reveal"><span class="num">5</span><h3>Entrega no Brasil</h3><p>Sua produção embalada e enviada para todo o país.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Perguntas frequentes</p>
+      <h2 class="sec-head" style="font-size:clamp(1.8rem,4vw,2.7rem)">Antes de chamar, o básico respondido.</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Qual a tiragem mínima? <span class="plus">+</span></summary><p>Trabalhamos com diferentes volumes conforme o modelo e o tipo de produção. Chame o comercial e conte quantas peças você precisa — montamos a melhor condição para o seu caso.</p></details>
+      <details><summary>Vocês fazem a estampa também? <span class="plus">+</span></summary><p>Sim. Produção completa: do corte à estampa e etiqueta. Você entrega a arte, a gente entrega a peça pronta com a cara da sua marca.</p></details>
+      <details><summary>Quais tecidos vocês trabalham? <span class="plus">+</span></summary><p>Nossa base é 100% algodão fio 30.1 penteado, 180 g/m², com lavagem premium. Outras gramaturas, composições e cores entram sob consulta.</p></details>
+      <details><summary>Fazem para igrejas, congressos e eventos? <span class="plus">+</span></summary><p>Sim. Desenvolvemos e produzimos peças para ministérios, congressos e campanhas — com foco em mensagem, identidade e propósito.</p></details>
+      <details><summary>Enviam para todo o Brasil? <span class="plus">+</span></summary><p>Sim, produzimos e enviamos para todo o país. O prazo de produção é informado junto com o orçamento, de acordo com o volume.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap final-in">
+    <div class="reveal">
+      <p class="eyebrow">Vamos começar</p>
+      <h2>Vamos tirar a sua produção do papel?</h2>
+      <p class="lead">Fale agora com o nosso comercial e receba um orçamento sem compromisso.</p>
+    </div>
+    <a class="btn btn-primary reveal" style="font-size:1.05rem;padding:.95rem 1.5rem" href="https://wa.me/551239339065?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20f%C3%A1brica%20e%20quero%20um%20or%C3%A7amento%20de%20produ%C3%A7%C3%A3o%20de%20camisetas." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2m0 18.15c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29"/></svg>
+      Chamar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <hr class="stitch" style="margin-bottom:2rem">
+    <div class="foot-in">
+      <div>
+        <strong style="font-family:'Bricolage Grotesque',sans-serif;color:var(--ink)">A Marca da Corujinha — Fábrica</strong><br>
+        Rua Rui Barbosa, 372 · Centro · Jacareí — SP
+      </div>
+      <div>
+        <a href="https://instagram.com/amarcadacorujinha" target="_blank" rel="noopener">@amarcadacorujinha</a><br>
+        <a href="https://wa.me/551239339065" target="_blank" rel="noopener">WhatsApp comercial</a>
+      </div>
+      <div class="mono" style="font-size:.72rem;letter-spacing:.06em">
+        Vestuários Moraes LTDA<br>CNPJ 26.821.956/0001-48
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/551239339065?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20f%C3%A1brica%20e%20quero%20um%20or%C3%A7amento%20de%20produ%C3%A7%C3%A3o%20de%20camisetas." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2m0 18.15c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14-.01-.31-.01-.47-.01-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29"/></svg>
+  <span>Orçamento no WhatsApp</span>
+</a>
+
+<script>
+  (function(){
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+</script>
