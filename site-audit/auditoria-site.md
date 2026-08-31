@@ -1,6 +1,33 @@
 # Auditoria do Site — A Marca da Corujinha
 
-*Última atualização: 20/07/2026*
+*Última atualização: 22/08/2026*
+
+## Avaliação visual — 22/08/2026 (home ao vivo, via screenshots)
+
+Contexto: avaliação feita já com a Plataforma de Marca (Fase 0) como régua. O festival acabou; a home hoje roda a promo "Liquida de Inverno" + combo "Compre 03 Pague 02" (agora permanente).
+
+### Forças confirmadas
+- **Hero on-brand:** abre com uma estampa de mensagem ("Era tanto azeite, que faltaram as vasilhas") + CTA — lidera com propósito, não com desconto. ✅
+- **Fotografia boa:** on-model, com fotos de costas mostrando as estampas (Espírito Santo, Milagres, Vasilhas, olho/fogo). Ativo forte.
+- **Estampas distintas e fortes** — a alma da marca aparece no produto.
+- Cards padronizados, prova social dupla (Google + Depoimentos), FAQ, frete R$199 consistente, lazy-load de imagens ativo.
+
+### O gap real: o "chrome" do site é genérico (não o conteúdo)
+1. **Paleta briga:** produtos são quentes (marrom/vinho/off-white), mas o site usa **botão verde** + **selo vermelho** padrão Nuvemshop. CTA deveria estar na cor da marca.
+2. **"LIQUIDA DE INVERNO - 25% OFF"** como 1ª seção, em vermelho — "liquida" está na lista de palavras a evitar. Único ponto que destoa do premium. → ver `copy-topo-home.md`.
+3. **Tipografia não sistematizada** — banner tem fonte com personalidade; resto é a default da plataforma. Sem voz tipográfica. Resolve na Fase 1 do branding.
+4. **Dois blocos de avaliação** (Google + Depoimentos) — redundante, unificar.
+5. **Falta faixa de manifesto** entre hero e grid (o propósito só aparece no rodapé).
+
+### Veredito
+Site num "7": funcional, bom conteúdo, casca genérica que segura o posicionamento premium. O salto pro "9" é **aplicar a identidade visual** (paleta + tipografia + CTA na cor da marca + tom sem "liquida") — é a Fase 3 do projeto de branding, e depende de fechar a Fase 1 (escolher direção Vigília ou Fogo).
+
+### Ganhos rápidos entregues (não dependem da identidade)
+- `site-audit/copy-topo-home.md` — copy da faixa de manifesto + renomeação das seções no tom da marca.
+
+---
+
+*Auditoria técnica anterior: 20/07/2026*
 
 ## Situação de partida (diagnóstico inicial)
 
