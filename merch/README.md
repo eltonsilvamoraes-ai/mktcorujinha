@@ -10,11 +10,11 @@ Página de entrada do motor MERCH: produtos personalizados para igrejas, congres
 1. Topo — "Sua mensagem merece ser vestida." + botões "Contar meu projeto" e "Projetos já realizados" (Brasa)
 2. Faixa de perfis correndo (Breu)
 3. Para quem carrega uma mensagem (Osso)
-4. O que produzimos — moletons, bonés, jaquetas, ecobags (Barro)
+4. O que produzimos — moletons, bonés, jaquetas, ecobags (Brasa)
 5. Projetos já realizados (Breu)
 6. Da ideia à entrega — 5 etapas + Produção / Criação de desenhos (Osso)
 7. A camiseta que a gente faz — modelagem, gola, estampa, costura, tecido (Breu)
-8. Por que a Corujinha — "Onde muitos enxergavam apenas roupas..." + Marca / Indústria / Merch (Barro)
+8. Por que a Corujinha — "Onde muitos enxergavam apenas roupas..." + Marca / Indústria / Merch (Brasa)
 9. Perguntas frequentes (Osso)
 10. Fechamento com WhatsApp (Brasa)
 
