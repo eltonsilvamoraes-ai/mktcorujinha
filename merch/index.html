@@ -46,8 +46,13 @@ h2.shout{font-size:clamp(2.6rem,8.5vw,6.5rem)}
 p{margin:0}
 
 /* rasgo de papel */
-.tear{display:block;width:100%;height:clamp(28px,4vw,56px);margin-block:-1px}
-.tear path{fill:currentColor}
+:root{--tear:clamp(34px,4.5vw,64px)}
+.tear{display:block;width:100%;height:var(--tear);margin:calc(-1 * var(--tear)) 0 0;position:relative;z-index:1;overflow:visible;pointer-events:none}
+.torn{position:relative;z-index:2;margin-top:calc(-1 * var(--tear));
+  -webkit-mask-image:var(--edge),linear-gradient(#000,#000);mask-image:var(--edge),linear-gradient(#000,#000);
+  -webkit-mask-size:100% var(--tear),100% calc(100% - var(--tear) + 1px);mask-size:100% var(--tear),100% calc(100% - var(--tear) + 1px);
+  -webkit-mask-position:0 0,0 calc(var(--tear) - 1px);mask-position:0 0,0 calc(var(--tear) - 1px);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 
 /* botões */
 .btn{display:inline-flex;align-items:center;gap:.6em;font:700 1rem/1 var(--body);text-decoration:none;border-radius:999px;padding:1.05em 1.5em;transition:transform .12s ease, background-color .2s ease}
@@ -259,7 +264,7 @@ p{margin:0}
   </div>
 </header>
 
-<svg class="tear" data-tear="1" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--brasa)"><path/></svg>
+<svg class="tear" data-tear="1" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- HISTÓRIA -->
 <section class="bg-osso grain sec" aria-labelledby="h-historia">
@@ -283,7 +288,7 @@ p{margin:0}
 
 
 
-<svg class="tear" data-tear="2" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+<svg class="tear" data-tear="2" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- A CAMISETA -->
 <section class="bg-breu grain sec" id="produtos" aria-labelledby="h-camiseta">
@@ -321,7 +326,7 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="5" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+<svg class="tear" data-tear="5" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- PROCESSO -->
 <section class="bg-osso grain sec process" id="processo" aria-labelledby="h-processo" >
@@ -353,10 +358,10 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="6" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+<svg class="tear" data-tear="6" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- PARA QUEM -->
-<section class="bg-breu grain" aria-labelledby="h-quem" style="padding-bottom:clamp(56px,9vw,120px)">
+<section class="bg-breu grain" aria-labelledby="h-quem" style="padding-top:calc(var(--tear) + 8px);padding-bottom:clamp(56px,9vw,120px)">
   <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker"><span>Igrejas <i class="star">✶</i></span><span>Congressos <i class="star">✶</i></span><span>Ministérios de louvor <i class="star">✶</i></span><span>Retiros <i class="star">✶</i></span><span>Artistas <i class="star">✶</i></span><span>Conferências <i class="star">✶</i></span></div></div>
   <div class="wrap" style="padding-top:clamp(48px,7vw,88px)">
     <h2 id="h-quem" class="shout">Para quem carrega uma mensagem</h2>
@@ -388,7 +393,7 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+<svg class="tear" data-tear="3" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- PERGUNTAS -->
 <section class="bg-osso grain sec" aria-labelledby="h-faq">
@@ -404,7 +409,7 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="4" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--brasa);background:var(--osso)"><path/></svg>
+<svg class="tear" data-tear="4" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"></svg>
 
 <!-- FECHAMENTO -->
 <footer class="bg-brasa grain" id="contato">
@@ -430,17 +435,30 @@ p{margin:0}
   var url = "https://wa.me/551239339065?text=" + encodeURIComponent(msg);
   document.querySelectorAll("[data-wa]").forEach(function(a){ a.href = url; a.target = "_blank"; a.rel = "noopener"; });
 
-  // rasgos de papel (serrilhado determinístico)
+  // rasgos de papel: a seção seguinte é recortada por uma borda orgânica (máscara)
+  // e uma camada de fibra clara + sombra aparece logo acima da borda
   document.querySelectorAll("[data-tear]").forEach(function(svg){
-    var s = Number(svg.getAttribute("data-tear")) * 9301;
-    function rnd(){ s = (s * 9301 + 49297) % 233280; return s / 233280; }
-    var d = "M0,60 L0," + (22 + rnd()*14).toFixed(1);
-    for (var x = 0; x <= 1200; x += 8 + rnd()*22){
-      var base = 30 + Math.sin(x/140 + s) * 10;
-      d += " L" + x.toFixed(1) + "," + (base + (rnd()-.5)*22).toFixed(1);
+    var next = svg.nextElementSibling; while (next && next.nodeType !== 1) next = next.nextElementSibling;
+    if (!next) return;
+    var id = svg.getAttribute("data-tear"), seed = Number(id) * 7919 + 13;
+    function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function noise(n){ var v = []; for (var i = 0; i <= n; i++) v.push(rnd()*2-1); return function(t){ var x = t*n, i = Math.floor(x), f = x - i, u = f*f*(3-2*f); return v[i] + (v[Math.min(i+1,n)] - v[i]) * u; }; }
+    var big = noise(4), mid = noise(18), fine = noise(80);
+    var edge = [], fiber = [];
+    for (var x = 0; x <= 1200; x += 3){
+      var t = x / 1200, m = mid(t);
+      var y = 46 + big(t)*15 + m*7 + fine(t)*2.4 + (rnd()-.5)*1.8;
+      edge.push([x, y]);
+      fiber.push([x, y - 2 - Math.max(0, m + .15)*5 - rnd()*2.4]);
     }
-    d += " L1200," + (24 + rnd()*12).toFixed(1) + " L1200,60 Z";
-    svg.querySelector("path").setAttribute("d", d);
+    function d(pts){ return "M-20,90 L-20," + pts[0][1].toFixed(1) + " " + pts.map(function(p){ return "L" + p[0] + "," + p[1].toFixed(1); }).join(" ") + " L1220," + pts[pts.length-1][1].toFixed(1) + " L1220,90 Z"; }
+    var rough = '<filter id="r' + id + '" x="-2%" y="-60%" width="104%" height="220%"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.55" numOctaves="3" seed="' + id + '"/><feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter>';
+    var mask = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 80" preserveAspectRatio="none">' + rough + '<path filter="url(#r' + id + ')" d="' + d(edge) + '"/></svg>';
+    next.classList.add("torn");
+    next.style.setProperty("--edge", 'url("data:image/svg+xml,' + encodeURIComponent(mask) + '")');
+    svg.innerHTML = '<defs>' + rough.replace('id="r', 'id="f') + '<filter id="s' + id + '" x="-2%" y="-60%" width="104%" height="220%"><feGaussianBlur stdDeviation="2.2"/></filter></defs>' +
+      '<path d="' + d(edge.map(function(p){ return [p[0], p[1] - 2.5]; })) + '" fill="#000" opacity=".35" filter="url(#s' + id + ')"/>' +
+      '<path d="' + d(fiber) + '" fill="#FBF8F2" opacity=".9" filter="url(#f' + id + ')"/>';
   });
 
   // faixa contínua: duplica o conteúdo
