@@ -104,6 +104,12 @@ p{margin:0}
 .ph.light::before{background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.7),transparent 60%)}
 .ph.light svg{color:var(--breu);opacity:.14}
 
+/* fotos reais: quando o arquivo existe em imagens/, substitui o espaço */
+.ph .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ph.has-img::before,.ph.has-img>svg,.ph.has-img>figcaption{display:none}
+.proj .ph.has-img{outline:0}
+.top.has-bg{background:linear-gradient(rgba(229,70,29,.84),rgba(229,70,29,.84)),var(--bg-img) center/cover no-repeat,var(--brasa)}
+
 /* história */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
 .story blockquote{margin:0;font-family:var(--display);font-weight:700;font-stretch:88%;font-size:clamp(1.8rem,3.6vw,2.9rem);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
@@ -227,7 +233,7 @@ p{margin:0}
 </svg>
 
 <!-- TOPO -->
-<header class="bg-brasa grain top" id="topo">
+<header class="bg-brasa grain top" id="topo" data-bg="imagens/fundo-topo">
   <div class="wrap">
     <nav class="nav" aria-label="Principal">
       <a class="brand" href="#topo"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><span>A Marca da Corujinha<small>Merch</small></span></a>
@@ -249,9 +255,9 @@ p{margin:0}
         </div>
       </div>
       <div class="hero-photo">
-        <figure class="ph" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: “Cristo Vive”, de costas, fundo vermelho</figcaption></figure>
+        <figure data-img="imagens/hero" class="ph" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: “Cristo Vive”, de costas, fundo vermelho</figcaption></figure>
         <div class="stamp">
-          <figure class="ph dark" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></figure>
+          <figure data-img="imagens/selo" class="ph dark" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></figure>
           <b>Produção própria</b>
           <span>Mesma fábrica, mesmo padrão da nossa marca.</span>
         </div>
@@ -295,13 +301,13 @@ p{margin:0}
     </div>
     <div class="anat">
       <figure class="anat-main" style="margin:0">
-        <div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: pessoa vestindo, corpo inteiro</figcaption></div>
+        <div data-img="imagens/modelagem" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: pessoa vestindo, corpo inteiro</figcaption></div>
         <figcaption><b>Modelagem</b><span>Oversized de caimento reto, ombro caído e comprimento na medida. Veste bem homens e mulheres. Também fazemos o corte tradicional.</span></figcaption>
       </figure>
       <div class="anat-grid">
-        <figure style="margin:0"><div class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da gola</figcaption></div><figcaption><b>Gola</b><span>Gola canelada e firme, que não deforma depois das lavagens.</span></figcaption></figure>
-        <figure style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da estampa</figcaption></div><figcaption><b>Estampa</b><span>A técnica certa para cada arte, do traço fino ao desenho colorido de costas inteiras.</span></figcaption></figure>
-        <figure style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da costura</figcaption></div><figcaption><b>Costura</b><span>Acabamento conferido peça por peça pelo nosso controle de qualidade.</span></figcaption></figure>
+        <figure style="margin:0"><div data-img="imagens/gola" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da gola</figcaption></div><figcaption><b>Gola</b><span>Gola canelada e firme, que não deforma depois das lavagens.</span></figcaption></figure>
+        <figure style="margin:0"><div data-img="imagens/estampa" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da estampa</figcaption></div><figcaption><b>Estampa</b><span>A técnica certa para cada arte, do traço fino ao desenho colorido de costas inteiras.</span></figcaption></figure>
+        <figure style="margin:0"><div data-img="imagens/costura" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da costura</figcaption></div><figcaption><b>Costura</b><span>Acabamento conferido peça por peça pelo nosso controle de qualidade.</span></figcaption></figure>
         <div class="fabric">
           <b>Tecido</b>
           <p class="fab-big">100% algodão</p>
@@ -380,11 +386,11 @@ p{margin:0}
       <p class="small" style="max-width:36ch;color:var(--osso-fraco)">Cada projeto começou com uma mensagem. Estes são alguns que já saíram da nossa produção.</p>
     </div>
     <div class="projects">
-      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-1" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-2" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-3" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-4" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-5" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -448,6 +454,31 @@ p{margin:0}
   ["ticker","ticker2"].forEach(function(id){
     var t = document.getElementById(id); if (!t) return;
     var html = t.innerHTML; t.innerHTML = html + html + html + html;
+  });
+
+  // fotos: procura imagens/<nome>.jpg|.jpeg|.png|.webp ao lado do HTML
+  function load(base, ok){
+    var exts = ["jpg","jpeg","png","webp"];
+    (function next(i){
+      if (i >= exts.length) return;
+      var im = new Image();
+      im.onload = function(){ ok(im.src); };
+      im.onerror = function(){ next(i + 1); };
+      im.src = base + "." + exts[i];
+    })(0);
+  }
+  document.querySelectorAll("[data-img]").forEach(function(box){
+    load(box.getAttribute("data-img"), function(src){
+      var img = document.createElement("img");
+      img.className = "ph-img"; img.src = src; img.decoding = "async";
+      var cap = box.querySelector("figcaption"); img.alt = cap ? cap.textContent.replace(/^Foto:\s*/, "") : "";
+      if (box.dataset.pos) img.style.objectPosition = box.dataset.pos;
+      box.appendChild(img); box.classList.add("has-img");
+    });
+  });
+  var top = document.querySelector("[data-bg]");
+  if (top) load(top.getAttribute("data-bg"), function(src){
+    top.style.setProperty("--bg-img", "url(\"" + src + "\")"); top.classList.add("has-bg");
   });
 
   // copiar número

@@ -23,3 +23,17 @@ Página de entrada do motor MERCH: produtos personalizados para igrejas, congres
 - Número de WhatsApp do comercial (usei 55 12 3933-9065, o mesmo da landing da fábrica).
 - Técnicas de estampa usadas (silk, DTF, etc.) e gramatura da malha, para detalhar a seção da camiseta.
 - Quantidade mínima e prazo médio, se quiserem cravar na seção de perguntas.
+
+## Como trocar as fotos
+Coloque a foto na pasta `imagens/`, ao lado do HTML, com o nome exato abaixo (`.jpg`, `.jpeg`, `.png` ou `.webp`). A página encontra sozinha; sem o arquivo, aparece o espaço com a coruja.
+
+| Arquivo | Onde aparece |
+|---|---|
+| `fundo-topo` | Fundo da área vermelha do topo (fica coberto por um véu Brasa para o texto continuar legível) |
+| `hero` | Foto grande do topo |
+| `selo` | Fotinho do cartão "Produção própria" |
+| `modelagem` | Pessoa vestindo, corpo inteiro |
+| `gola`, `estampa`, `costura` | Detalhes da camiseta |
+| `projeto-1` … `projeto-5` | Projetos já realizados |
+
+Para ajustar o enquadramento de uma foto, acrescente `data-pos="center top"` (ou `"50% 30%"`) no elemento que tem o `data-img` correspondente.
