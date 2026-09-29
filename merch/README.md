@@ -6,16 +6,19 @@ Página de entrada do motor MERCH: produtos personalizados para igrejas, congres
 - `imagens/logo-coruja.png` — logo original. `imagens/logo-coruja.svg` — versão vetorial (cor via `currentColor`).
 - Publicada como Artifact: https://claude.ai/artifact/SnAmudHYM7eZjvBL3g8PMb
 
-## Ordem das seções
-1. Topo — "Sua mensagem merece ser vestida."
-2. Faixa de perfis correndo (igrejas, congressos, ministérios de louvor, retiros, artistas, conferências)
-3. A camiseta que a gente faz — modelagem, gola, estampa, costura, tecido + também produzimos
-4. Por que a Corujinha — "Onde muitos enxergavam apenas roupas..." + Marca / Indústria / Merch
-5. Da ideia à entrega — processo em 5 etapas + serviços (Produção / Criação de desenhos)
-6. Para quem — igrejas, congressos, louvor e artistas, ministérios, criadores, empresas
-7. Projetos já realizados
-8. Perguntas frequentes
-9. Fechamento com WhatsApp
+## Ordem das seções (fundo)
+1. Topo — "Sua mensagem merece ser vestida." + botões "Contar meu projeto" e "Projetos já realizados" (Brasa)
+2. Faixa de perfis correndo (Breu)
+3. Para quem carrega uma mensagem (Osso)
+4. O que produzimos — moletons, bonés, jaquetas, ecobags (Barro)
+5. Projetos já realizados (Breu)
+6. Da ideia à entrega — 5 etapas + Produção / Criação de desenhos (Osso)
+7. A camiseta que a gente faz — modelagem, gola, estampa, costura, tecido (Breu)
+8. Por que a Corujinha — "Onde muitos enxergavam apenas roupas..." + Marca / Indústria / Merch (Barro)
+9. Perguntas frequentes (Osso)
+10. Fechamento com WhatsApp (Brasa)
+
+Novos espaços de foto em "O que produzimos": `moletom`, `bone`, `jaqueta`, `ecobag` (800 x 1000, vertical 4:5).
 
 ## A confirmar / pendente
 - Fotos reais para todos os espaços marcados "Foto: ..." (enviar como arquivo anexo).
@@ -35,5 +38,6 @@ Coloque a foto na pasta `imagens/`, ao lado do HTML, com o nome exato abaixo (`.
 | `modelagem` | Pessoa vestindo, corpo inteiro |
 | `gola`, `estampa`, `costura` | Detalhes da camiseta |
 | `projeto-1` … `projeto-5` | Projetos já realizados |
+| `moletom`, `bone`, `jaqueta`, `ecobag` | O que produzimos |
 
 Para ajustar o enquadramento de uma foto, acrescente `data-pos="center top"` (ou `"50% 30%"`) no elemento que tem o `data-img` correspondente.

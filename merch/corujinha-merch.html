@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: pôster de drop em camadas de papel — Brasa (topo) → Osso (história, processo) → Breu (produtos, projetos) → Brasa (fechamento), unidas por rasgos de papel. Visual único (direção Fogo), não alterna com o tema. */
+/* Layout: pôster de drop em camadas de papel, fundos alternados sem repetir — Brasa (topo) → Breu (faixa) → Osso (para quem) → Barro (produtos) → Breu (projetos) → Osso (processo) → Breu (camiseta) → Barro (história) → Osso (perguntas) → Brasa (fechamento), unidos por rasgos. Visual único (direção Fogo), não alterna com o tema. */
 :root{
   --breu:#0E0E10;
   --osso:#F1EBDF;
@@ -38,10 +38,12 @@ a{color:inherit}
 .bg-breu.grain::after{mix-blend-mode:screen;opacity:.08}
 
 .wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
-.sec{padding-block:clamp(56px,9vw,120px)}
-.bg-brasa{background:var(--brasa);color:var(--osso)}
-.bg-osso{background:var(--osso);color:var(--breu)}
-.bg-breu{background:var(--breu);color:var(--osso)}
+.sec{padding-block:clamp(72px,10vw,136px)}
+.bg-brasa{background:var(--brasa);color:var(--osso);--muted:rgba(241,235,223,.86);--line:rgba(241,235,223,.4);--rule:var(--osso)}
+.bg-osso{background:var(--osso);color:var(--breu);--muted:#4a4540;--line:rgba(14,14,16,.2);--rule:var(--breu)}
+.bg-breu{background:var(--breu);color:var(--osso);--muted:var(--osso-fraco);--line:rgba(241,235,223,.22);--rule:var(--osso)}
+.bg-barro{background:var(--barro);color:var(--osso);--muted:rgba(241,235,223,.8);--line:rgba(241,235,223,.28);--rule:var(--osso)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px 40px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)}
 
 /* tipografia */
 .shout{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;margin:0;text-wrap:balance}
@@ -62,6 +64,9 @@ p{margin:0}
 .btn-brasa{background:var(--brasa);color:var(--osso)}
 .btn-brasa:hover{background:#f0582f}
 .btn svg{width:1.2em;height:1.2em;flex:none}
+.btn-lg{font-size:1.08rem;padding:1.15em 1.7em}
+.btn-line{border:1.5px solid currentColor;background:transparent;color:inherit}
+.btn-line:hover{background:var(--osso);color:var(--brasa);border-color:var(--osso)}
 
 /* topo */
 .top{padding-top:clamp(16px,2.5vw,28px);overflow:hidden}
@@ -76,11 +81,12 @@ p{margin:0}
 @media (max-width:720px){.pills li:not(.solid){display:none}}
 
 .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:end;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,80px);position:relative}
-.hero h1{font-size:clamp(3rem,9vw,7.8rem)}
+.hero h1{font-size:clamp(3.2rem,10vw,8.8rem)}
 .hero h1 .r{display:block;text-align:right;padding-right:.1em}
-.hero .copy{display:grid;gap:28px}
+.hero .copy{display:grid;gap:clamp(22px,2.6vw,32px)}
+.hero .lede{font-size:clamp(1rem,1.3vw,1.12rem);font-weight:500;opacity:.88;max-width:40ch}
 .hero .actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.hero .note{font-size:.9rem;opacity:.9}
+.hero .note{font-size:.84rem;opacity:.8;margin-top:-8px}
 .hero-photo{position:relative;min-width:0}
 .hero-photo .ph{aspect-ratio:4/5;transform:rotate(1.5deg)}
 .hero-photo>.ph figcaption{top:12px;bottom:auto;text-align:right}
@@ -113,12 +119,14 @@ p{margin:0}
 /* história */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
 .story blockquote{margin:0;font-family:var(--display);font-weight:700;font-stretch:88%;font-size:clamp(1.8rem,3.6vw,2.9rem);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
-.story blockquote footer{font:600 .9rem/1.4 var(--body);margin-top:18px;color:var(--cinza)}
+.story blockquote footer{font:600 .9rem/1.4 var(--body);margin-top:18px;color:var(--muted)}
 .engines{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.engines li{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:16px;padding-block:18px;border-top:1.5px solid var(--breu)}
-.engines li:last-child{border-bottom:1.5px solid var(--breu)}
+.engines li{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:16px;padding-block:18px;border-top:1.5px solid var(--rule)}
+.engines li:last-child{border-bottom:1.5px solid var(--rule)}
 .engines b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.35rem;line-height:1}
 .engines li.on b{color:var(--brasa)}
+.bg-barro .engines li.on b{color:var(--osso);text-decoration:underline 3px var(--brasa);text-underline-offset:5px}
+.engines span{color:var(--muted)}
 @media (max-width:820px){.story{grid-template-columns:1fr}}
 
 /* processo em colagem */
@@ -126,14 +134,15 @@ p{margin:0}
 .bg-osso.sec + .bg-osso.sec.process{padding-top:clamp(8px,2vw,24px)}
 .process .ghost{color:var(--osso-2);font-size:clamp(3.4rem,13vw,10.5rem);text-align:center;user-select:none}
 .process .head{display:flex;justify-content:space-between;gap:24px;align-items:end;flex-wrap:wrap;margin:clamp(-48px,-4vw,-16px) 0 clamp(36px,5vw,56px);position:relative;z-index:1}
-.collage{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:0}
+.collage{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.4vw,18px);margin-top:0;counter-reset:none}
 .card{position:relative;background:var(--breu);color:var(--osso);padding:18px 16px 20px;min-height:250px;display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 30px rgba(14,14,16,.22);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-.card:nth-child(1){transform:rotate(-6deg) translateY(18px)}
-.card:nth-child(2){transform:rotate(3deg) translate(-8px,-6px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
-.card:nth-child(3){transform:rotate(-2deg) translate(-14px,26px);background:var(--brasa);z-index:2}
-.card:nth-child(4){transform:rotate(5deg) translate(-20px,-4px);background:var(--barro)}
-.card:nth-child(5){transform:rotate(-4deg) translate(-26px,20px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
+.card:nth-child(1){transform:rotate(-1.5deg)}
+.card:nth-child(2){transform:rotate(1.2deg) translateY(10px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
+.card:nth-child(3){transform:rotate(-1deg) translateY(20px);background:var(--brasa);z-index:2}
+.card:nth-child(4){transform:rotate(1.5deg) translateY(30px);background:var(--barro)}
+.card:nth-child(5){transform:rotate(-1.2deg) translateY(40px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
 .card:hover{transform:rotate(0) translateY(-6px);z-index:3}
+@media (min-width:901px){.card:not(:last-child)::after{content:"";position:absolute;top:50%;right:calc(-1 * clamp(10px,1.4vw,18px));width:clamp(10px,1.4vw,18px);border-top:2px dashed var(--breu);z-index:3}}
 .card .n{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:3.2rem;line-height:.8;opacity:.9}
 .card h3{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.6rem;line-height:.95;margin:auto 0 0}
 .card p{font-size:.9rem;line-height:1.4}
@@ -146,7 +155,7 @@ p{margin:0}
 }
 
 /* dois caminhos (serviços) */
-.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px);margin-top:clamp(40px,6vw,72px)}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px);margin-top:clamp(72px,9vw,120px)}
 .path{border:1.5px solid var(--breu);padding:clamp(22px,3vw,34px);display:grid;gap:14px;align-content:start}
 .path .q{font-weight:700;color:var(--cinza);font-size:.95rem}
 .path h3{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:.92;margin:0}
@@ -167,14 +176,8 @@ p{margin:0}
 .fabric{background:var(--brasa);color:var(--osso);padding:clamp(18px,2.5vw,26px);align-content:space-between;gap:12px}
 .fabric .fab-big{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:.9;overflow-wrap:anywhere}
 .fabric p:last-child{font-size:.95rem;line-height:1.45}
-.also{margin-top:clamp(56px,8vw,96px)}
-.others{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--osso)}
-.others li{display:grid;gap:6px;padding:20px 20px 4px 0}
-.others li+li{padding-left:20px;border-left:1.5px solid rgba(241,235,223,.3)}
-.others b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.5rem;line-height:1}
-.others span{color:var(--osso-fraco);font-size:.93rem;line-height:1.45}
-@media (max-width:900px){.anat{grid-template-columns:1fr}.anat-main .ph{aspect-ratio:4/5;min-height:0;height:auto}.others{grid-template-columns:repeat(2,minmax(0,1fr))}.others li:nth-child(3){padding-left:0;border-left:0}}
-@media (max-width:520px){.anat-grid{grid-template-columns:1fr 1fr;gap:14px}.others{grid-template-columns:1fr}.others li+li{padding-left:0;border-left:0;border-top:1.5px solid rgba(241,235,223,.3)}}
+@media (max-width:900px){.anat{grid-template-columns:1fr}.anat-main .ph{aspect-ratio:4/5;min-height:0;height:auto}}
+@media (max-width:520px){.anat-grid{grid-template-columns:1fr 1fr;gap:14px}}
 
 /* faixa */
 .strip .ticker{border-top:0}
@@ -187,21 +190,32 @@ p{margin:0}
 @media (prefers-reduced-motion:reduce){.ticker .t{animation:none}.card{transition:none}html{scroll-behavior:auto}}
 
 /* para quem */
-.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:clamp(32px,5vw,56px);border-top:1.5px solid var(--osso)}
-.who>div{padding:22px 22px 26px 0;border-bottom:1.5px solid rgba(241,235,223,.3)}
-.who>div:not(:nth-child(3n+1)){padding-left:22px;border-left:1.5px solid rgba(241,235,223,.3)}
-.who b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.5rem;line-height:1;display:block;margin-bottom:8px}
-.who p{color:var(--osso-fraco);font-size:.95rem;line-height:1.45}
-@media (max-width:820px){.who{grid-template-columns:1fr}.who>div:not(:nth-child(3n+1)){padding-left:0;border-left:0}}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:clamp(36px,5vw,64px);list-style:none;padding:0}
+.who>div{padding:clamp(22px,2.6vw,32px);border:1.5px solid var(--rule);display:grid;gap:12px;align-content:start;min-height:170px}
+.who>div:nth-child(1),.who>div:nth-child(3){background:var(--breu);color:var(--osso);border-color:var(--breu)}
+.who>div:nth-child(1) p,.who>div:nth-child(3) p{color:var(--osso-fraco)}
+.who b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.5rem,2.2vw,1.9rem);line-height:.95;display:block}
+.who p{color:var(--muted);font-size:.98rem;line-height:1.5;max-width:34ch}
+@media (max-width:900px){.who{grid-template-columns:repeat(2,minmax(0,1fr))}.who>div:nth-child(3){background:transparent;color:inherit;border-color:var(--rule)}.who>div:nth-child(3) p{color:var(--muted)}.who>div:nth-child(4){background:var(--breu);color:var(--osso);border-color:var(--breu)}.who>div:nth-child(4) p{color:var(--osso-fraco)}}
+@media (max-width:560px){.who{grid-template-columns:1fr}.who>div{min-height:0}}
+
+/* o que produzimos */
+.prods{list-style:none;margin:clamp(36px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.prod{display:grid;gap:10px;align-content:start}
+.prod .ph{aspect-ratio:4/5;margin-bottom:6px}
+.prod:nth-child(even){margin-top:clamp(0px,4vw,48px)}
+.prod b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:.9}
+.prod span{color:var(--muted);font-size:.95rem;line-height:1.45}
+@media (max-width:900px){.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.prod:nth-child(even){margin-top:28px}}
 
 /* projetos */
-.projects{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px;margin-top:clamp(32px,5vw,56px)}
+.projects{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(18px,2.4vw,28px);margin-top:clamp(36px,5vw,64px)}
 .proj{display:grid;gap:12px;align-content:start}
 .proj .ph{aspect-ratio:4/5;outline:1.5px dashed rgba(241,235,223,.45);outline-offset:-10px}
 .proj:first-child .ph{aspect-ratio:auto;height:100%;min-height:320px}
 .proj:first-child{grid-row:span 2;grid-template-rows:1fr auto}
 .proj b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.3rem;line-height:1}
-.proj span{color:var(--osso-fraco);font-size:.88rem;display:block}
+.proj span{color:var(--muted);font-size:.88rem;display:block}
 @media (max-width:820px){.projects{grid-template-columns:1fr 1fr}.proj:first-child{grid-column:1/-1;grid-row:auto}.proj:first-child .ph{aspect-ratio:4/5;height:auto;min-height:0}}
 
 /* perguntas */
@@ -240,9 +254,9 @@ p{margin:0}
     <nav class="nav" aria-label="Principal">
       <a class="brand" href="#topo"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><span>A Marca da Corujinha<small>Merch</small></span></a>
       <ul class="pills">
-        <li><a href="#produtos">A camiseta</a></li>
-        <li><a href="#processo">Processo</a></li>
         <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#camiseta">A camiseta</a></li>
         <li class="solid"><a href="#contato">Orçamento</a></li>
       </ul>
     </nav>
@@ -252,9 +266,10 @@ p{margin:0}
         <h1 class="shout">Sua mensagem <span class="r">merece ser</span> vestida.</h1>
         <p class="lede">Você tem um ministério, um evento ou um projeto. A gente transforma isso em camiseta, da ideia à entrega. E também em moletons, bonés, jaquetas e ecobags.</p>
         <div class="actions">
-          <a class="btn btn-osso wa" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a>
-          <span class="note">Resposta pelo WhatsApp, direto com a equipe.</span>
+          <a class="btn btn-osso btn-lg wa" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a>
+          <a class="btn btn-line btn-lg" href="#projetos">Projetos já realizados</a>
         </div>
+        <span class="note">Resposta pelo WhatsApp, direto com a equipe.</span>
       </div>
       <div class="hero-photo">
         <figure data-img="imagens/hero" class="ph" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: “Cristo Vive”, de costas, fundo vermelho</figcaption></figure>
@@ -273,65 +288,58 @@ p{margin:0}
   <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker"><span>Igrejas <i class="star">✶</i></span><span>Congressos <i class="star">✶</i></span><span>Ministérios de louvor <i class="star">✶</i></span><span>Retiros <i class="star">✶</i></span><span>Artistas <i class="star">✶</i></span><span>Conferências <i class="star">✶</i></span></div></div>
 </div>
 
-<!-- A CAMISETA -->
-<section class="bg-breu grain sec" id="produtos" aria-labelledby="h-camiseta">
-  <div class="wrap">
-    <div class="rowhead">
-      <h2 id="h-camiseta" class="shout">A camiseta que a gente faz</h2>
-      <p class="small" style="max-width:38ch;color:var(--osso-fraco)">Antes de levar a sua mensagem, ela precisa ser uma peça que as pessoas queiram usar. Olha de perto.</p>
-    </div>
-    <div class="anat">
-      <figure class="anat-main" style="margin:0">
-        <div data-img="imagens/modelagem" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: pessoa vestindo, corpo inteiro</figcaption></div>
-        <figcaption><b>Modelagem</b><span>Oversized de caimento reto, ombro caído e comprimento na medida. Veste bem homens e mulheres. Também fazemos o corte tradicional.</span></figcaption>
-      </figure>
-      <div class="anat-grid">
-        <figure style="margin:0"><div data-img="imagens/gola" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da gola</figcaption></div><figcaption><b>Gola</b><span>Gola canelada e firme, que não deforma depois das lavagens.</span></figcaption></figure>
-        <figure style="margin:0"><div data-img="imagens/estampa" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da estampa</figcaption></div><figcaption><b>Estampa</b><span>A técnica certa para cada arte, do traço fino ao desenho colorido de costas inteiras.</span></figcaption></figure>
-        <figure style="margin:0"><div data-img="imagens/costura" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da costura</figcaption></div><figcaption><b>Costura</b><span>Acabamento conferido peça por peça pelo nosso controle de qualidade.</span></figcaption></figure>
-        <div class="fabric">
-          <b>Tecido</b>
-          <p class="fab-big">100% algodão</p>
-          <p>Malha premium, encorpada e macia. Confortável no culto de domingo, no retiro e no palco.</p>
-        </div>
-      </div>
-    </div>
+<svg class="tear" data-tear="1" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
 
-    <div class="rowhead also">
-      <h3 class="shout" style="font-size:clamp(1.8rem,4vw,3rem)">Também produzimos</h3>
+<!-- PARA QUEM -->
+<section class="bg-osso grain sec" id="para-quem" aria-labelledby="h-quem">
+  <div class="wrap">
+    <h2 id="h-quem" class="shout">Para quem carrega uma mensagem</h2>
+    <div class="who">
+      <div><b>Igrejas</b><p>Ministérios, células, equipes de voluntários, campanhas e projetos especiais.</p></div>
+      <div><b>Congressos e eventos</b><p>Camiseta de equipe, kit do participante e loja oficial do evento.</p></div>
+      <div><b>Louvor e artistas</b><p>Merch de turnê e de ministério para vender na mesa depois do culto ou do show.</p></div>
+      <div><b>Ministérios e projetos</b><p>Um movimento que precisa de uma peça para ser reconhecido na rua.</p></div>
+      <div><b>Criadores</b><p>Quem já tem uma audiência e quer transformar a própria mensagem em produto.</p></div>
+      <div><b>Empresas e comunidades</b><p>Uniformes, ações internas, brindes e coleções com identidade própria.</p></div>
     </div>
-    <ul class="others">
-      <li><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
-      <li><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
-      <li><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
-      <li><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
+  </div>
+</section>
+
+<svg class="tear" data-tear="2" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--barro);background:var(--osso)"><path/></svg>
+
+<!-- O QUE PRODUZIMOS -->
+<section class="bg-barro grain sec" id="produtos" aria-labelledby="h-produtos">
+  <div class="wrap">
+    <h2 id="h-produtos" class="shout">O que produzimos</h2>
+    <ul class="prods">
+      <li class="prod"><div data-img="imagens/moletom" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
+      <li class="prod"><div data-img="imagens/bone" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
+      <li class="prod"><div data-img="imagens/jaqueta" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
+      <li class="prod"><div data-img="imagens/ecobag" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
     </ul>
   </div>
 </section>
 
-<svg class="tear" data-tear="5" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--barro)"><path/></svg>
 
-<!-- HISTÓRIA -->
-<section class="bg-osso grain sec" aria-labelledby="h-historia">
-  <div class="wrap story">
-    <blockquote>
-      Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito.
-      <footer>A Primeira Marca Cristã Convertida do Brasil</footer>
-    </blockquote>
-    <div style="display:grid;gap:22px">
-      <h2 id="h-historia" class="small" style="margin:0;font-weight:700">Por que a Corujinha</h2>
-      <p>A Corujinha nasceu como uma marca comum. Depois da conversão dos fundadores, a empresa inteira passou a servir a Cristo. Hoje a gente cria, modela, estampa e vende as próprias peças, e coloca essa mesma estrutura a serviço da sua mensagem.</p>
-      <ul class="engines">
-        <li><b>Marca</b><span>Nossas coleções. É onde provamos o padrão que entregamos.</span></li>
-        <li><b>Indústria</b><span>Produção própria, com controle de qualidade interno.</span></li>
-        <li class="on"><b>Merch</b><span>Tudo isso aplicado ao seu projeto, à sua igreja, ao seu evento.</span></li>
-      </ul>
+<!-- PROJETOS -->
+<section class="bg-breu grain sec" id="projetos" aria-labelledby="h-projetos">
+  <div class="wrap">
+    <div class="rowhead">
+      <h2 id="h-projetos" class="shout">Projetos já realizados</h2>
+      <p class="small" style="max-width:36ch;color:var(--muted)">Cada projeto começou com uma mensagem. Estes são alguns que já saíram da nossa produção.</p>
+    </div>
+    <div class="projects">
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-1" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-2" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-3" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-4" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-5" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-
-
+<svg class="tear" data-tear="4" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
 
 <!-- PROCESSO -->
 <section class="bg-osso grain sec process" id="processo" aria-labelledby="h-processo" >
@@ -363,41 +371,57 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="6" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+<svg class="tear" data-tear="5" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
 
-<!-- PARA QUEM -->
-<section class="bg-breu grain sec" aria-labelledby="h-quem">
-  <div class="wrap">
-    <h2 id="h-quem" class="shout">Para quem carrega uma mensagem</h2>
-    <div class="who">
-      <div><b>Igrejas</b><p>Ministérios, células, equipes de voluntários, campanhas e projetos especiais.</p></div>
-      <div><b>Congressos e eventos</b><p>Camiseta de equipe, kit do participante e loja oficial do evento.</p></div>
-      <div><b>Louvor e artistas</b><p>Merch de turnê e de ministério para vender na mesa depois do culto ou do show.</p></div>
-      <div><b>Ministérios e projetos</b><p>Um movimento que precisa de uma peça para ser reconhecido na rua.</p></div>
-      <div><b>Criadores</b><p>Quem já tem uma audiência e quer transformar a própria mensagem em produto.</p></div>
-      <div><b>Empresas e comunidades</b><p>Uniformes, ações internas, brindes e coleções com identidade própria.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJETOS -->
-<section class="bg-breu grain sec" id="projetos" aria-labelledby="h-projetos" style="padding-top:0">
+<!-- A CAMISETA -->
+<section class="bg-breu grain sec" id="camiseta" aria-labelledby="h-camiseta">
   <div class="wrap">
     <div class="rowhead">
-      <h2 id="h-projetos" class="shout">Projetos já realizados</h2>
-      <p class="small" style="max-width:36ch;color:var(--osso-fraco)">Cada projeto começou com uma mensagem. Estes são alguns que já saíram da nossa produção.</p>
+      <h2 id="h-camiseta" class="shout">A camiseta que a gente faz</h2>
+      <p class="small" style="max-width:38ch;color:var(--muted)">Antes de levar a sua mensagem, ela precisa ser uma peça que as pessoas queiram usar. Olha de perto.</p>
     </div>
-    <div class="projects">
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-1" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-2" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-3" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-4" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-5" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
+    <div class="anat">
+      <figure class="anat-main" style="margin:0">
+        <div data-img="imagens/modelagem" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: pessoa vestindo, corpo inteiro</figcaption></div>
+        <figcaption><b>Modelagem</b><span>Oversized de caimento reto, ombro caído e comprimento na medida. Veste bem homens e mulheres. Também fazemos o corte tradicional.</span></figcaption>
+      </figure>
+      <div class="anat-grid">
+        <figure style="margin:0"><div data-img="imagens/gola" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da gola</figcaption></div><figcaption><b>Gola</b><span>Gola canelada e firme, que não deforma depois das lavagens.</span></figcaption></figure>
+        <figure style="margin:0"><div data-img="imagens/estampa" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da estampa</figcaption></div><figcaption><b>Estampa</b><span>A técnica certa para cada arte, do traço fino ao desenho colorido de costas inteiras.</span></figcaption></figure>
+        <figure style="margin:0"><div data-img="imagens/costura" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da costura</figcaption></div><figcaption><b>Costura</b><span>Acabamento conferido peça por peça pelo nosso controle de qualidade.</span></figcaption></figure>
+        <div class="fabric">
+          <b>Tecido</b>
+          <p class="fab-big">100% algodão</p>
+          <p>Malha premium, encorpada e macia. Confortável no culto de domingo, no retiro e no palco.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<svg class="tear" data-tear="6" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--barro);background:var(--breu)"><path/></svg>
+
+<!-- HISTÓRIA -->
+<section class="bg-barro grain sec" id="historia" aria-labelledby="h-historia">
+  <div class="wrap story">
+    <blockquote>
+      Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito.
+      <footer>A Primeira Marca Cristã Convertida do Brasil</footer>
+    </blockquote>
+    <div style="display:grid;gap:22px">
+      <h2 id="h-historia" class="small" style="margin:0;font-weight:700">Por que a Corujinha</h2>
+      <p>A Corujinha nasceu como uma marca comum. Depois da conversão dos fundadores, a empresa inteira passou a servir a Cristo. Hoje a gente cria, modela, estampa e vende as próprias peças, e coloca essa mesma estrutura a serviço da sua mensagem.</p>
+      <ul class="engines">
+        <li><b>Marca</b><span>Nossas coleções. É onde provamos o padrão que entregamos.</span></li>
+        <li><b>Indústria</b><span>Produção própria, com controle de qualidade interno.</span></li>
+        <li class="on"><b>Merch</b><span>Tudo isso aplicado ao seu projeto, à sua igreja, ao seu evento.</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+<svg class="tear" data-tear="7" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--barro)"><path/></svg>
 
 <!-- PERGUNTAS -->
 <section class="bg-osso grain sec" aria-labelledby="h-faq">
@@ -413,7 +437,7 @@ p{margin:0}
   </div>
 </section>
 
-<svg class="tear" data-tear="4" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--brasa);background:var(--osso)"><path/></svg>
+<svg class="tear" data-tear="8" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--brasa);background:var(--osso)"><path/></svg>
 
 <!-- FECHAMENTO -->
 <footer class="bg-brasa grain" id="contato">
@@ -421,7 +445,7 @@ p{margin:0}
     <h2 class="shout">Qual mensagem a sua comunidade vai carregar?</h2>
     <p class="lede">Conta o seu projeto: o que é, para quem, quantas pessoas e para quando. A gente responde com o caminho para tirar ele do papel.</p>
     <div class="row">
-      <a class="btn btn-osso" data-wa href="#contato" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto no WhatsApp</a>
+      <a class="btn btn-osso btn-lg" data-wa href="#contato" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto no WhatsApp</a>
       <div class="phone"><span>ou chame no</span><code id="num">(12) 3933-9065</code><button type="button" id="copy">Copiar número</button></div>
     </div>
   </div>
@@ -431,7 +455,6 @@ p{margin:0}
     <a href="https://www.amarcadacorujinha.com.br" target="_blank" rel="noopener">Conheça a coleção</a>
   </div>
 </footer>
-
 <script>
 (function(){
   // WhatsApp com mensagem pronta
