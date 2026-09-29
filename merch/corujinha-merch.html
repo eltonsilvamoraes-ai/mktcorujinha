@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corujinha Merch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: pôster de drop em camadas de papel — Brasa (topo) → Osso (história, processo) → Breu (produtos, projetos) → Brasa (fechamento), unidas por rasgos de papel. Visual único (direção Fogo), não alterna com o tema. */
+:root{
+  --breu:#0E0E10;
+  --osso:#F1EBDF;
+  --osso-2:#E6DECF;
+  --brasa:#E5461D;
+  --barro:#7C2A16;
+  --cinza:#6E6760;
+  --osso-fraco:rgba(241,235,223,.72);
+  --display:"Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --body:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --gutter:clamp(16px,4vw,48px);
+  --max:1180px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--breu);color:var(--osso);font:500 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--osso);outline-offset:3px}
+.sec :focus-visible{outline-color:currentColor}
+
+/* grão de papel */
+.grain{position:relative;isolation:isolate}
+.grain::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.bg-breu.grain::after{mix-blend-mode:screen;opacity:.08}
+
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.sec{padding-block:clamp(56px,9vw,120px)}
+.bg-brasa{background:var(--brasa);color:var(--osso)}
+.bg-osso{background:var(--osso);color:var(--breu)}
+.bg-breu{background:var(--breu);color:var(--osso)}
+
+/* tipografia */
+.shout{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2.shout{font-size:clamp(2.6rem,8.5vw,6.5rem)}
+.lede{font-size:clamp(1.1rem,1.6vw,1.3rem);line-height:1.5;max-width:34ch;margin:0}
+.small{font-size:.9rem;line-height:1.45}
+p{margin:0}
+
+/* rasgo de papel */
+.tear{display:block;width:100%;height:clamp(28px,4vw,56px);margin-block:-1px}
+.tear path{fill:currentColor}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;gap:.6em;font:700 1rem/1 var(--body);text-decoration:none;border-radius:999px;padding:1.05em 1.5em;transition:transform .12s ease, background-color .2s ease}
+.btn:active{transform:scale(.97)}
+.btn-osso{background:var(--osso);color:var(--breu)}
+.btn-osso:hover{background:#fff}
+.btn-brasa{background:var(--brasa);color:var(--osso)}
+.btn-brasa:hover{background:#f0582f}
+.btn svg{width:1.2em;height:1.2em;flex:none}
+
+/* topo */
+.top{padding-top:clamp(16px,2.5vw,28px);overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:700;line-height:1.1}
+.brand svg{width:54px;height:auto;color:var(--osso)}
+.brand small{display:block;font-weight:500;opacity:.8;font-size:.8rem}
+.pills{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.pills a{display:block;border:1.5px solid var(--osso);border-radius:999px;padding:.45em 1.05em;font-size:.85rem;font-weight:600;text-decoration:none}
+.pills a:hover{background:var(--osso);color:var(--brasa)}
+.pills .solid a{background:var(--osso);color:var(--brasa)}
+@media (max-width:720px){.pills li:not(.solid){display:none}}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:end;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,80px);position:relative}
+.hero h1{font-size:clamp(3rem,9vw,7.8rem)}
+.hero h1 .r{display:block;text-align:right;padding-right:.1em}
+.hero .copy{display:grid;gap:28px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero .note{font-size:.9rem;opacity:.9}
+.hero-photo{position:relative;min-width:0}
+.hero-photo .ph{aspect-ratio:4/5;transform:rotate(1.5deg)}
+.hero-photo>.ph figcaption{top:12px;bottom:auto;text-align:right}
+.stamp{position:absolute;left:-18px;bottom:-20px;background:var(--osso);color:var(--breu);padding:10px 10px 12px;width:min(170px,44%);transform:rotate(-4deg);box-shadow:0 14px 30px rgba(14,14,16,.28)}
+.stamp .ph{aspect-ratio:1;transform:none}
+.stamp b{display:block;font-family:var(--display);font-stretch:78%;font-weight:800;text-transform:uppercase;font-size:.95rem;line-height:1;margin-top:8px}
+.stamp span{font-size:.72rem;line-height:1.25;display:block;margin-top:3px}
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .hero-photo{max-width:420px;justify-self:end;width:88%}
+}
+
+/* espaço de foto (a substituir pelas fotos reais) */
+.ph{position:relative;overflow:hidden;background:var(--barro);color:var(--osso);display:grid;place-items:center;max-width:100%}
+.ph::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 20%,rgba(229,70,29,.55),transparent 60%),linear-gradient(180deg,transparent 40%,rgba(14,14,16,.55))}
+.ph svg{position:relative;width:46%;opacity:.22;color:var(--osso)}
+.ph figcaption{position:absolute;left:10px;right:10px;bottom:10px;font-size:.72rem;line-height:1.3;font-weight:600;letter-spacing:.02em;opacity:.9}
+.ph.dark{background:#1b1b1f}
+.ph.dark::before{background:radial-gradient(120% 90% at 30% 10%,rgba(229,70,29,.35),transparent 60%)}
+.ph.light{background:var(--osso-2);color:var(--breu)}
+.ph.light::before{background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.7),transparent 60%)}
+.ph.light svg{color:var(--breu);opacity:.14}
+
+/* história */
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.story blockquote{margin:0;font-family:var(--display);font-weight:700;font-stretch:88%;font-size:clamp(1.8rem,3.6vw,2.9rem);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
+.story blockquote footer{font:600 .9rem/1.4 var(--body);margin-top:18px;color:var(--cinza)}
+.engines{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.engines li{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:16px;padding-block:18px;border-top:1.5px solid var(--breu)}
+.engines li:last-child{border-bottom:1.5px solid var(--breu)}
+.engines b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.35rem;line-height:1}
+.engines li.on b{color:var(--brasa)}
+@media (max-width:820px){.story{grid-template-columns:1fr}}
+
+/* processo em colagem */
+.process{position:relative}
+.process .ghost{color:var(--osso-2);font-size:clamp(3.4rem,13vw,10.5rem);text-align:center;user-select:none}
+.process .head{display:flex;justify-content:space-between;gap:24px;align-items:end;flex-wrap:wrap;margin:clamp(-48px,-4vw,-16px) 0 clamp(36px,5vw,56px);position:relative;z-index:1}
+.collage{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:0}
+.card{position:relative;background:var(--breu);color:var(--osso);padding:18px 16px 20px;min-height:250px;display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 30px rgba(14,14,16,.22);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.card:nth-child(1){transform:rotate(-6deg) translateY(18px)}
+.card:nth-child(2){transform:rotate(3deg) translate(-8px,-6px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
+.card:nth-child(3){transform:rotate(-2deg) translate(-14px,26px);background:var(--brasa);z-index:2}
+.card:nth-child(4){transform:rotate(5deg) translate(-20px,-4px);background:var(--barro)}
+.card:nth-child(5){transform:rotate(-4deg) translate(-26px,20px);background:var(--osso);color:var(--breu);border:1.5px solid var(--breu)}
+.card:hover{transform:rotate(0) translateY(-6px);z-index:3}
+.card .n{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:3.2rem;line-height:.8;opacity:.9}
+.card h3{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.6rem;line-height:.95;margin:auto 0 0}
+.card p{font-size:.9rem;line-height:1.4}
+@media (max-width:900px){
+  .collage{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
+  .card{min-height:0}
+  .card:nth-child(n){transform:rotate(var(--r,0deg))}
+  .card:nth-child(1){--r:-2deg}.card:nth-child(2){--r:2deg}.card:nth-child(3){--r:-1.5deg}.card:nth-child(4){--r:2deg}.card:nth-child(5){--r:-1deg;grid-column:1/-1}
+  .card .n{font-size:2.4rem}
+}
+
+/* dois caminhos (serviços) */
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px);margin-top:clamp(40px,6vw,72px)}
+.path{border:1.5px solid var(--breu);padding:clamp(22px,3vw,34px);display:grid;gap:14px;align-content:start}
+.path .q{font-weight:700;color:var(--cinza);font-size:.95rem}
+.path h3{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:.92;margin:0}
+.path.alt{background:var(--breu);color:var(--osso)}
+.path.alt .q{color:var(--osso-fraco)}
+@media (max-width:720px){.paths{grid-template-columns:1fr}}
+
+/* a camiseta */
+.rowhead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.anat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(16px,2.5vw,28px);margin-top:clamp(32px,5vw,56px)}
+.anat figure>figcaption,.fabric{display:grid;gap:4px;padding-top:12px}
+.anat figure>figcaption b,.fabric>b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.45rem;line-height:1}
+.anat figure>figcaption span{color:var(--osso-fraco);font-size:.93rem;line-height:1.45}
+.anat-main{display:grid;grid-template-rows:1fr auto}
+.anat-main .ph{min-height:360px;height:100%}
+.anat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px)}
+.anat-grid .ph{aspect-ratio:1}
+.fabric{background:var(--brasa);color:var(--osso);padding:clamp(18px,2.5vw,26px);align-content:space-between;gap:12px}
+.fabric .fab-big{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:.9;overflow-wrap:anywhere}
+.fabric p:last-child{font-size:.95rem;line-height:1.45}
+.also{margin-top:clamp(56px,8vw,96px)}
+.others{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--osso)}
+.others li{display:grid;gap:6px;padding:20px 20px 4px 0}
+.others li+li{padding-left:20px;border-left:1.5px solid rgba(241,235,223,.3)}
+.others b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.5rem;line-height:1}
+.others span{color:var(--osso-fraco);font-size:.93rem;line-height:1.45}
+@media (max-width:900px){.anat{grid-template-columns:1fr}.anat-main .ph{aspect-ratio:4/5;min-height:0;height:auto}.others{grid-template-columns:repeat(2,minmax(0,1fr))}.others li:nth-child(3){padding-left:0;border-left:0}}
+@media (max-width:520px){.anat-grid{grid-template-columns:1fr 1fr;gap:14px}.others{grid-template-columns:1fr}.others li+li{padding-left:0;border-left:0;border-top:1.5px solid rgba(241,235,223,.3)}}
+
+/* faixa */
+.ticker{overflow:hidden;white-space:nowrap;padding-block:clamp(18px,2.5vw,28px);border-block:1.5px solid currentColor}
+.ticker .t{display:inline-flex;gap:.5em;animation:tick 38s linear infinite;font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(2.2rem,6vw,4.6rem);line-height:1}
+.ticker .t span{display:inline-flex;align-items:center;gap:.5em}
+.ticker .star{color:var(--brasa);font-size:.8em}
+.bg-brasa .ticker .star{color:var(--breu)}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker .t{animation:none}.card{transition:none}html{scroll-behavior:auto}}
+
+/* para quem */
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:clamp(32px,5vw,56px);border-top:1.5px solid var(--osso)}
+.who>div{padding:22px 22px 26px 0;border-bottom:1.5px solid rgba(241,235,223,.3)}
+.who>div:not(:nth-child(3n+1)){padding-left:22px;border-left:1.5px solid rgba(241,235,223,.3)}
+.who b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.5rem;line-height:1;display:block;margin-bottom:8px}
+.who p{color:var(--osso-fraco);font-size:.95rem;line-height:1.45}
+@media (max-width:820px){.who{grid-template-columns:1fr}.who>div:not(:nth-child(3n+1)){padding-left:0;border-left:0}}
+
+/* projetos */
+.projects{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px;margin-top:clamp(32px,5vw,56px)}
+.proj{display:grid;gap:12px;align-content:start}
+.proj .ph{aspect-ratio:4/5;outline:1.5px dashed rgba(241,235,223,.45);outline-offset:-10px}
+.proj:first-child .ph{aspect-ratio:auto;height:100%;min-height:320px}
+.proj:first-child{grid-row:span 2;grid-template-rows:1fr auto}
+.proj b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.3rem;line-height:1}
+.proj span{color:var(--osso-fraco);font-size:.88rem;display:block}
+@media (max-width:820px){.projects{grid-template-columns:1fr 1fr}.proj:first-child{grid-column:1/-1;grid-row:auto}.proj:first-child .ph{aspect-ratio:16/10;height:auto;min-height:0}}
+
+/* perguntas */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
+.faq details{border-top:1.5px solid var(--breu);padding-block:4px}
+.faq details:last-child{border-bottom:1.5px solid var(--breu)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;padding-block:18px;font-weight:700;font-size:1.1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--display);font-weight:800;font-size:1.8rem;line-height:1;color:var(--brasa);transition:transform .2s ease}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding-bottom:20px;max-width:58ch;color:#3a3632}
+@media (max-width:820px){.faq{grid-template-columns:1fr}}
+
+/* fechamento */
+.close{text-align:left;display:grid;gap:28px}
+.close h2{font-size:clamp(2.8rem,9.5vw,7.4rem)}
+.close .row{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center}
+.phone{display:flex;align-items:center;gap:10px;font-weight:600}
+.phone code{font:700 1.05rem/1 var(--body);user-select:all;font-variant-numeric:tabular-nums}
+.phone button{font:600 .8rem/1 var(--body);border:1.5px solid var(--osso);background:transparent;color:var(--osso);border-radius:999px;padding:.5em .9em;cursor:pointer}
+.phone button:hover{background:var(--osso);color:var(--brasa)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px;font-size:.85rem;color:var(--osso-fraco)}
+.foot a{text-decoration:none;border-bottom:1px solid currentColor}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="owl" viewBox="0 0 1313 951"><path fill="currentColor" fill-rule="evenodd" d="M647.8,938.2C611.4,877.2 585,811.4 569.4,742.6C565.7,726.5 565.7,725.7 567.4,724.4C569.9,722.6 601,712.5 608.8,711C612.2,710.3 615,709.5 615,709.2C615,707.9 600.1,688.2 590.7,677C578.5,662.5 553,636.8 553,639C553,639.8 552.1,639.1 551,637.3C550,635.6 543.8,629.7 537.3,624.3C475.3,572.7 396.6,535.7 317,520.6C299.5,517.2 299.4,517.2 288.9,522.5C187.9,573.2 163.7,708.6 241.1,790.4C337.6,892.4 506.2,842.4 532.4,704.1L534.8,691.5 534.9,698.1C535.2,723.9 528.1,754.8 516,779.8C505,802.7 495.4,815.8 474.6,836.5C466.3,844.8 455.8,855.7 451.3,860.7C415.4,900.4 361.6,924.8 289.2,934C266.1,937 263.7,936.5 277,931.6C307.8,920.3 330.3,905.7 337.8,892.2L340.1,888 335.5,888C332.4,888 329.7,888.8 327.2,890.4C291.2,913.1 245.2,917.4 198.5,902.3C186.8,898.6 170,892 170,891.1C170,890.7 177.5,889.6 186.8,888.6C223.5,884.7 247.5,878.8 259.1,870.6C261.2,869.2 261.1,869.1 256.9,866.9C254.5,865.7 249.3,862.8 245.3,860.4C239.2,856.6 237.4,856 232.7,856C200.2,856 171,845.2 149.9,825.3C143.9,819.6 129,801.4 129,799.8C129,799.4 132.5,800.3 136.8,801.6C162.8,809.8 176.5,813.4 190.8,815.5L195.1,816.2 189.2,807.8C117.3,706.7 160.6,564.5 276.9,519.5C281.5,517.7 284.8,516 284.4,515.7C281.7,514.1 248.4,512.8 223.7,513.3C188,514.1 156.5,518.3 126.6,526.5C121.6,527.9 117.4,528.8 117.2,528.6C116.7,528.1 144.8,509.5 157,502.3C180,488.6 203.9,479.2 223,476.5C225.5,476.1 228.3,475.6 229.4,475.3C230.5,475 222.3,471.8 209.4,467.5C109.6,434.4 39.6,391.9 5.8,344.2C-0.6,335.2 -0.3,334.9 8.8,341.8C29.8,357.8 50.9,369.7 66,374C73.5,376.2 100,378.1 100,376.5C100,376.1 95,370.6 88.9,364.1C53.7,327.4 34.5,289 26.3,239.5C23.5,222.3 23.8,176.5 26.9,153.5C29.3,135.2 30.4,132.1 31.4,139.7C31.8,142.3 33.7,151.7 35.6,160.5C46.1,207.6 60.7,239.8 80.9,260.1C87.5,266.7 100.7,276.6 101.6,275.7C101.8,275.5 99.3,268 95.9,258.9C66.3,178.2 63.7,126.4 87.3,85.5C100.2,63.1 119.7,44 150.5,23.5C163,15.2 187,1 188.5,1C188.8,1 185.4,5.5 180.9,11.1C90.6,122.4 116.1,242.3 254.5,357.2C261.6,363.1 267.8,368 268.2,368C268.6,368 270.3,365.4 272,362.1C284.3,339.2 308.5,320.6 335.9,313.2C344.4,310.9 347.5,310.6 362.6,310.6L379.7,310.5 389.2,301.5C430.9,262.1 495.9,263.8 534.7,305.3L540.7,311.7 547.1,310.8C562.8,308.5 586.2,312 601.4,318.9C618,326.4 635.2,341 644.6,355.4L649.5,362.9 656.5,362.9L663.5,362.9 668.3,355.6C677.7,341.1 695.1,326.4 711.6,318.9C726.8,312 750.2,308.5 765.9,310.8L772.3,311.7 778.3,305.3C817.1,263.8 882.1,262.1 923.8,301.5L933.3,310.5 950.4,310.6C965.5,310.6 968.6,310.9 977.1,313.2C1004.5,320.6 1028.7,339.2 1041,362.1C1042.7,365.4 1044.4,368 1044.7,368C1045,368 1049.6,364.5 1054.8,360.2C1157.6,276.8 1200.7,188.1 1180,103C1172.4,72.2 1155.8,40.4 1132.1,11.1C1127.6,5.5 1124.2,1 1124.5,1C1126,1 1150,15.2 1162.5,23.5C1247.5,79.9 1261.2,138.8 1217.1,258.9C1213.7,268 1211.2,275.5 1211.4,275.7C1212.3,276.6 1225.5,266.7 1232.1,260.1C1253.9,238.2 1269.4,202.1 1279.9,148.6C1281.4,140.9 1282.9,135.1 1283.3,135.6C1283.6,136.1 1284.9,144.2 1286.1,153.5C1289.2,176.4 1289.5,222.3 1286.7,239.5C1278.5,289 1259.3,327.4 1224.1,364.1C1218,370.6 1213,376.1 1213,376.5C1213,378.1 1239.5,376.2 1247,374C1262.1,369.7 1283.2,357.8 1304.2,341.8C1313.3,334.9 1313.6,335.2 1307.2,344.2C1273.4,391.9 1203.4,434.4 1103.6,467.5C1090.7,471.8 1082.5,475 1083.6,475.3C1084.7,475.6 1087.5,476.1 1090,476.5C1109.1,479.2 1133,488.6 1156,502.3C1168.3,509.6 1196.3,528.1 1195.8,528.6C1195.5,528.8 1192,528 1187.9,526.9C1146.1,515.3 1090.8,510.4 1043.9,514.1C1026.3,515.5 1026.1,515.6 1036,519.4C1103.8,545.7 1150.5,606.7 1158,679C1162.6,723.8 1150.2,770.7 1123.8,807.8L1117.9,816.2 1122.2,815.5C1136.5,813.4 1150.2,809.8 1176.2,801.6C1180.5,800.3 1184,799.4 1184,799.8C1184,801.4 1169.1,819.6 1163.1,825.3C1142,845.2 1112.8,856 1080.3,856C1075.6,856 1073.8,856.6 1067.7,860.4C1063.7,862.8 1058.5,865.7 1056.1,866.9C1051.9,869.1 1051.8,869.2 1053.9,870.6C1065.5,878.8 1089.5,884.7 1126.2,888.6C1135.5,889.6 1143,890.7 1143,891.1C1143,892 1126.2,898.6 1114.5,902.3C1067.8,917.4 1021.8,913.1 985.8,890.4C983.3,888.8 980.6,888 977.5,888L972.9,888 975.2,892.2C982.7,905.7 1005.2,920.3 1036,931.6C1049.3,936.5 1046.9,937 1023.8,934C951.4,924.8 897.6,900.4 861.7,860.7C857.2,855.7 846.7,844.8 838.4,836.5C817.6,815.8 808,802.7 797,779.8C784.9,754.8 777.8,723.9 778.1,698.1L778.2,691.5 780.6,704.1C801.6,815.1 919.5,875.9 1020.8,828C1097.7,791.5 1136,702.3 1109.3,621.5C1095.1,578.5 1064.3,542.6 1024.1,522.5C1013.6,517.2 1013.5,517.2 996,520.6C879.5,542.7 765.6,612.9 703.7,700.8C697.4,709.7 697.2,710 699.8,710C706.3,710 743.7,723 744.7,725.6C746.5,730.4 714.2,826.9 697.8,865.4C685.8,893.7 662.9,940.2 656.6,949.1C655.5,950.7 654.5,949.5 647.8,938.2ZM631.7,779.2C635.9,770.4 638.8,762.5 643.5,747.3C644.1,745.4 633.6,742.7 625.8,742.8C617.2,742.8 609,745.4 609,748.1C609,754.1 623.5,790 626,790C626.4,790 629,785.2 631.7,779.2ZM692.1,780.6C698.6,766.7 704.8,747.1 703,746C697.7,742.5 683.7,741.8 674.7,744.4L669.2,746 670.5,751.8C673.6,765.1 685,790.7 687.2,789.4C687.8,789 690,785.1 692.1,780.6ZM345.5,786.4C302.5,778.8 267.3,746.6 255.5,704C252.2,692.3 251,668.7 253,656.2C260,612.2 292.8,576.2 336.7,564.2C350.2,560.6 379.8,560.3 392.3,563.8C455,581.1 491,642 474.9,703.7C460.2,759.9 402.9,796.5 345.5,786.4ZM928.7,786.5C854.2,774 812.3,691.1 846.3,623.5C880.8,554.8 973,539.5 1027.5,593.5C1051.3,617 1062,644.6 1060.7,679.2C1058.3,747.7 996.5,797.9 928.7,786.5ZM386.9,766C419.9,758.1 445.4,733.7 455.7,700.3C459.2,689 459.7,662.9 456.7,652.2C448.8,623.5 431,601.7 405.5,589.4C345,560.4 274.6,602.7 271.3,670C268.2,732.3 326.2,780.5 386.9,766ZM970,765.9C1013.7,755.5 1044,714.6 1041.7,669.5C1038.2,602.5 967.8,560.5 907.5,589.4C882,601.7 864.2,623.5 856.3,652.2C853.3,662.9 853.8,689 857.3,700.3C872.4,749.5 920.9,777.7 970,765.9ZM350.8,720.1C338.3,716 328.2,707.2 322.5,695.6C301,651.7 350.8,608 391.8,634.8C423.6,655.6 418.1,705.2 382.3,719.1C374.1,722.2 358.8,722.8 350.8,720.1ZM932.8,719.7C895.2,706.8 888.3,656.3 921.2,634.8C962.2,608 1012,651.7 990.5,695.5C980.1,716.9 955.2,727.3 932.8,719.7ZM657,705.5C662.2,705.5 670.9,705.7 676.4,706L686.3,706.5 691.1,690.8C700.5,660.6 712.7,630.9 726.7,604L734.3,589.6 724.8,580.5C704.4,561.2 682.7,552.5 654.5,552.6C626.3,552.6 603.6,561.5 583.1,580.8L576.8,586.7 581,594.1C595.7,620.1 611.6,657.7 621.6,689.9C624,697.9 626.3,705.1 626.5,705.8C626.9,706.8 629.2,706.9 637.2,706.3C642.9,705.9 651.8,705.5 657,705.5ZM747.6,568.2C762.1,545.9 780.1,523.3 799.3,503.4L810.9,491.4 804.7,487.8C777.4,471.9 742.9,469.8 713.2,482.2C694.8,489.8 676,506.3 665.1,524.3C662.2,529 661.9,528.7 672.2,530.5C698,535 723.4,550.9 737.5,571.5C739.6,574.5 741.5,577 741.6,577C741.8,577 744.4,573.1 747.6,568.2ZM579.4,561.3C593.1,546.1 615.3,534.2 636.9,530.5C641.6,529.6 645.5,528.8 645.7,528.6C646.5,527.8 635.8,512.8 629.9,506.6C602.8,477.6 560.8,466.7 523.8,479C516.1,481.6 506.3,486 502,488.9C500.9,489.7 502.7,492.1 511.6,501.2C531.1,521.2 548,542.1 562.4,563.8L569.2,574 572,570.3C573.5,568.2 576.8,564.1 579.4,561.3ZM663,505.1C674.3,483.4 696.5,464.5 720.1,456.5C728.1,453.7 741.4,451 746.7,451L750.1,451 745.6,442.2C717.1,387.4 648.8,369.6 597.2,403.7C589,409.2 576,422 570.2,430.3C566.1,436.3 559,448.9 559,450.3C559,450.6 562.2,451.1 566.1,451.4C603.3,455.1 637.1,481.1 651.1,516.8L654.4,525.1 656.6,519C657.9,515.7 660.8,509.4 663,505.1ZM839.6,466.9C860.7,449.9 886.9,432.6 912.4,418.9C917.7,416.1 921.7,413.4 921.4,412.9C919.8,410.3 906.3,401.3 897.5,396.9C869.9,383.3 837.3,382.9 809.7,395.8C788.5,405.7 772.4,421.2 761.5,442.1L757.1,450.6 766.7,451.8C784.5,454.1 803.2,462 817.3,473.2C823.3,478 824.8,478.7 826.1,477.7C827,477 833.1,472.2 839.6,466.9ZM493,471.9C506.4,461.6 527.6,453.1 544.3,451.4C552.1,450.6 552.1,450.6 546.8,441C531.6,413.6 506.9,395 476.5,388.2C467.1,386.1 445,386.2 435.4,388.3C419.6,391.9 404.8,398.8 393,408.1L387.8,412.2 399.1,418.2C425.7,432.3 453.7,450.7 474.3,467.7C480.5,472.7 485.7,476.8 486,476.9C486.3,476.9 489.4,474.7 493,471.9ZM764.6,412.9C776.9,392.5 798.2,375.6 821.5,368L828.4,365.7 822.7,360.4C796.1,335.6 757.1,327.1 722,338.2C708.5,342.5 690.9,353.1 682.2,362.3L678.8,365.8 685.7,368C716.4,378.1 743.6,405.1 752.1,433.8L753.3,438 756.5,429.5C758.3,424.8 761.9,417.4 764.6,412.9ZM563.3,418.5C575.3,394.6 601.3,373.4 626.2,367C633.7,365.1 633.6,365.2 630.4,361.9C619.3,350 598.1,339 578.5,334.9C567.9,332.6 546.1,333.3 534.8,336.3C517.6,340.8 499.5,350.8 488.7,361.8L483.9,366.7 490.2,369C521.1,380.2 542.1,401.9 554.4,435.5C555,437.1 555.6,436.4 557.4,431.5C558.7,428.2 561.3,422.4 563.3,418.5ZM953,399.5C971.2,391.7 998.4,381.7 1017.7,375.9L1031.9,371.6 1028.2,367.6C989.3,324.9 923.9,321.7 882.3,360.4L876.6,365.7 883.3,367.9C902.3,374 919.6,385.5 931.4,400C934.2,403.3 936.8,406 937.2,406C937.7,406 944.8,403.1 953,399.5ZM378.5,398.7C389.3,385.5 410.8,371.6 427,367.4C435.8,365.1 435.8,364.9 429.8,359.5C387.7,321.7 323.4,325.2 284.8,367.6L281.1,371.6 298.2,376.9C318.6,383.1 345.3,393 360.5,399.8C366.6,402.6 371.9,404.8 372.5,404.8C373.1,404.8 375.8,402.1 378.5,398.7ZM474.4,355.7C484.1,341.1 505,323.4 517.9,318.9C522.2,317.4 521.8,316.5 515.3,312.3C481.3,290.6 438.3,290.8 403.8,312.8L398.2,316.4 408,321.6C424.1,330 437.3,341.7 446.8,356L451.2,362.5 458.3,363.1C462.3,363.4 466.2,363.7 467.2,363.8C468.2,363.9 470.8,361 474.4,355.7ZM866,356.2C875.1,342.2 892.1,327.5 908.1,319.9L914.9,316.6 910.7,313.7C877.1,291 832,290.4 797.7,312.3C790.9,316.7 790.7,317.3 796.4,319.4C809.4,324.4 831,343.1 839.4,356.8L843.3,363 852.4,363L861.6,363 866,356.2Z"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.8-.3-1.9-.9-2.8-2.1-.4-.5.3-.5.9-1.7.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1 1.6-.9 2.4.2 1 .7 2 1.6 3 1.6 1.9 3.3 2.6 4.6 3 .8.2 1.6.2 2.1-.1.6-.3 1.1-.9 1.2-1.5.1-.4.1-.7 0-.8-.1 0-.3-.1-.5-.2Z"/></symbol>
+</svg>
+
+<!-- TOPO -->
+<header class="bg-brasa grain top" id="topo">
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a class="brand" href="#topo"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><span>A Marca da Corujinha<small>Merch</small></span></a>
+      <ul class="pills">
+        <li><a href="#produtos">A camiseta</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li class="solid"><a href="#contato">Orçamento</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <div class="copy">
+        <h1 class="shout">Sua mensagem <span class="r">merece ser</span> vestida.</h1>
+        <p class="lede">Você tem um ministério, um evento ou um projeto. A gente transforma isso em camiseta, da ideia à entrega. E também em moletons, bonés, jaquetas e ecobags.</p>
+        <div class="actions">
+          <a class="btn btn-osso wa" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a>
+          <span class="note">Resposta pelo WhatsApp, direto com a equipe.</span>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <figure class="ph" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: “Cristo Vive”, de costas, fundo vermelho</figcaption></figure>
+        <div class="stamp">
+          <figure class="ph dark" style="margin:0"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></figure>
+          <b>Produção própria</b>
+          <span>Mesma fábrica, mesmo padrão da nossa marca.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<svg class="tear" data-tear="1" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--brasa)"><path/></svg>
+
+<!-- HISTÓRIA -->
+<section class="bg-osso grain sec" aria-labelledby="h-historia">
+  <div class="wrap story">
+    <blockquote>
+      Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito.
+      <footer>A Primeira Marca Cristã Convertida do Brasil</footer>
+    </blockquote>
+    <div style="display:grid;gap:22px">
+      <h2 id="h-historia" class="small" style="margin:0;font-weight:700">Por que a Corujinha</h2>
+      <p>A Corujinha nasceu como uma marca comum. Depois da conversão dos fundadores, a empresa inteira passou a servir a Cristo. Hoje a gente cria, modela, estampa e vende as próprias peças, e coloca essa mesma estrutura a serviço da sua mensagem.</p>
+      <ul class="engines">
+        <li><b>Marca</b><span>Nossas coleções. É onde provamos o padrão que entregamos.</span></li>
+        <li><b>Indústria</b><span>Produção própria, com controle de qualidade interno.</span></li>
+        <li class="on"><b>Merch</b><span>Tudo isso aplicado ao seu projeto, à sua igreja, ao seu evento.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
+<svg class="tear" data-tear="2" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+
+<!-- A CAMISETA -->
+<section class="bg-breu grain sec" id="produtos" aria-labelledby="h-camiseta">
+  <div class="wrap">
+    <div class="rowhead">
+      <h2 id="h-camiseta" class="shout">A camiseta que a gente faz</h2>
+      <p class="small" style="max-width:38ch;color:var(--osso-fraco)">Antes de levar a sua mensagem, ela precisa ser uma peça que as pessoas queiram usar. Olha de perto.</p>
+    </div>
+    <div class="anat">
+      <figure class="anat-main" style="margin:0">
+        <div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: pessoa vestindo, corpo inteiro</figcaption></div>
+        <figcaption><b>Modelagem</b><span>Oversized de caimento reto, ombro caído e comprimento na medida. Veste bem homens e mulheres. Também fazemos o corte tradicional.</span></figcaption>
+      </figure>
+      <div class="anat-grid">
+        <figure style="margin:0"><div class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da gola</figcaption></div><figcaption><b>Gola</b><span>Gola canelada e firme, que não deforma depois das lavagens.</span></figcaption></figure>
+        <figure style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da estampa</figcaption></div><figcaption><b>Estampa</b><span>A técnica certa para cada arte, do traço fino ao desenho colorido de costas inteiras.</span></figcaption></figure>
+        <figure style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Foto: detalhe da costura</figcaption></div><figcaption><b>Costura</b><span>Acabamento conferido peça por peça pelo nosso controle de qualidade.</span></figcaption></figure>
+        <div class="fabric">
+          <b>Tecido</b>
+          <p class="fab-big">100% algodão</p>
+          <p>Malha premium, encorpada e macia. Confortável no culto de domingo, no retiro e no palco.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rowhead also">
+      <h3 class="shout" style="font-size:clamp(1.8rem,4vw,3rem)">Também produzimos</h3>
+    </div>
+    <ul class="others">
+      <li><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
+      <li><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
+      <li><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
+      <li><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
+    </ul>
+  </div>
+</section>
+
+<svg class="tear" data-tear="5" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+
+<!-- PROCESSO -->
+<section class="bg-osso grain sec process" id="processo" aria-labelledby="h-processo" >
+  <div class="wrap">
+    <p class="shout ghost" aria-hidden="true">Da ideia à entrega</p>
+    <div class="head">
+      <h2 id="h-processo" class="lede" style="font-weight:700;max-width:30ch">Você pode chegar com uma frase, um logo ou só uma vontade. A gente acompanha cada etapa.</h2>
+    </div>
+    <ol class="collage">
+      <li class="card"><span class="n">1</span><h3>Ideia</h3><p>Você conta a mensagem, o público e a ocasião.</p></li>
+      <li class="card"><span class="n">2</span><h3>Design</h3><p>Criamos a estampa ou adaptamos a arte que você já tem.</p></li>
+      <li class="card"><span class="n">3</span><h3>Produto</h3><p>Escolhemos juntos peça, tecido, cor e modelagem.</p></li>
+      <li class="card"><span class="n">4</span><h3>Produção</h3><p>Estampa, acabamento e conferência peça por peça.</p></li>
+      <li class="card"><span class="n">5</span><h3>Entrega</h3><p>Embalado e pronto para o dia do seu evento.</p></li>
+    </ol>
+
+    <div class="paths">
+      <div class="path">
+        <span class="q">Já tenho a arte</span>
+        <h3>Produção</h3>
+        <p>Você envia o arquivo, a gente cuida de peça, estampa e acabamento com o mesmo padrão da nossa marca.</p>
+      </div>
+      <div class="path alt">
+        <span class="q">Tenho só a ideia</span>
+        <h3>Criação de desenhos + produção</h3>
+        <p>Nossa equipe cria a estampa a partir da sua mensagem e produz tudo. Você aprova antes de ir para a máquina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="tear" data-tear="6" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+
+<!-- PARA QUEM -->
+<section class="bg-breu grain" aria-labelledby="h-quem" style="padding-bottom:clamp(56px,9vw,120px)">
+  <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker"><span>Igrejas <i class="star">✶</i></span><span>Congressos <i class="star">✶</i></span><span>Ministérios de louvor <i class="star">✶</i></span><span>Retiros <i class="star">✶</i></span><span>Artistas <i class="star">✶</i></span><span>Conferências <i class="star">✶</i></span></div></div>
+  <div class="wrap" style="padding-top:clamp(48px,7vw,88px)">
+    <h2 id="h-quem" class="shout">Para quem carrega uma mensagem</h2>
+    <div class="who">
+      <div><b>Igrejas</b><p>Ministérios, células, equipes de voluntários, campanhas e projetos especiais.</p></div>
+      <div><b>Congressos e eventos</b><p>Camiseta de equipe, kit do participante e loja oficial do evento.</p></div>
+      <div><b>Louvor e artistas</b><p>Merch de turnê e de ministério para vender na mesa depois do culto ou do show.</p></div>
+      <div><b>Ministérios e projetos</b><p>Um movimento que precisa de uma peça para ser reconhecido na rua.</p></div>
+      <div><b>Criadores</b><p>Quem já tem uma audiência e quer transformar a própria mensagem em produto.</p></div>
+      <div><b>Empresas e comunidades</b><p>Uniformes, ações internas, brindes e coleções com identidade própria.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section class="bg-breu grain sec" id="projetos" aria-labelledby="h-projetos" style="padding-top:0">
+  <div class="wrap">
+    <div class="rowhead">
+      <h2 id="h-projetos" class="shout">Projetos já realizados</h2>
+      <p class="small" style="max-width:36ch;color:var(--osso-fraco)">Cada projeto começou com uma mensagem. Estes são alguns que já saíram da nossa produção.</p>
+    </div>
+    <div class="projects">
+      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
+      <figure class="proj" style="margin:0"><div class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+
+<!-- PERGUNTAS -->
+<section class="bg-osso grain sec" aria-labelledby="h-faq">
+  <div class="wrap faq">
+    <h2 id="h-faq" class="shout" style="font-size:clamp(2.4rem,6vw,4.6rem)">Antes de começar</h2>
+    <div>
+      <details open><summary>Preciso ter a arte pronta?</summary><p>Não. Se você já tem a arte, a gente produz. Se tem só a ideia ou a frase, nossa equipe cria o desenho e você aprova antes da produção.</p></details>
+      <details><summary>Qual a quantidade mínima?</summary><p>Depende da peça e da técnica de estampa. Conta pra gente o que você imagina que respondemos com as opções que fazem sentido para o seu volume.</p></details>
+      <details><summary>Quanto tempo leva?</summary><p>O prazo depende da quantidade e de ter ou não criação de desenho. Se o seu projeto tem data, como um congresso ou um retiro, fale a data logo no primeiro contato.</p></details>
+      <details><summary>Qual a qualidade das peças?</summary><p>A mesma da nossa marca: tecido premium, 100% algodão, modelagem moderna e controle de qualidade interno. A gente só entrega o que usaria.</p></details>
+      <details><summary>Dá para misturar produtos?</summary><p>Sim. Um mesmo projeto pode ter camisetas para a equipe, moletons para o retiro e ecobags para o kit do participante.</p></details>
+    </div>
+  </div>
+</section>
+
+<svg class="tear" data-tear="4" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--brasa);background:var(--osso)"><path/></svg>
+
+<!-- FECHAMENTO -->
+<footer class="bg-brasa grain" id="contato">
+  <div class="wrap sec close">
+    <h2 class="shout">Qual mensagem a sua comunidade vai carregar?</h2>
+    <p class="lede">Conta o seu projeto: o que é, para quem, quantas pessoas e para quando. A gente responde com o caminho para tirar ele do papel.</p>
+    <div class="row">
+      <a class="btn btn-osso" data-wa href="#contato" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto no WhatsApp</a>
+      <div class="phone"><span>ou chame no</span><code id="num">(12) 3933-9065</code><button type="button" id="copy">Copiar número</button></div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker2"><span>Cada camiseta é um testemunho vivo <i class="star">✶</i></span><span>Vista o Reino <i class="star">✶</i></span></div></div>
+  <div class="wrap foot">
+    <span>A Marca da Corujinha · Jacareí, SP</span>
+    <a href="https://www.amarcadacorujinha.com.br" target="_blank" rel="noopener">Conheça a coleção</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // WhatsApp com mensagem pronta
+  var msg = "Olá! Vim pela página de Merch da Corujinha e quero criar peças para o meu projeto.";
+  var url = "https://wa.me/551239339065?text=" + encodeURIComponent(msg);
+  document.querySelectorAll("[data-wa]").forEach(function(a){ a.href = url; a.target = "_blank"; a.rel = "noopener"; });
+
+  // rasgos de papel (serrilhado determinístico)
+  document.querySelectorAll("[data-tear]").forEach(function(svg){
+    var s = Number(svg.getAttribute("data-tear")) * 9301;
+    function rnd(){ s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    var d = "M0,60 L0," + (22 + rnd()*14).toFixed(1);
+    for (var x = 0; x <= 1200; x += 8 + rnd()*22){
+      var base = 30 + Math.sin(x/140 + s) * 10;
+      d += " L" + x.toFixed(1) + "," + (base + (rnd()-.5)*22).toFixed(1);
+    }
+    d += " L1200," + (24 + rnd()*12).toFixed(1) + " L1200,60 Z";
+    svg.querySelector("path").setAttribute("d", d);
+  });
+
+  // faixa contínua: duplica o conteúdo
+  ["ticker","ticker2"].forEach(function(id){
+    var t = document.getElementById(id); if (!t) return;
+    var html = t.innerHTML; t.innerHTML = html + html + html + html;
+  });
+
+  // copiar número
+  var btn = document.getElementById("copy"), num = document.getElementById("num");
+  btn.addEventListener("click", function(){
+    var done = function(){ btn.textContent = "Número copiado"; setTimeout(function(){ btn.textContent = "Copiar número"; }, 2000); };
+    var fallback = function(){ var r = document.createRange(); r.selectNodeContents(num); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = "Selecionado, use Ctrl+C"; };
+    try { navigator.clipboard.writeText("+55 12 3933-9065").then(done, fallback); } catch(e){ fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
