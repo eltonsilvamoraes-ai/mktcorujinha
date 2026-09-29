@@ -123,6 +123,7 @@ p{margin:0}
 
 /* processo em colagem */
 .process{position:relative}
+.bg-osso.sec + .bg-osso.sec.process{padding-top:clamp(8px,2vw,24px)}
 .process .ghost{color:var(--osso-2);font-size:clamp(3.4rem,13vw,10.5rem);text-align:center;user-select:none}
 .process .head{display:flex;justify-content:space-between;gap:24px;align-items:end;flex-wrap:wrap;margin:clamp(-48px,-4vw,-16px) 0 clamp(36px,5vw,56px);position:relative;z-index:1}
 .collage{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:0}
@@ -176,6 +177,7 @@ p{margin:0}
 @media (max-width:520px){.anat-grid{grid-template-columns:1fr 1fr;gap:14px}.others{grid-template-columns:1fr}.others li+li{padding-left:0;border-left:0;border-top:1.5px solid rgba(241,235,223,.3)}}
 
 /* faixa */
+.strip .ticker{border-top:0}
 .ticker{overflow:hidden;white-space:nowrap;padding-block:clamp(18px,2.5vw,28px);border-block:1.5px solid currentColor}
 .ticker .t{display:inline-flex;gap:.5em;animation:tick 38s linear infinite;font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(2.2rem,6vw,4.6rem);line-height:1}
 .ticker .t span{display:inline-flex;align-items:center;gap:.5em}
@@ -266,31 +268,10 @@ p{margin:0}
   </div>
 </header>
 
-<svg class="tear" data-tear="1" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--brasa)"><path/></svg>
-
-<!-- HISTÓRIA -->
-<section class="bg-osso grain sec" aria-labelledby="h-historia">
-  <div class="wrap story">
-    <blockquote>
-      Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito.
-      <footer>A Primeira Marca Cristã Convertida do Brasil</footer>
-    </blockquote>
-    <div style="display:grid;gap:22px">
-      <h2 id="h-historia" class="small" style="margin:0;font-weight:700">Por que a Corujinha</h2>
-      <p>A Corujinha nasceu como uma marca comum. Depois da conversão dos fundadores, a empresa inteira passou a servir a Cristo. Hoje a gente cria, modela, estampa e vende as próprias peças, e coloca essa mesma estrutura a serviço da sua mensagem.</p>
-      <ul class="engines">
-        <li><b>Marca</b><span>Nossas coleções. É onde provamos o padrão que entregamos.</span></li>
-        <li><b>Indústria</b><span>Produção própria, com controle de qualidade interno.</span></li>
-        <li class="on"><b>Merch</b><span>Tudo isso aplicado ao seu projeto, à sua igreja, ao seu evento.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-
-
-<svg class="tear" data-tear="2" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
+<!-- PERFIS (faixa logo abaixo do topo) -->
+<div class="bg-breu strip">
+  <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker"><span>Igrejas <i class="star">✶</i></span><span>Congressos <i class="star">✶</i></span><span>Ministérios de louvor <i class="star">✶</i></span><span>Retiros <i class="star">✶</i></span><span>Artistas <i class="star">✶</i></span><span>Conferências <i class="star">✶</i></span></div></div>
+</div>
 
 <!-- A CAMISETA -->
 <section class="bg-breu grain sec" id="produtos" aria-labelledby="h-camiseta">
@@ -330,6 +311,28 @@ p{margin:0}
 
 <svg class="tear" data-tear="5" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
 
+<!-- HISTÓRIA -->
+<section class="bg-osso grain sec" aria-labelledby="h-historia">
+  <div class="wrap story">
+    <blockquote>
+      Onde muitos enxergavam apenas roupas, Deus nos mostrou propósito.
+      <footer>A Primeira Marca Cristã Convertida do Brasil</footer>
+    </blockquote>
+    <div style="display:grid;gap:22px">
+      <h2 id="h-historia" class="small" style="margin:0;font-weight:700">Por que a Corujinha</h2>
+      <p>A Corujinha nasceu como uma marca comum. Depois da conversão dos fundadores, a empresa inteira passou a servir a Cristo. Hoje a gente cria, modela, estampa e vende as próprias peças, e coloca essa mesma estrutura a serviço da sua mensagem.</p>
+      <ul class="engines">
+        <li><b>Marca</b><span>Nossas coleções. É onde provamos o padrão que entregamos.</span></li>
+        <li><b>Indústria</b><span>Produção própria, com controle de qualidade interno.</span></li>
+        <li class="on"><b>Merch</b><span>Tudo isso aplicado ao seu projeto, à sua igreja, ao seu evento.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
 <!-- PROCESSO -->
 <section class="bg-osso grain sec process" id="processo" aria-labelledby="h-processo" >
   <div class="wrap">
@@ -363,9 +366,8 @@ p{margin:0}
 <svg class="tear" data-tear="6" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--osso)"><path/></svg>
 
 <!-- PARA QUEM -->
-<section class="bg-breu grain" aria-labelledby="h-quem" style="padding-bottom:clamp(56px,9vw,120px)">
-  <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker"><span>Igrejas <i class="star">✶</i></span><span>Congressos <i class="star">✶</i></span><span>Ministérios de louvor <i class="star">✶</i></span><span>Retiros <i class="star">✶</i></span><span>Artistas <i class="star">✶</i></span><span>Conferências <i class="star">✶</i></span></div></div>
-  <div class="wrap" style="padding-top:clamp(48px,7vw,88px)">
+<section class="bg-breu grain sec" aria-labelledby="h-quem">
+  <div class="wrap">
     <h2 id="h-quem" class="shout">Para quem carrega uma mensagem</h2>
     <div class="who">
       <div><b>Igrejas</b><p>Ministérios, células, equipes de voluntários, campanhas e projetos especiais.</p></div>

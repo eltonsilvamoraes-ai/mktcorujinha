@@ -8,9 +8,9 @@ Página de entrada do motor MERCH: produtos personalizados para igrejas, congres
 
 ## Ordem das seções
 1. Topo — "Sua mensagem merece ser vestida."
-2. Por que a Corujinha — história da conversão + Marca / Indústria / Merch
-3. A camiseta que a gente faz — modelagem, gola, estampa, costura, tecido
-4. Também produzimos — moletons, bonés, jaquetas, ecobags
+2. Faixa de perfis correndo (igrejas, congressos, ministérios de louvor, retiros, artistas, conferências)
+3. A camiseta que a gente faz — modelagem, gola, estampa, costura, tecido + também produzimos
+4. Por que a Corujinha — "Onde muitos enxergavam apenas roupas..." + Marca / Indústria / Merch
 5. Da ideia à entrega — processo em 5 etapas + serviços (Produção / Criação de desenhos)
 6. Para quem — igrejas, congressos, louvor e artistas, ministérios, criadores, empresas
 7. Projetos já realizados
