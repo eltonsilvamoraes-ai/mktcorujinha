@@ -34,7 +34,6 @@ Coloque a foto na pasta `imagens/`, ao lado do HTML, com o nome exato abaixo (`.
 |---|---|
 | `fundo-topo` | Fundo da área vermelha do topo (fica coberto por um véu Brasa para o texto continuar legível) |
 | `hero` | Foto grande do topo |
-| `selo` | Fotinho do cartão "Produção própria" |
 | `modelagem` | Pessoa vestindo, corpo inteiro |
 | `gola`, `estampa`, `costura` | Detalhes da camiseta |
 | `projeto-1` … `projeto-5` | Projetos já realizados |
