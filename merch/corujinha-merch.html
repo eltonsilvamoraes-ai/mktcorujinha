@@ -203,10 +203,13 @@ p{margin:0}
 .prods{list-style:none;margin:clamp(36px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
 .prod{display:grid;gap:10px;align-content:start}
 .prod .ph{aspect-ratio:4/5;margin-bottom:6px}
-.prod:nth-child(even){margin-top:clamp(0px,4vw,48px)}
+.prod.main{grid-column:span 2;grid-row:span 2;grid-template-rows:1fr auto auto}
+.prod.main .ph{aspect-ratio:auto;height:100%;min-height:420px}
+.prod.main b{font-size:clamp(2.2rem,4vw,3.4rem)}
+.prod.main span{font-size:1.02rem;max-width:42ch}
 .prod b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:.9}
 .prod span{color:var(--muted);font-size:.95rem;line-height:1.45}
-@media (max-width:900px){.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.prod:nth-child(even){margin-top:28px}}
+@media (max-width:900px){.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.prod.main{grid-row:auto}.prod.main .ph{aspect-ratio:1;height:auto;min-height:0}}
 
 /* projetos */
 .projects{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(18px,2.4vw,28px);margin-top:clamp(36px,5vw,64px)}
@@ -312,6 +315,7 @@ p{margin:0}
   <div class="wrap">
     <h2 id="h-produtos" class="shout">O que produzimos</h2>
     <ul class="prods">
+      <li class="prod main"><div data-img="imagens/camiseta" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Camisetas</b><span>Oversized ou tradicional, 100% algodão, tecido premium. A peça que a gente mais conhece.</span></li>
       <li class="prod"><div data-img="imagens/moletom" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
       <li class="prod"><div data-img="imagens/bone" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
       <li class="prod"><div data-img="imagens/jaqueta" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
