@@ -63,6 +63,16 @@ p{margin:0}
 .btn-osso:hover{background:#fff}
 .btn-brasa{background:var(--brasa);color:var(--osso)}
 .btn-brasa:hover{background:#f0582f}
+.btn-breu{background:var(--breu);color:var(--osso)}
+.btn-breu:hover{background:#26262b}
+.sec-cta{margin-top:clamp(40px,5vw,64px);display:flex}
+
+/* botão flutuante de WhatsApp: aparece depois do topo e some no fechamento */
+.float-wa{position:fixed;right:clamp(14px,2vw,24px);bottom:calc(clamp(14px,2vw,24px) + env(safe-area-inset-bottom, 0px));z-index:50;display:inline-flex;align-items:center;gap:.55em;background:var(--breu);color:var(--osso);border:1.5px solid var(--osso);text-decoration:none;font:700 .95rem/1 var(--body);padding:.95em 1.2em;border-radius:999px;box-shadow:0 10px 28px rgba(14,14,16,.35);transition:opacity .25s ease,transform .25s ease}
+.float-wa svg{width:1.35em;height:1.35em}
+.float-wa.off{opacity:0;transform:translateY(12px);pointer-events:none}
+@media (max-width:520px){.float-wa span{display:none}.float-wa{padding:.95em}}
+@media (prefers-reduced-motion:reduce){.float-wa{transition:none}}
 .btn svg{width:1.2em;height:1.2em;flex:none}
 .btn-lg{font-size:1.08rem;padding:1.15em 1.7em}
 .btn-line{border:1.5px solid currentColor;background:transparent;color:inherit}
@@ -297,6 +307,7 @@ p{margin:0}
       <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 9 10 15 6 54h8l2-26v28h32V28l2 26h8l-4-39-12-6"/><path d="M22 9l10 11 10-11M32 20v36M19 42h7M38 42h7"/></svg><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
       <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M13 24h38l-4 32H17Z"/><path d="M23 24v-6c0-10 18-10 18 0v6"/></svg><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
     </ul>
+    <div class="sec-cta"><a class="btn btn-osso btn-lg" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a></div>
   </div>
 </section>
 
@@ -329,6 +340,7 @@ p{margin:0}
         <p>Nossa equipe cria a estampa a partir da sua mensagem e produz tudo. Você aprova antes de ir para a máquina.</p>
       </div>
     </div>
+    <div class="sec-cta"><a class="btn btn-breu btn-lg" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a></div>
   </div>
 </section>
 
@@ -358,6 +370,7 @@ p{margin:0}
       </div>
     </div>
 
+    <div class="sec-cta"><a class="btn btn-brasa btn-lg" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a></div>
   </div>
 </section>
 
@@ -401,6 +414,8 @@ p{margin:0}
 <svg class="tear" data-tear="8" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--brasa);background:var(--osso)"><path/></svg>
 
 <!-- FECHAMENTO -->
+<a class="float-wa off" href="#contato" data-wa aria-label="Contar meu projeto no WhatsApp"><svg aria-hidden="true"><use href="#wa"/></svg><span>Contar meu projeto</span></a>
+
 <footer class="bg-brasa grain" id="contato">
   <div class="wrap sec close">
     <h2 class="shout">Qual mensagem a sua comunidade vai carregar?</h2>
@@ -468,6 +483,17 @@ p{margin:0}
   if (top) load(top.getAttribute("data-bg"), function(src){
     top.style.setProperty("--bg-img", "url(\"" + src + "\")"); top.classList.add("has-bg");
   });
+
+  // botão flutuante: visível entre o fim do topo e o início do fechamento
+  var fl = document.querySelector(".float-wa"), topo = document.getElementById("topo"), fim = document.getElementById("contato");
+  if (fl && "IntersectionObserver" in window){
+    var seen = {topo: true, fim: false};
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.target === topo) seen.topo = e.isIntersecting; else seen.fim = e.isIntersecting; });
+      fl.classList.toggle("off", seen.topo || seen.fim);
+    });
+    io.observe(topo); io.observe(fim);
+  } else if (fl) { fl.classList.remove("off"); }
 
   // copiar número
   var btn = document.getElementById("copy"), num = document.getElementById("num");
