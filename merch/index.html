@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: pôster de drop em camadas de papel, fundos alternados sem repetir — Brasa (topo) → Breu (faixa) → Osso (para quem) → Brasa (produtos) → Breu (projetos) → Osso (processo) → Breu (camiseta) → Brasa (história) → Osso (perguntas) → Brasa (fechamento), unidos por rasgos. Visual único (direção Fogo), não alterna com o tema. */
+/* Layout: pôster de drop em camadas de papel, fundos alternados sem repetir — Brasa (topo) → Breu (faixa) → Osso (para quem) → Brasa (produtos) → Osso (processo) → Breu (camiseta) → Brasa (história) → Osso (perguntas) → Brasa (fechamento), unidos por rasgos. Visual único (direção Fogo), não alterna com o tema. */
 :root{
   --breu:#0E0E10;
   --osso:#F1EBDF;
@@ -103,7 +103,6 @@ p{margin:0}
 /* fotos reais: quando o arquivo existe em imagens/, substitui o espaço */
 .ph .ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .ph.has-img::before,.ph.has-img>svg,.ph.has-img>figcaption{display:none}
-.proj .ph.has-img{outline:0}
 .top.has-bg{background:linear-gradient(rgba(229,70,29,.84),rgba(229,70,29,.84)),var(--bg-img) center/cover no-repeat,var(--brasa)}
 
 /* história */
@@ -189,27 +188,15 @@ p{margin:0}
 @media (max-width:900px){.who{grid-template-columns:repeat(2,minmax(0,1fr))}.who>div:nth-child(3){background:transparent;color:inherit;border-color:var(--rule)}.who>div:nth-child(3) p{color:var(--muted)}.who>div:nth-child(4){background:var(--breu);color:var(--osso);border-color:var(--breu)}.who>div:nth-child(4) p{color:var(--osso-fraco)}}
 @media (max-width:560px){.who{grid-template-columns:1fr}.who>div{min-height:0}}
 
-/* o que produzimos */
-.prods{list-style:none;margin:clamp(36px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
-.prod{display:grid;gap:10px;align-content:start}
-.prod .ph{aspect-ratio:4/5;margin-bottom:6px}
-.prod.main{grid-column:span 2;grid-row:span 2;grid-template-rows:1fr auto auto}
-.prod.main .ph{aspect-ratio:auto;height:100%;min-height:420px}
-.prod.main b{font-size:clamp(2.2rem,4vw,3.4rem)}
-.prod.main span{font-size:1.02rem;max-width:42ch}
-.prod b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:.9}
+/* o que produzimos (ícones) */
+.prods{list-style:none;margin:clamp(40px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1.5px solid var(--rule)}
+.prod{display:grid;gap:12px;align-content:start;padding:clamp(24px,3vw,36px) clamp(14px,1.8vw,24px) 8px 0}
+.prod+.prod{padding-left:clamp(14px,1.8vw,24px);border-left:1.5px solid var(--line)}
+.prod .ico{width:clamp(52px,5vw,68px);height:auto;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;margin-bottom:8px}
+.prod b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.5rem,2.2vw,1.95rem);line-height:.9}
 .prod span{color:var(--muted);font-size:.95rem;line-height:1.45}
-@media (max-width:900px){.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.prod.main{grid-row:auto}.prod.main .ph{aspect-ratio:1;height:auto;min-height:0}}
+@media (max-width:900px){.prods{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}.prod,.prod+.prod{padding:24px 0;border-left:0;border-bottom:1.5px solid var(--line)}.prod:first-child{grid-column:1/-1}}
 
-/* projetos */
-.projects{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(18px,2.4vw,28px);margin-top:clamp(36px,5vw,64px)}
-.proj{display:grid;gap:12px;align-content:start}
-.proj .ph{aspect-ratio:4/5;outline:1.5px dashed rgba(241,235,223,.45);outline-offset:-10px}
-.proj:first-child .ph{aspect-ratio:auto;height:100%;min-height:320px}
-.proj:first-child{grid-row:span 2;grid-template-rows:1fr auto}
-.proj b{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:1.3rem;line-height:1}
-.proj span{color:var(--muted);font-size:.88rem;display:block}
-@media (max-width:820px){.projects{grid-template-columns:1fr 1fr}.proj:first-child{grid-column:1/-1;grid-row:auto}.proj:first-child .ph{aspect-ratio:4/5;height:auto;min-height:0}}
 
 /* perguntas */
 .faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
@@ -245,7 +232,7 @@ p{margin:0}
     <nav class="nav" aria-label="Principal">
       <a class="brand" href="#topo"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><span>A Marca da Corujinha<small>Merch</small></span></a>
       <ul class="pills">
-        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#produtos">Produtos</a></li>
         <li><a href="#processo">Processo</a></li>
         <li><a href="#camiseta">A camiseta</a></li>
         <li class="solid"><a href="#contato">Orçamento</a></li>
@@ -258,7 +245,7 @@ p{margin:0}
         <p class="lede">Você tem um ministério, um evento ou um projeto. A gente transforma isso em camiseta, da ideia à entrega. E também em moletons, bonés, jaquetas e ecobags.</p>
         <div class="actions">
           <a class="btn btn-osso btn-lg wa" href="#contato" data-wa><svg aria-hidden="true"><use href="#wa"/></svg>Contar meu projeto</a>
-          <a class="btn btn-line btn-lg" href="#projetos">Projetos já realizados</a>
+          <a class="btn btn-line btn-lg" href="#produtos">O que produzimos</a>
         </div>
         <span class="note">Resposta pelo WhatsApp, direto com a equipe.</span>
       </div>
@@ -298,35 +285,16 @@ p{margin:0}
   <div class="wrap">
     <h2 id="h-produtos" class="shout">O que produzimos</h2>
     <ul class="prods">
-      <li class="prod main"><div data-img="imagens/camiseta" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Camisetas</b><span>Oversized ou tradicional, 100% algodão, tecido premium. A peça que a gente mais conhece.</span></li>
-      <li class="prod"><div data-img="imagens/moletom" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
-      <li class="prod"><div data-img="imagens/bone" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
-      <li class="prod"><div data-img="imagens/jaqueta" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
-      <li class="prod"><div data-img="imagens/ecobag" class="ph light"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg></div><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
+      <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M23 9 12 13 4 25l9 6 3-5v30h32V26l3 5 9-6-8-12-11-4c-2 5-5 7-9 7s-7-2-9-7Z"/></svg><b>Camisetas</b><span>Oversized ou tradicional, 100% algodão, tecido premium. A peça que a gente mais conhece.</span></li>
+      <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 13 10 19 5 53l8 1 3-24v26h32V30l3 24 8-1-5-34-12-6"/><path d="M22 14c0-9 20-9 20 0 0 7-20 7-20 0Z"/><path d="M29 22v6M35 22v6M24 44h16l2 6H22Z"/></svg><b>Moletons</b><span>Para retiros, acampamentos e a equipe que serve no frio.</span></li>
+      <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 41c0-15 10-24 23-24s23 9 23 24Z"/><path d="M9 41c16-4 36-2 51 6-10 3-21 1-28-4"/><path d="M32 17v-4M32 17c-4 7-5 15-4 24"/></svg><b>Bonés</b><span>A identidade do ministério numa peça do dia a dia.</span></li>
+      <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 9 10 15 6 54h8l2-26v28h32V28l2 26h8l-4-39-12-6"/><path d="M22 9l10 11 10-11M32 20v36M19 42h7M38 42h7"/></svg><b>Jaquetas</b><span>Para bandas, louvor e liderança. Peça de palco e de estrada.</span></li>
+      <li class="prod"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M13 24h38l-4 32H17Z"/><path d="M23 24v-6c0-10 18-10 18 0v6"/></svg><b>Ecobags</b><span>Kit do congressista, loja do evento e presente para quem chega.</span></li>
     </ul>
   </div>
 </section>
 
-<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--breu);background:var(--brasa)"><path/></svg>
-
-<!-- PROJETOS -->
-<section class="bg-breu grain sec" id="projetos" aria-labelledby="h-projetos">
-  <div class="wrap">
-    <div class="rowhead">
-      <h2 id="h-projetos" class="shout">Projetos já realizados</h2>
-      <p class="small" style="max-width:36ch;color:var(--muted)">Cada projeto começou com uma mensagem. Estes são alguns que já saíram da nossa produção.</p>
-    </div>
-    <div class="projects">
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-1" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Igreja ou evento · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-2" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Ministério · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-3" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Artista · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-4" class="ph"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Congresso · peças produzidas</span></figcaption></figure>
-      <figure class="proj" style="margin:0"><div data-img="imagens/projeto-5" class="ph dark"><svg viewBox="0 0 1313 951" aria-hidden="true"><use href="#owl"/></svg><figcaption>Espaço para foto do projeto</figcaption></div><figcaption><b>Nome do projeto</b><span>Empresa ou comunidade · peças produzidas</span></figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<svg class="tear" data-tear="4" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--breu)"><path/></svg>
+<svg class="tear" data-tear="3" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--osso);background:var(--brasa)"><path/></svg>
 
 <!-- PROCESSO -->
 <section class="bg-osso grain sec process" id="processo" aria-labelledby="h-processo" >
