@@ -480,13 +480,15 @@ p{margin:0}
     })(0);
   }
   document.querySelectorAll("[data-img]").forEach(function(box){
-    load(box.getAttribute("data-img"), function(src){
+    var put = function(src){
       var img = document.createElement("img");
       img.className = "ph-img"; img.src = src; img.decoding = "async";
       var cap = box.querySelector("figcaption"); img.alt = cap ? cap.textContent.replace(/^Foto:\s*/, "") : "";
       if (box.dataset.pos) img.style.objectPosition = box.dataset.pos;
       box.appendChild(img); box.classList.add("has-img");
-    });
+    };
+    // data-src: foto já embutida no arquivo (versão única); senão procura em imagens/
+    if (box.dataset.src) put(box.dataset.src); else load(box.getAttribute("data-img"), put);
   });
   var top = document.querySelector("[data-bg]");
   if (top) load(top.getAttribute("data-bg"), function(src){

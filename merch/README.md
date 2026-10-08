@@ -2,7 +2,9 @@
 
 Página de entrada do motor MERCH: produtos personalizados para igrejas, congressos, ministérios, artistas, criadores e empresas. Foco inicial em camisetas. CTA único: WhatsApp com mensagem pronta.
 
-- `index.html` — página completa e autocontida (direção visual "Fogo": Brasa, Barro, Osso, Breu; Bricolage Grotesque + Hanken Grotesk).
+- `index.html` — página-fonte (busca as fotos em `imagens/`)
+- `corujinha-merch.html` — versão única para baixar/abrir, com as fotos embutidas. Gerada por `python3 merch/build.py` (rodar sempre que mudar o `index.html` ou as fotos).
+- Página completa (direção visual "Fogo": Brasa, Barro, Osso, Breu; Bricolage Grotesque + Hanken Grotesk).
 - `imagens/logo-coruja.png` — logo original. `imagens/logo-coruja.svg` — versão vetorial (cor via `currentColor`).
 - Publicada como Artifact: https://claude.ai/artifact/SnAmudHYM7eZjvBL3g8PMb
 
