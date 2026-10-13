@@ -23,7 +23,7 @@ A seção "Projetos já realizados" foi retirada (sem fotos de trabalhos para te
 
 ## A confirmar / pendente
 - Fotos reais para todos os espaços marcados "Foto: ..." (enviar como arquivo anexo).
-- Número de WhatsApp do comercial (usei 55 12 3933-9065, o mesmo da landing da fábrica).
+- WhatsApp: por enquanto todos os botões vão para o número pessoal do Elton, (12) 97407-2927. Trocar em `wa.me/` no script quando houver um número comercial.
 - Técnicas de estampa usadas (silk, DTF, etc.) e gramatura da malha, para detalhar a seção da camiseta.
 - Quantidade mínima e prazo médio, se quiserem cravar na seção de perguntas.
 
@@ -33,7 +33,7 @@ Coloque a foto na pasta `imagens/`, ao lado do HTML, com o nome exato abaixo (`.
 | Arquivo | Onde aparece |
 |---|---|
 | `fundo-topo` | Fundo da área vermelha do topo (fica coberto por um véu Brasa para o texto continuar legível) |
-| `hero` | Foto grande do topo |
+| `hero` | Removida por enquanto (o topo está só com texto). Para voltar, recriar o bloco `.hero-photo`. |
 | `modelagem` | Pessoa vestindo, corpo inteiro |
 | `gola`, `estampa`, `costura` | Detalhes da camiseta |
 
