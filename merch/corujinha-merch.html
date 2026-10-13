@@ -188,6 +188,7 @@ p{margin:0}
 .anat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px)}
 .anat-grid .ph{aspect-ratio:1}
 .fabric{background:var(--brasa);color:var(--osso);padding:clamp(18px,2.5vw,26px);align-content:space-between;gap:12px}
+.anat-grid .fabric{align-self:start;aspect-ratio:1}
 .fabric .fab-big{font-family:var(--display);font-weight:800;font-stretch:78%;text-transform:uppercase;font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:.9;overflow-wrap:anywhere}
 .fabric p:last-child{font-size:.95rem;line-height:1.45}
 @media (max-width:900px){.anat{grid-template-columns:1fr}.anat-main .ph{aspect-ratio:4/5;min-height:0;height:auto}}
@@ -200,6 +201,8 @@ p{margin:0}
 .ticker .t span{display:inline-flex;align-items:center;gap:.5em}
 .ticker .star{color:var(--brasa);font-size:.8em}
 .bg-brasa .ticker .star{color:var(--breu)}
+.ticker-breu{background:var(--breu);border-color:var(--breu)}
+.bg-brasa .ticker-breu .star{color:var(--brasa)}
 @keyframes tick{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker .t{animation:none}.card{transition:none}html{scroll-behavior:auto}}
 
@@ -431,7 +434,7 @@ p{margin:0}
       <div class="phone"><span>ou chame no</span><code id="num">(12) 97407-2927</code><button type="button" id="copy">Copiar número</button></div>
     </div>
   </div>
-  <div class="ticker" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker2"><span>Cada camiseta é um testemunho vivo <i class="star">✶</i></span><span>Vista o Reino <i class="star">✶</i></span></div></div>
+  <div class="ticker ticker-breu" aria-hidden="true" style="color:var(--osso)"><div class="t" id="ticker2"><span>Cada camiseta é um testemunho vivo <i class="star">✶</i></span><span>Vista o Reino <i class="star">✶</i></span></div></div>
   <div class="wrap foot">
     <span>A Marca da Corujinha · Jacareí, SP</span>
   </div>
