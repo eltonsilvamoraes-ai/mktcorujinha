@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://personalizados.amarcadacorujinha.com.br/sitemap.xml

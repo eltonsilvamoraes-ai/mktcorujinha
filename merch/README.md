@@ -45,3 +45,14 @@ Para ajustar o enquadramento de uma foto, acrescente `data-pos="center top"` (ou
 - Cada clique em botão de WhatsApp dispara `Lead` com `content_name` = "Merch - <origem>": topo, produtos, processo, camiseta, flutuante, rodape (atributo `data-wa` de cada botão).
 - O Pixel tem permissões de tráfego: o domínio onde a página for publicada precisa estar na lista de permitidos, senão os eventos são bloqueados.
 - No link de visualização do Claude e em arquivo aberto localmente o Pixel não dispara; testar só no domínio, com "Testar eventos" do Gerenciador de Eventos.
+
+## SEO e publicação (personalizados.amarcadacorujinha.com.br)
+
+- `python3 merch/build.py` gera:
+  - `merch/site/` e `merch/personalizados-site.zip`: **é isso que sobe na KingHost** (conteúdo do zip na raiz do subdomínio): `index.html`, `imagens/`, `robots.txt`, `sitemap.xml`.
+  - `merch/corujinha-merch.html`: arquivo único com fotos embutidas, para enviar ou visualizar.
+- No `<head>`: título, meta description, canonical, Open Graph (imagem `imagens/og.jpg`, 1200×630), favicon e ícone do iPhone.
+- H1 com palavra-chave ("Camisetas personalizadas para igrejas, congressos e ministérios"); a frase "Sua mensagem merece ser vestida." é destaque visual (`p.slogan`).
+- Dados estruturados (JSON-LD): LocalBusiness, WebPage e FAQPage, gerados a partir das perguntas da página. Se mudar uma pergunta, atualizar também o bloco `application/ld+json`.
+- Fotos entram como `<img>` com alt no HTML final; o alt vem da legenda "Foto: …" de cada espaço.
+- Se o subdomínio mudar, trocar `personalizados.amarcadacorujinha.com.br` no `index.html` (head e JSON-LD) e em `SITE_URL` no `build.py`.
