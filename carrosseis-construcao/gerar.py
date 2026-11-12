@@ -94,7 +94,7 @@ def hl(t: str) -> str:
 
 
 CSS = """
-:root{--ink:#111418;--ink2:#1A1F26;--amb:#F2A900;--amb2:#FFC23D;--off:#F4F1EA;--mut:rgba(244,241,234,.72);}
+:root{--ink:#111418;--ink2:#1A1F26;--amb:#F05A0F;--amb2:#FF7A2E;--off:#F4F1EA;--mut:rgba(244,241,234,.72);}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
 body{font-family:'Inter Display','Inter',sans-serif;color:var(--off);-webkit-font-smoothing:antialiased}
@@ -112,7 +112,7 @@ em{font-style:normal;color:var(--amb2)}
 .cnt{font-family:'Inter';font-weight:500;font-size:23px;letter-spacing:.14em;color:var(--mut)}
 .cnt b{color:var(--off);font-weight:700}
 /* cantoneiras */
-.crn{position:absolute;width:46px;height:46px;border-color:rgba(242,169,0,.85);border-style:solid;z-index:4}
+.crn{position:absolute;width:46px;height:46px;border-color:rgba(242,100,25,.85);border-style:solid;z-index:4}
 .crn.tl{top:44px;left:44px;border-width:3px 0 0 3px}.crn.br{bottom:44px;right:44px;border-width:0 3px 3px 0}
 /* régua */
 .ruler{position:absolute;left:44px;bottom:180px;width:22px;height:420px;z-index:4;
@@ -125,7 +125,7 @@ em{font-style:normal;color:var(--amb2)}
  font-family:'Inter';font-size:22px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .swipe{display:flex;align-items:center;gap:18px;color:var(--off);border:2px solid rgba(244,241,234,.7);border-radius:60px;
  padding:10px 10px 10px 32px;background:rgba(17,20,24,.35);text-transform:none;letter-spacing:.02em;font-size:25px;font-weight:500}
-.swipe span{display:flex;width:52px;height:52px;border-radius:50%;background:var(--amb);color:var(--ink);align-items:center;justify-content:center}
+.swipe span{display:flex;width:52px;height:52px;border-radius:50%;background:var(--amb);color:#fff;align-items:center;justify-content:center}
 .swipe svg{width:26px;height:26px}
 .dots{display:flex;gap:10px}.dots i{display:block;width:12px;height:12px;border-radius:6px;background:rgba(244,241,234,.35)}
 .dots i.on{width:40px;background:var(--amb)}
@@ -135,7 +135,7 @@ em{font-style:normal;color:var(--amb2)}
  linear-gradient(180deg,rgba(17,20,24,.75) 0%,rgba(17,20,24,.05) 22%,rgba(17,20,24,.15) 42%,rgba(17,20,24,.88) 66%,rgba(17,20,24,.98) 100%)}
 .s1 .txt{position:absolute;left:90px;right:90px;bottom:200px;z-index:5}
 .s1 h1{font-weight:300;font-size:94px;line-height:1.1;letter-spacing:-.035em}
-.s1 h1 em,.s3 h2 em{font-weight:800;color:var(--ink);background:var(--amb);padding:0 14px;margin:0 -4px;
+.s1 h1 em,.s3 h2 em{font-weight:800;color:#fff;background:var(--amb);padding:0 14px;margin:0 -4px;
  -webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.18}
 .s1 p em,.s3 p em{font-weight:800;font-style:italic;color:var(--off)}
 .s1 p{margin-top:34px;font-weight:500;font-size:44px;line-height:1.22;letter-spacing:-.015em;color:var(--off);max-width:860px}
@@ -146,7 +146,7 @@ em{font-style:normal;color:var(--amb2)}
 .s2 .ph{position:absolute;left:0;right:0;top:0;height:560px;background-size:cover;background-position:center}
 .s2 .ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,20,24,.85) 0%,rgba(17,20,24,.25) 24%,rgba(17,20,24,0) 36%,rgba(17,20,24,0) 60%,var(--ink) 100%)}
 .s2 .panel{position:absolute;left:90px;right:90px;top:500px;bottom:170px;z-index:5;display:flex;flex-direction:column}
-.s2 .lbl{align-self:flex-start;background:var(--amb);color:var(--ink);font-weight:700;font-size:22px;letter-spacing:.16em;text-transform:uppercase;padding:14px 22px}
+.s2 .lbl{align-self:flex-start;background:var(--amb);color:#fff;font-weight:700;font-size:22px;letter-spacing:.16em;text-transform:uppercase;padding:14px 22px}
 .s2 h2 em{font-weight:800;font-style:italic}
 .s2 h2{margin-top:36px;font-weight:400;font-size:82px;line-height:1.04;letter-spacing:-.03em}
 .s2 .p{margin-top:26px;font-family:'Inter';font-size:41px;line-height:1.34;color:rgba(244,241,234,.85);font-weight:400}
@@ -154,13 +154,13 @@ em{font-style:normal;color:var(--amb2)}
 .s2 li{display:flex;align-items:center;gap:26px;font-weight:600;font-size:48px;letter-spacing:-.015em;
  padding:24px 0;border-bottom:1.5px solid rgba(244,241,234,.14)}
 .s2 li:last-child{border-bottom:0}
-.s2 li span{flex:none;width:58px;height:58px;border-radius:50%;background:var(--amb);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.s2 li span{flex:none;width:58px;height:58px;border-radius:50%;background:var(--amb);color:#fff;display:flex;align-items:center;justify-content:center}
 .s2 li span svg{width:32px;height:32px}
 .s2.tall .ph{height:430px}.s2.tall .panel{top:380px}
 .s2 ul.compact li{font-size:44px;padding:14px 0}
 .s2 .chips{margin-top:auto;margin-bottom:10px;display:flex;flex-direction:column;border-top:1.5px solid rgba(244,241,234,.14)}
 .s2 .chips div{border-bottom:1.5px solid rgba(244,241,234,.14);color:var(--off);font-weight:700;font-size:40px;padding:20px 0;letter-spacing:-.01em;display:flex;align-items:center;gap:26px}
-.s2 .chips div b{color:var(--ink);background:var(--amb);font-family:'Inter';font-weight:800;font-size:24px;padding:8px 12px}
+.s2 .chips div b{color:#fff;background:var(--amb);font-family:'Inter';font-weight:800;font-size:24px;padding:8px 12px}
 .s2 .tiles{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .s2 .tiles div{background:var(--ink2);border:1.5px solid rgba(244,241,234,.1);border-top:6px solid var(--amb);padding:40px 32px 38px;display:flex;align-items:center;gap:24px;font-weight:700;font-size:42px;letter-spacing:-.015em}
 .s2 .tiles svg{width:58px;height:58px;color:var(--amb2);flex:none}
@@ -172,9 +172,9 @@ em{font-style:normal;color:var(--amb2)}
 .s3 .k i{display:block;width:44px;height:3px;background:var(--amb)}
 .s3 h2{font-weight:300;font-size:86px;line-height:1.12;letter-spacing:-.035em}
 .s3 p{margin-top:30px;font-weight:500;font-size:42px;line-height:1.25;color:var(--off);max-width:860px}
-.s3 .cta{margin-top:56px;display:inline-flex;align-items:center;gap:22px;background:var(--amb);color:var(--ink);
+.s3 .cta{margin-top:56px;display:inline-flex;align-items:center;gap:22px;background:var(--amb);color:#fff;
  font-weight:800;font-size:40px;letter-spacing:.01em;text-transform:uppercase;padding:34px 46px 34px 40px;border-radius:4px;
- box-shadow:0 18px 50px rgba(242,169,0,.35),0 0 0 10px rgba(242,169,0,.16)}
+ box-shadow:0 18px 50px rgba(242,100,25,.35),0 0 0 10px rgba(242,100,25,.16)}
 .s3 .cta svg{width:42px;height:42px}
 .s3 .cta .ar{width:40px;height:40px}
 .s3 .note{margin-top:30px;font-family:'Inter';font-size:26px;font-weight:500;color:var(--mut);display:flex;align-items:center;gap:12px}
