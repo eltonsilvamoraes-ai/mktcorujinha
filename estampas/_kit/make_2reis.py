@@ -232,16 +232,15 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
 
     # rodapé (estilo ref.)
     rows = np.where((alpha > 40).any(axis=1))[0]
-    y = iy + rows.max() + cm(0.5)
+    y = iy + rows.max() + cm(0.9)          # um pouco mais de respiro dos cavalos
     m8 = Font("Montserrat-800")
-    for ln in ("NÃO TEMAS, PORQUE MAIS SÃO OS QUE ESTÃO CONOSCO",
-               "DO QUE OS QUE ESTÃO COM ELES."):
+    for ln in ("NÃO TEMAS, PORQUE MAIS SÃO",
+               "OS QUE ESTÃO CONOSCO DO QUE",
+               "OS QUE ESTÃO COM ELES"):
         t = Text(m8, ln, cm(0.5), CREAM, tracking=30).place(cx=W / 2, top=y)
-        body.append(t.svg()); y = t.box()[3] + cm(0.18)
-    red = Text(ex, "ALÉM DO QUE SE VÊ", cm(0.75), "#C83438", tracking=10).place(cx=W / 2, top=y + cm(0.15))
-    body.append(red.svg())
-    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42), CREAM, tracking=420)
-    ref.place(cx=W / 2, top=red.box()[3] + cm(0.35))
+        body.append(t.svg()); y = t.box()[3] + cm(0.2)
+    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42), CREAM, tracking=150)
+    ref.place(cx=W / 2, top=y + cm(0.3))
     body.append(ref.svg())
     red = ref
     open(out, "w").write(document("\n".join(body), W, H))
