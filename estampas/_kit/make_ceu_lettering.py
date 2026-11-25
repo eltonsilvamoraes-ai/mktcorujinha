@@ -13,7 +13,7 @@ usamos a fonte livre mais parecida, sem copiar as letras do artista.
 """
 import sys
 
-from corujinha_art import Font, Text, cm, document
+from corujinha_art import Font, Text, cm, document, logo_svg
 
 RED = "#C83438"
 NAVY = "#1E3558"
@@ -53,6 +53,23 @@ def lettering(font, cx, top, width):
     return parts, y
 
 
+ILLUS = None  # caminho do PNG da ilustração (prévia); None = área reservada
+
+
+def illustration(cx, top, height):
+    """Prévia: embute o PNG da ilustração recortado na área desenhada."""
+    import base64, io
+    from PIL import Image
+    im = Image.open(ILLUS).convert("RGB")
+    mask = im.convert("L").point(lambda v: 255 if v < 235 else 0)
+    im = im.crop(mask.getbbox())
+    buf = io.BytesIO(); im.save(buf, "PNG")
+    w = height * im.width / im.height
+    b64 = base64.b64encode(buf.getvalue()).decode()
+    return (f'<image x="{cx - w/2:.1f}" y="{top:.1f}" width="{w:.1f}" height="{height:.1f}" '
+            f'href="data:image/png;base64,{b64}"/>')
+
+
 def build(opt, out):
     cx = W / 2
     body = []
@@ -66,19 +83,25 @@ def build(opt, out):
     body.append(
         f'<path fill="none" stroke="{RED}" stroke-width="{cm(0.16):.1f}" stroke-linecap="round" '
         f'd="M{b[0]-cm(0.6):.1f} {y+cm(0.25):.1f} Q{cx:.1f} {y-cm(0.45):.1f} {b[2]+cm(1.2):.1f} {y:.1f}"/>')
-    # área reservada para a ilustração
-    ix0, iy0, ix1, iy1 = cm(3), cm(5.2), W - cm(3), cm(18.5)
-    body.append(
+    if ILLUS:
+        body.append(illustration(cx, cm(4.6), cm(16.2)))
+    else:
+        ix0, iy0, ix1, iy1 = cm(3), cm(5.2), W - cm(3), cm(18.5)
+        body.append(
         f'<rect x="{ix0:.1f}" y="{iy0:.1f}" width="{ix1-ix0:.1f}" height="{iy1-iy0:.1f}" '
         f'rx="{cm(1):.1f}" fill="#EEF4FA" stroke="{SKY}" stroke-width="6" stroke-dasharray="30 22"/>')
-    lab = Text(Font("Montserrat-600"), "ILUSTRAÇÃO: PARDAL + RAMO DE TRIGO",
-               cm(0.75), SKY, tracking=120).place(cx=cx, cy=(iy0 + iy1) / 2)
-    body.append(lab.svg())
+        lab = Text(Font("Montserrat-600"), "ILUSTRAÇÃO: PARDAL + RAMO DE TRIGO",
+                   cm(0.75), SKY, tracking=120).place(cx=cx, cy=(iy0 + iy1) / 2)
+        body.append(lab.svg())
     # lettering principal, sobrepondo levemente a base da ilustração
-    parts, _ = lettering(FONTS[opt], cx, cm(16.0), cm(18))
+    parts, yb = lettering(FONTS[opt], cx, cm(17.0), cm(18))
     body.append(f'<g transform="rotate(-6 {cx:.1f} {cm(22.5):.1f})">' + "".join(parts) + "</g>")
+    # corujinha da marca embaixo do lettering
+    body.append(logo_svg(cx, yb + cm(2.0), cm(2.2), NAVY)[0])
     open(out, "w").write(document("\n".join(body), W, H))
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 3:
+        ILLUS = sys.argv[3]
     build(int(sys.argv[1]), sys.argv[2])
