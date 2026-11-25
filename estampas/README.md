@@ -5,7 +5,7 @@ Pasta de criação de estampas (arte de camiseta) da marca.
 ## Regras de trabalho (sempre)
 
 1. **Prévia antes de produção.** Fechar a arte só com prévias: imagens individuais e grandes, uma por opção, recortadas na área da arte. O PNG e o SVG de produção só são gerados depois da aprovação.
-2. **Sempre o logo da coruja** (cabeça de coruja estilizada) nas estampas da marca.
+2. **Sempre o logo da coruja** (cabeça de coruja estilizada) nas estampas da marca — exceto quando o cliente dispensar (ex.: frente "Entregue o seu caminho", sem logo).
 3. Paleta padrão em camiseta preta: off-white `#EFE8D8` (texto e logo), vermelho `#C83438` (cursiva/destaque).
 4. Quadro de produção: 27 × 32 cm a 300 dpi (3189 × 3780 px), PNG com fundo transparente + SVG 270 × 320 mm com texto em curvas.
 
