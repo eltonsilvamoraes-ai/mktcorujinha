@@ -7,7 +7,8 @@ cavalos na base. Sem arco e sem estrela (pedido do cliente).
 Embaixo, um bloco de texto diagramado ("lockup") com
 "ALÉM DO QUE SE VÊ" + "2 REIS 6:16".
 
-uso: python3 make_2reis.py <lockup> <saida.svg>
+uso: python3 make_2reis.py <lockup> <saida.svg> [fonte_cursiva]
+  (com fonte_cursiva: título "Não temas" caligráfico, inclinado, com textura gasta)
   lockup A = centralizado em 2 níveis com filetes
   lockup B = bloco à esquerda + referência à direita, separados por fio vertical
 """
@@ -89,15 +90,63 @@ def lockup_B(cx, top, width):
     return [f'<g transform="translate({shift:.1f} 0)">' + "".join(parts) + "</g>"], max(bottom, y)
 
 
-def build(lock, out):
-    f = Font("ArchivoExpanded-900i")
-    title = Text(f, TITLE, 1000, WHITE, tracking=-25, skew=SKEW)
-    title = Text(f, TITLE, 1000 * TITLE_W / title.w, WHITE, tracking=-25, skew=SKEW)
-    title.place(cx=W / 2, top=T_TOP)
-    tb = title.box()
+SCRIPT_COLOR = "#ECE29A"   # amarelo-palha (como o "Brand Studios" da ref.)
+
+
+def distressed(svg_inner, w, h, seed=7):
+    """Renderiza um trecho vetorial e aplica textura gasta (prévia raster)."""
+    from corujinha_art import render
+    import tempfile, os
+    rng = np.random.default_rng(seed)
+    with tempfile.TemporaryDirectory() as t:
+        p = os.path.join(t, "t.png")
+        render(document(svg_inner, w, h), p, width=w)
+        im = np.array(Image.open(p).convert("RGBA"))
+    # salpicos + riscos verticais finos (desgaste de serigrafia vintage)
+    noise = rng.random((h // 3 + 1, w // 3 + 1))
+    noise = np.array(Image.fromarray((noise * 255).astype(np.uint8)).resize((w, h), Image.BILINEAR)) / 255
+    keep = noise > 0.18
+    for _ in range(int(w * 0.04)):
+        x = rng.integers(0, w); y0 = rng.integers(0, h); L = rng.integers(h // 20, h // 4)
+        keep[y0:y0 + L, x:x + rng.integers(1, 3)] = False
+    im[..., 3] = (im[..., 3] * keep).astype(np.uint8)
+    return Image.fromarray(im, "RGBA")
+
+
+def build(lock, out, script=None):
+    if script is None:
+        f = Font("ArchivoExpanded-900i")
+        title = Text(f, TITLE, 1000, WHITE, tracking=-25, skew=SKEW)
+        title = Text(f, TITLE, 1000 * TITLE_W / title.w, WHITE, tracking=-25, skew=SKEW)
+        title.place(cx=W / 2, top=T_TOP)
+        tb = title.box()
+        title_svg = title.svg()
+    else:
+        f = Font(script)
+        tw = cm(24.5)
+        title = Text(f, "Não temas", 1000, SCRIPT_COLOR)
+        title = Text(f, "Não temas", 1000 * tw / title.w, SCRIPT_COLOR)
+        title.place(cx=W / 2, top=cm(2.2))
+        tb0 = title.box()
+        stroke = title.size * 0.014          # engrossa os traços finos
+        rot = -6
+        cx, cy = (tb0[0] + tb0[2]) / 2, (tb0[1] + tb0[3]) / 2
+        inner = (f'<g transform="rotate({rot} {cx:.1f} {cy:.1f})">'
+                 + title.svg(stroke=stroke) + "</g>")
+        tex = distressed(inner, W, H)
+        bb = tex.getbbox()
+        tb = (bb[0], bb[1], bb[2], bb[3])
+        # base "visual" do título = 80% da altura (floreios descem abaixo)
+        tb = (tb[0], tb[1], tb[2], tb[1] + (tb[3] - tb[1]) * 0.80)
+        title_svg = f'<image x="0" y="0" width="{W}" height="{H}" href="{png_uri(tex)}"/>'
 
     ilu = Image.open(ILUS).convert("RGB")
-    iw = round(ILU_W)
+    # a ilustração encolhe se preciso para o rodapé caber no quadro (36 cm)
+    lum0 = np.asarray(ilu).max(axis=2)
+    rmax = np.where((lum0 > 40).any(axis=1))[0].max() / ilu.height
+    foot = cm(0.6) + cm(2.6 if lock == "B" else 1.9) + cm(0.6)
+    ih_max = (H - foot - tb[3]) / (rmax - BASE_ROW)
+    iw = round(min(ILU_W, ih_max * ilu.width / ilu.height))
     ih = round(ilu.height * iw / ilu.width)
     ix = (W - iw) // 2
     iy = round(tb[3] - ih * BASE_ROW)
@@ -110,7 +159,7 @@ def build(lock, out):
 
     body = [f'<rect width="{W}" height="{H}" fill="#0B0B0B"/>']   # só na prévia
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(rgba)}"/>')
-    body.append(title.svg())
+    body.append(title_svg)
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(fire_rgba)}"/>')
 
     # fim real da tinta da ilustração (poeira)
@@ -128,4 +177,4 @@ def build(lock, out):
 
 
 if __name__ == "__main__":
-    build(sys.argv[1], sys.argv[2])
+    build(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
