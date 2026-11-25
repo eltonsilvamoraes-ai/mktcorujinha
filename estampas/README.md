@@ -7,7 +7,8 @@ Pasta de criação de estampas (arte de camiseta) da marca.
 1. **Prévia antes de produção.** Fechar a arte só com prévias: imagens individuais e grandes, uma por opção, recortadas na área da arte. O PNG e o SVG de produção só são gerados depois da aprovação.
 2. **Sempre o logo da coruja** (cabeça de coruja estilizada) nas estampas da marca — exceto quando o cliente dispensar (ex.: frente "Entregue o seu caminho", sem logo).
 3. Paleta padrão em camiseta preta: off-white `#EFE8D8` (texto e logo), vermelho `#C83438` (cursiva/destaque).
-4. Quadro de produção: 27 × 32 cm a 300 dpi (3189 × 3780 px), PNG com fundo transparente + SVG 270 × 320 mm com texto em curvas.
+4. **Entrega sempre dentro de uma pasta** com o nome da estampa (ex.: `entregas/Salmos 37-05/`), enviada também como `.zip`. Usar hífen no lugar de ":" no nome (o ":" é proibido em nomes de pasta no Windows e no Mac).
+5. Quadro de produção: 27 × 32 cm a 300 dpi (3189 × 3780 px), PNG com fundo transparente + SVG 270 × 320 mm com texto em curvas.
 
 ## Estrutura
 
