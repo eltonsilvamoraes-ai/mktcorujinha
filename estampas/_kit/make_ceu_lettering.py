@@ -5,9 +5,11 @@ azuis), com o vermelho da marca. A ilustração (pardal + ramo de trigo) entra
 depois; aqui ela aparece como área reservada.
 
 uso: python3 make_ceu_lettering.py <opcao> <saida.svg>
-  1 = Kaushan Script (pincel, mais próximo do lettering da referência)
-  2 = Yellowtail (a cursiva da marca, mesma das costas CONFIE NO SENHOR)
-  3 = Mr Dafoe (pincel rápido, mais streetwear)
+  1 = Berkshire Swash (caixa alta com caudas/swash — a mais próxima da ref.)
+  2 = Lobster (pincel grosso, contraste forte)
+  3 = Norican (traço de tatuagem/vintage)
+O lettering da referência é desenhado à mão (não existe como fonte);
+usamos a fonte livre mais parecida, sem copiar as letras do artista.
 """
 import sys
 
@@ -19,10 +21,11 @@ SKY = "#4E9FD8"
 PAPER = "#FFFFFF"
 
 W, H = round(cm(27)), round(cm(32))
-FONTS = {1: "KaushanScript-Regular", 2: "Yellowtail-Regular", 3: "MrDafoe-Regular"}
+FONTS = {1: "BerkshireSwash-Regular", 2: "Lobster-Regular", 3: "Norican-Regular"}
+CREAM = "#F4EEDD"  # contorno claro em volta das letras, como na referência
 
 # (texto, deslocamento x relativo, escala) — linhas escalonadas como na ref.
-LINES = [("O Céu não", -0.07, 1.00), ("esquece", 0.06, 1.12), ("os Seus", -0.03, 1.05)]
+LINES = [("O CÉU NÃO", -0.06, 1.00), ("ESQUECE", 0.05, 1.12), ("OS SEUS", -0.02, 1.05)]
 
 
 def lettering(font, cx, top, width):
@@ -43,11 +46,10 @@ def lettering(font, cx, top, width):
         d = f.layout(t, sz, 0, tx.dx, tx.dy)[0]
         sx, sy = shadow
         parts.append(
-            f'<path fill="{PAPER}" stroke="{PAPER}" stroke-width="{out_w*2:.1f}" '
-            f'stroke-linejoin="round" d="{f.layout(t, sz, 0, tx.dx + sx/2, tx.dy + sy/2)[0]}"/>'
-            f'<path fill="{NAVY}" transform="translate({sx:.1f} {sy:.1f})" d="{d}"/>'
+            f'<path fill="{CREAM}" stroke="{CREAM}" stroke-width="{out_w*2:.1f}" '
+            f'stroke-linejoin="round" d="{d}"/>'
             f'<path fill="{RED}" d="{d}"/>')
-        y += sz * cap * 0.12        # entrelinha curta: as linhas se encaixam (como na ref.)
+        y += sz * cap * 0.18        # entrelinha curta: as linhas se encaixam (como na ref.)
     return parts, y
 
 
@@ -55,8 +57,8 @@ def build(opt, out):
     cx = W / 2
     body = []
     # referência no topo
-    top = Font("Yellowtail-Regular")
-    ref = Text(top, "Mt 6:26", cm(2.2), RED).place(cx=cx, top=cm(2.0))
+    top = Font(FONTS[opt])
+    ref = Text(top, "Mt 6:26", cm(1.8), RED).place(cx=cx, top=cm(2.0))
     body.append(ref.svg())
     b = ref.box()
     # traço/flourish embaixo da referência, como o da referência visual
