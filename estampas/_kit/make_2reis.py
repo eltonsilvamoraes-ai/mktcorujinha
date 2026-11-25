@@ -247,7 +247,7 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     k = fs / cm(0.5)
     for ln in lines:
         t = Text(m8, ln, fs, CREAM, tracking=30).place(cx=W / 2, top=y)
-        body.append(t.svg()); y = t.box()[3] + cm(0.2) * k
+        body.append(t.svg()); y = t.box()[3] + cm(0.1) * k   # entrelinha curta
     ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42) * k, CREAM, tracking=150)
     ref.place(cx=W / 2, top=y + cm(0.3) * k)
     body.append(ref.svg())
