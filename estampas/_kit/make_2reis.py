@@ -192,7 +192,12 @@ FOOT_W = cm(12.0)          # largura do versículo no rodapé
 ILU4_W = 26.5              # largura da ilustração (cm) na v4+
 
 
-def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
+def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise",
+             bg="#0B0B0B", base=False, text=None):
+    """bg = cor do tecido (só prévia; None = transparente);
+    base = True põe tinta preta por baixo da ilustração (para tecidos
+    coloridos/claros); text = cor do rodapé (padrão creme)."""
+    text = text or CREAM
     from corujinha_art import logo_svg
     ilu = Image.open(ILUS).convert("RGB")
     iw = round(cm(ILU4_W))
@@ -200,6 +205,15 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     ix, iy = (W - iw) // 2, round(cm(0.4 - SHIFT_UP))
     a = np.asarray(ilu.resize((iw, ih), Image.LANCZOS)).astype(int)
     alpha = np.clip((a.max(axis=2) - 22) * 5, 0, 255).astype(np.uint8)
+    if base:
+        from scipy import ndimage as nd
+        sil = nd.binary_closing(alpha > 40, structure=np.ones((3, 3)), iterations=12)
+        sil = nd.binary_fill_holes(sil)
+        soft = np.array(Image.fromarray((sil * 255).astype(np.uint8)).filter(
+            __import__("PIL.ImageFilter", fromlist=["x"]).GaussianBlur(18))) / 255
+        rng = np.random.default_rng(3)
+        grit = (soft > rng.random(soft.shape) * 0.9 + 0.05) | (soft > 0.97)
+        alpha = np.maximum(alpha, (grit * 255).astype(np.uint8))
     rgba = Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA")
 
     # pico central (fica NA FRENTE do título)
@@ -225,7 +239,7 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
              + s1.svg(stroke=stroke) + s2.svg(stroke=stroke) + "</g>")
     tex = distressed(inner, W, H, seed=11)
 
-    body = [f'<rect width="{W}" height="{H}" fill="#0B0B0B"/>']   # só na prévia
+    body = [f'<rect width="{W}" height="{H}" fill="{bg}"/>'] if bg else []   # só na prévia
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(rgba)}"/>')
     body.append(f'<image x="0" y="0" width="{W}" height="{H}" href="{png_uri(tex)}"/>')
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(front)}"/>')
@@ -246,9 +260,9 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     fs = 100 * FOOT_W / widest                 # linha mais larga = FOOT_W
     k = fs / cm(0.5)
     for ln in lines:
-        t = Text(m8, ln, fs, CREAM, tracking=30).place(cx=W / 2, top=y)
+        t = Text(m8, ln, fs, text, tracking=30).place(cx=W / 2, top=y)
         body.append(t.svg()); y = t.box()[3] + cm(0.1) * k   # entrelinha curta
-    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42) * k, CREAM, tracking=150)
+    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42) * k, text, tracking=150)
     ref.place(cx=W / 2, top=y + cm(0.3) * k)
     body.append(ref.svg())
     red = ref
