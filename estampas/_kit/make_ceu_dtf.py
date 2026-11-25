@@ -64,7 +64,7 @@ def build(out, top_w_cm=FW):
     yy0, xx0 = np.ogrid[:a.shape[0], :a.shape[1]]
     for cx, cy, r in MUTE:
         circ = (xx0 - cx) ** 2 + (yy0 - cy) ** 2 <= r * r
-        a[circ & cls["creme"]] = (0x84, 0xA5, 0xBB)
+        # pétalas claras (creme) ficam como no original (pedido do cliente)
         a[circ & (cls["vermelho"] | cls["laranja"])] = (0x4D, 0x61, 0x73)
     if top_w_cm == "prop":
         return build_prop(out, a)
