@@ -29,3 +29,10 @@ Estampa de costas para camiseta preta oversized. Recriação de uma referência 
 ## Pontos de atenção
 
 - **Serigrafia:** avaliar aumentar as corujinhas — com ~1,4 cm as escamas podem fechar na tela.
+
+## v4 — versículo mais grosso (entregue)
+
+- "SL 37:05" refeito em **Montserrat 600** (antes 500), mesma altura, largura e posição; corujas intactas.
+- `ConfieNoSenhor_costas_final_v4.svg` (270 × 320 mm, curvas) + `ConfieNoSenhor_costas_final_v4.png` (transparente, 300 dpi).
+- Alternativa mais grossa: `ConfieNoSenhor_costas_final_v4_versiculo700.svg` (Montserrat 700).
+- Gerar de novo: `python3 _kit/make_costas_versiculo.py <500|600|700> <saida.svg>` (rodar dentro de `_kit/`).
