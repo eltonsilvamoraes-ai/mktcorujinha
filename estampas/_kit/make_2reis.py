@@ -187,10 +187,14 @@ if __name__ == "__main__":
 # vermelho bold itálico. "2 REIS / 6:16" pequeno ao lado do título (como
 # o "EST 2025") e a corujinha no lugar do ®.
 
+FOOT_W = cm(12.0)          # largura do versículo no rodapé
+ILU4_W = 25.8              # largura da ilustração (cm) na v4+
+
+
 def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     from corujinha_art import logo_svg
     ilu = Image.open(ILUS).convert("RGB")
-    iw = round(cm(26.5))
+    iw = round(cm(ILU4_W))
     ih = round(ilu.height * iw / ilu.width)
     ix, iy = (W - iw) // 2, round(cm(0.4))
     a = np.asarray(ilu.resize((iw, ih), Image.LANCZOS)).astype(int)
@@ -208,7 +212,7 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     f = Font(script)
     s1 = Text(f, "Não", cm(7.0), color)
     s2 = Text(f, "temas", cm(7.0), color)
-    gap = cm(1.6)                              # vão onde aparece o pico
+    gap = cm(2.1)                              # vão onde aparece o pico
     total = s1.w + gap + s2.w
     x0 = (W - total) / 2 - cm(0.4)
     s1.place(left=x0, top=cm(2.0))
@@ -234,13 +238,17 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     rows = np.where((alpha > 40).any(axis=1))[0]
     y = iy + rows.max() + cm(0.9)          # um pouco mais de respiro dos cavalos
     m8 = Font("Montserrat-800")
-    for ln in ("NÃO TEMAS, PORQUE MAIS SÃO",
-               "OS QUE ESTÃO CONOSCO DO QUE",
-               "OS QUE ESTÃO COM ELES"):
-        t = Text(m8, ln, cm(0.5), CREAM, tracking=30).place(cx=W / 2, top=y)
-        body.append(t.svg()); y = t.box()[3] + cm(0.2)
-    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42), CREAM, tracking=150)
-    ref.place(cx=W / 2, top=y + cm(0.3))
+    lines = ("NÃO TEMAS, PORQUE MAIS SÃO",
+             "OS QUE ESTÃO CONOSCO DO QUE",
+             "OS QUE ESTÃO COM ELES")
+    widest = max(Text(m8, ln, 100, CREAM, tracking=30).w for ln in lines)
+    fs = 100 * FOOT_W / widest                 # linha mais larga = FOOT_W
+    k = fs / cm(0.5)
+    for ln in lines:
+        t = Text(m8, ln, fs, CREAM, tracking=30).place(cx=W / 2, top=y)
+        body.append(t.svg()); y = t.box()[3] + cm(0.2) * k
+    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42) * k, CREAM, tracking=150)
+    ref.place(cx=W / 2, top=y + cm(0.3) * k)
     body.append(ref.svg())
     red = ref
     open(out, "w").write(document("\n".join(body), W, H))
