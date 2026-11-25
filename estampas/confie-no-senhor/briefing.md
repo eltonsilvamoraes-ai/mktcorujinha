@@ -17,7 +17,8 @@ Estampa de costas para camiseta preta oversized. Recriação de uma referência 
 ## Arquivos entregues
 
 - `ConfieNoSenhor_final.png` — fundo transparente, 300 dpi  *(PENDENTE: subir nesta pasta)*
-- `ConfieNoSenhor_final.svg` — 270 × 320 mm, texto em curvas, abre no Illustrator sem as fontes  *(PENDENTE: subir nesta pasta)*
+- `ConfieNoSenhor_final.svg` — 270 × 320 mm, texto em curvas, abre no Illustrator sem as fontes ✅
+- `previa_v3_aprovada.png` — prévia da v3 renderizada sobre preto ✅
 
 ## Histórico das decisões
 
