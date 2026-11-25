@@ -187,8 +187,9 @@ if __name__ == "__main__":
 # vermelho bold itálico. "2 REIS / 6:16" pequeno ao lado do título (como
 # o "EST 2025") e a corujinha no lugar do ®.
 
+SHIFT_UP = 0.8             # sobe título + ilustração (cm) para o rodapé caber
 FOOT_W = cm(12.0)          # largura do versículo no rodapé
-ILU4_W = 25.8              # largura da ilustração (cm) na v4+
+ILU4_W = 26.5              # largura da ilustração (cm) na v4+
 
 
 def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
@@ -196,7 +197,7 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     ilu = Image.open(ILUS).convert("RGB")
     iw = round(cm(ILU4_W))
     ih = round(ilu.height * iw / ilu.width)
-    ix, iy = (W - iw) // 2, round(cm(0.4))
+    ix, iy = (W - iw) // 2, round(cm(0.4 - SHIFT_UP))
     a = np.asarray(ilu.resize((iw, ih), Image.LANCZOS)).astype(int)
     alpha = np.clip((a.max(axis=2) - 22) * 5, 0, 255).astype(np.uint8)
     rgba = Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA")
@@ -215,7 +216,7 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     gap = cm(2.1)                              # vão onde aparece o pico
     total = s1.w + gap + s2.w
     x0 = (W - total) / 2 - cm(0.4)
-    s1.place(left=x0, top=cm(2.0))
+    s1.place(left=x0, top=cm(2.0 - SHIFT_UP))
     s2.place(left=x0 + s1.w + gap, top=s1.box()[3] - cm(3.0))
     stroke = s1.size * 0.012
     b1, b2 = s1.box(), s2.box()
