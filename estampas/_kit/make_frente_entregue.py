@@ -12,6 +12,7 @@ uso: python3 make_frente_entregue.py <opcao> <saida.svg>
   1 = vermelho só em ENTREGUE e "ao Senhor,"
   2 = igual à 1 + "SL 37:5" pequeno embaixo
   3 = vermelho em todas as palavras de destaque (ENTREGUE, caminho, ao Senhor, mais)
+  4 = v3: "Entregue" e "ao Senhor," em letra de mão vermelha; resto em Anton
 """
 import sys
 
@@ -27,10 +28,16 @@ ART_W = cm(7.4)        # largura comum de todas as linhas
 SCRIPT_RATIO = 1.40    # corpo da letra de mão em relação ao Anton
 GAP_RATIO = 0.16       # espaço entre palavras de fontes diferentes (x corpo Anton)
 TRACK_A = -10          # tracking levemente negativo, como nas costas
-LEAD = 0.55            # espaço entre linhas (x altura de versal da menor linha)
+LEAD = 0.72            # espaço entre linhas (x altura de versal da menor linha)
 
 
 def lines(opt):
+    if opt == 4:  # v3: volta à cursiva da v1 (opção 3), sem logo, largura igual
+        return [
+            [("Entregue", "s", RED), ("O SEU CAMINHO", "a", OFFWHITE)],
+            [("ao Senhor,", "s", RED), ("CONFIE NELE", "a", OFFWHITE)],
+            [("E O MAIS ELE FARÁ.", "a", OFFWHITE)],
+        ]
     hl = RED if opt == 3 else OFFWHITE   # cor das letras de mão "neutras"
     return [
         [("ENTREGUE", "a", RED), ("O SEU", "a", OFFWHITE), ("caminho", "s", hl)],
