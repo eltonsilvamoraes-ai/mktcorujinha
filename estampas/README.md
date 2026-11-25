@@ -17,7 +17,9 @@ estampas/
 ├── _kit/                    ← pipeline reutilizável (scripts, logo, fontes)
 │   ├── make_art.py          ← funções base (Font, star)        [PENDENTE: subir]
 │   ├── make_art3.py         ← layout final; build(..., final=True) [PENDENTE: subir]
-│   ├── logo_coruja.svg      ← logo vetorizado (preto, evenodd)  [PENDENTE: subir]
+│   ├── logo_coruja.svg      ← logo vetorizado (preto, evenodd, viewBox 1313×951) ✅
+│   ├── vetorizar_logo.py    ← PNG → SVG (potracer, upscale 3×, máscara invertida + borda 20 px) ✅
+│   ├── logo-original/       ← PNG/JPG originais do logo + prévia off-white na camiseta preta ✅
 │   └── fonts/               ← Anton, Yellowtail, Montserrat… (via npm @fontsource)
 └── confie-no-senhor/        ← briefing e arquivos finais de cada estampa
 ```
