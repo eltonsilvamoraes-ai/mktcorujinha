@@ -228,21 +228,21 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
     # "2 REIS / 6:16" pequeno à esquerda (como o EST 2025) + corujinha (como o ®)
     tb = tex.getbbox()
     ex = Font("Archivo-900i")
-    ox = W - cm(1.9)
-    r1 = Text(ex, "2 REIS", cm(0.5), CREAM).place(cx=ox, top=tb[1] + cm(2.0))
-    r2 = Text(ex, "6:15-17", cm(0.5), CREAM).place(cx=ox, top=r1.box()[3] + cm(0.15))
-    body += [r1.svg(), r2.svg()]
-    body.append(logo_svg(ox, tb[1] + cm(1.0), cm(1.3), CREAM)[0])
+    # (sem logo e sem referência no topo: pedido do cliente — logo entra depois)
 
     # rodapé (estilo ref.)
     rows = np.where((alpha > 40).any(axis=1))[0]
     y = iy + rows.max() + cm(0.5)
-    m5 = Font("Montserrat-500")
-    for ln in ("Não temas, porque mais são os que estão conosco",
-               "do que os que estão com eles."):
-        t = Text(m5, ln, cm(0.52), CREAM).place(cx=W / 2, top=y)
+    m8 = Font("Montserrat-800")
+    for ln in ("NÃO TEMAS, PORQUE MAIS SÃO OS QUE ESTÃO CONOSCO",
+               "DO QUE OS QUE ESTÃO COM ELES."):
+        t = Text(m8, ln, cm(0.5), CREAM, tracking=30).place(cx=W / 2, top=y)
         body.append(t.svg()); y = t.box()[3] + cm(0.18)
-    red = Text(ex, "ALÉM DO QUE SE VÊ", cm(0.62), "#C83438", tracking=10).place(cx=W / 2, top=y + cm(0.15))
+    red = Text(ex, "ALÉM DO QUE SE VÊ", cm(0.75), "#C83438", tracking=10).place(cx=W / 2, top=y + cm(0.15))
     body.append(red.svg())
+    ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42), CREAM, tracking=420)
+    ref.place(cx=W / 2, top=red.box()[3] + cm(0.35))
+    body.append(ref.svg())
+    red = ref
     open(out, "w").write(document("\n".join(body), W, H))
     print(f"v4: arte até {red.box()[3]/300*2.54:.1f} cm")
