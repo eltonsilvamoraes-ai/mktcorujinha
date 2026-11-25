@@ -178,3 +178,71 @@ def build(lock, out, script=None):
 
 if __name__ == "__main__":
     build(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+
+
+# ---------------------------------------------------------------- v4
+# Título cursivo ENTRELAÇADO com a montanha (ref. "Social Club"): 2 linhas
+# em diagonal grande, passando POR TRÁS do pico central e na frente do resto.
+# Rodapé no estilo da ref.: versículo pequeno centralizado + frase em
+# vermelho bold itálico. "2 REIS / 6:16" pequeno ao lado do título (como
+# o "EST 2025") e a corujinha no lugar do ®.
+
+def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise"):
+    from corujinha_art import logo_svg
+    ilu = Image.open(ILUS).convert("RGB")
+    iw = round(cm(26.5))
+    ih = round(ilu.height * iw / ilu.width)
+    ix, iy = (W - iw) // 2, round(cm(0.4))
+    a = np.asarray(ilu.resize((iw, ih), Image.LANCZOS)).astype(int)
+    alpha = np.clip((a.max(axis=2) - 22) * 5, 0, 255).astype(np.uint8)
+    rgba = Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA")
+
+    # pico central (fica NA FRENTE do título)
+    yy, xx = np.mgrid[0:ih, 0:iw]
+    px, py = 0.50 * iw, 0.19 * ih            # topo do pico
+    # só a ponta do pico (azul + fogo) passa na frente, entre "Não" e "temas"
+    peak = (yy > py) & (yy < 0.29 * ih) & (np.abs(xx - px) < (yy - py) * 0.75 + 6)
+    front = Image.fromarray(np.dstack([a.astype(np.uint8), np.where(peak, alpha, 0).astype(np.uint8)]), "RGBA")
+
+    # título: "Não" / "temas" em diagonal
+    f = Font(script)
+    s1 = Text(f, "Não", cm(7.0), color)
+    s2 = Text(f, "temas", cm(7.0), color)
+    gap = cm(1.6)                              # vão onde aparece o pico
+    total = s1.w + gap + s2.w
+    x0 = (W - total) / 2 - cm(0.4)
+    s1.place(left=x0, top=cm(2.0))
+    s2.place(left=x0 + s1.w + gap, top=s1.box()[3] - cm(3.0))
+    stroke = s1.size * 0.012
+    b1, b2 = s1.box(), s2.box()
+    rcx, rcy = (b1[0] + b2[2]) / 2, (b1[1] + b2[3]) / 2
+    inner = (f'<g transform="rotate(-8 {rcx:.1f} {rcy:.1f})">'
+             + s1.svg(stroke=stroke) + s2.svg(stroke=stroke) + "</g>")
+    tex = distressed(inner, W, H, seed=11)
+
+    body = [f'<rect width="{W}" height="{H}" fill="#0B0B0B"/>']   # só na prévia
+    body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(rgba)}"/>')
+    body.append(f'<image x="0" y="0" width="{W}" height="{H}" href="{png_uri(tex)}"/>')
+    body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(front)}"/>')
+
+    # "2 REIS / 6:16" pequeno à esquerda (como o EST 2025) + corujinha (como o ®)
+    tb = tex.getbbox()
+    ex = Font("Archivo-900i")
+    ox = W - cm(1.9)
+    r1 = Text(ex, "2 REIS", cm(0.5), CREAM).place(cx=ox, top=tb[1] + cm(2.0))
+    r2 = Text(ex, "6:15-17", cm(0.5), CREAM).place(cx=ox, top=r1.box()[3] + cm(0.15))
+    body += [r1.svg(), r2.svg()]
+    body.append(logo_svg(ox, tb[1] + cm(1.0), cm(1.3), CREAM)[0])
+
+    # rodapé (estilo ref.)
+    rows = np.where((alpha > 40).any(axis=1))[0]
+    y = iy + rows.max() + cm(0.5)
+    m5 = Font("Montserrat-500")
+    for ln in ("Não temas, porque mais são os que estão conosco",
+               "do que os que estão com eles."):
+        t = Text(m5, ln, cm(0.52), CREAM).place(cx=W / 2, top=y)
+        body.append(t.svg()); y = t.box()[3] + cm(0.18)
+    red = Text(ex, "ALÉM DO QUE SE VÊ", cm(0.62), "#C83438", tracking=10).place(cx=W / 2, top=y + cm(0.15))
+    body.append(red.svg())
+    open(out, "w").write(document("\n".join(body), W, H))
+    print(f"v4: arte até {red.box()[3]/300*2.54:.1f} cm")
