@@ -4,7 +4,12 @@ Parte da arte que o cliente gerou (referencia_cliente_chatgpt.webp):
 1. separa a ilustração (topo) do bloco de texto (embaixo) por componentes
    conectados — não existe uma linha reta livre entre os dois;
 2. reduz o bloco de texto (fator K) para caber em 36 cm de altura;
-3. troca a florzinha central do ramo de baixo pela corujinha da marca;
+3. reduz as flores (pedido do cliente, "para não parecer muito IA"):
+   - a florzinha central do ramo de baixo sai (no lugar pode entrar a
+     corujinha da marca, com OWL = True — o cliente pediu sem coruja);
+   - as duas flores grandes da ilustração passam para os tons das folhas
+     (creme -> azul, vermelho/laranja -> azul-acinzentado), então deixam de
+     disputar atenção com o pardal sem abrir buracos no desenho;
 4. vetoriza tudo por separação de cores (vetorizar_cores.py).
 
 uso: python3 make_ceu_dtf.py <saida.svg> [largura_ilustracao_cm]
@@ -23,6 +28,9 @@ SRC = "../o-ceu-nao-esquece/ilustracao/referencia_cliente_chatgpt.webp"
 FW, FH = 28.0, 36.0            # quadro (cm): a arte ocupa a largura toda
 SPLIT_Y = 900                  # componentes que começam abaixo disso = texto
 FLOWER = (501, 1419, 68)       # florzinha central do ramo de baixo (x, y, raio)
+GARLAND_TOP = 1372             # topo do ramo de baixo (abaixo do "OS SEUS")
+OWL = False                    # corujinha no lugar da flor de baixo
+MUTE = [(372, 338, 90), (432, 812, 95)]   # flores grandes (x, y, raio) -> tons de folha
 OWL_W = 2.3                    # largura da corujinha (x raio da flor)
 OVERLAP = 0.05                 # quanto o texto sobe sobre a ilustração (x altura do texto)
 NAVY = PALETTE["marinho"][0]
@@ -50,12 +58,29 @@ def part(a, mask):
 def build(out, top_w_cm=FW):
     a = np.array(Image.open(SRC).convert("RGB"))
     tm, bm = split(a)
+    cls = separate(Image.fromarray(a))
+    yy0, xx0 = np.ogrid[:a.shape[0], :a.shape[1]]
+    for cx, cy, r in MUTE:
+        circ = (xx0 - cx) ** 2 + (yy0 - cy) ** 2 <= r * r
+        a[circ & cls["creme"]] = (0x84, 0xA5, 0xBB)
+        a[circ & (cls["vermelho"] | cls["laranja"])] = (0x4D, 0x61, 0x73)
     # tira a florzinha central de baixo (lugar da corujinha)
     fx, fy, fr = FLOWER
     yy, xx = np.ogrid[:a.shape[0], :a.shape[1]]
     # área limpa em volta da coruja (elipse do tamanho do logo + folga)
-    rx, ry = OWL_W * fr / 2 * 1.12, OWL_W * fr / 2 * 951 / 1313 * 1.25
+    if OWL:
+        rx, ry = OWL_W * fr / 2 * 1.12, OWL_W * fr / 2 * 951 / 1313 * 1.25
+    else:   # só a flor
+        rx, ry = fr * 1.22, fr * 1.12
     hole = ((xx - fx) / rx) ** 2 + ((yy - fy) / ry) ** 2 <= 1
+    # protege as letras (componentes grandes que começam acima do ramo)
+    lab0, n0 = nd.label(bm, structure=np.ones((3, 3)))
+    sz0 = nd.sum(bm, lab0, range(1, n0 + 1))
+    letters = np.zeros(n0 + 1, bool)
+    for i, sl in enumerate(nd.find_objects(lab0), 1):
+        if sz0[i - 1] > 1500 and sl[0].start < GARLAND_TOP - 25:
+            letters[i] = True
+    hole &= ~letters[lab0]      # nunca encosta no "OS SEUS"
     bm &= ~hole
     # some com os pedacinhos de pétala/folha que sobraram em volta da coruja
     near = nd.binary_dilation(hole, iterations=25)
@@ -98,7 +123,8 @@ def build(out, top_w_cm=FW):
     # corujinha no lugar da flor
     ocx = bx + (fx - bb[0]) * sb
     ocy = oy + by + (fy - bb[1]) * sb
-    body.append(f'<g id="logo">{logo_svg(ocx, ocy, OWL_W * fr * sb, NAVY)[0]}</g>')
+    if OWL:
+        body.append(f'<g id="logo">{logo_svg(ocx, ocy, OWL_W * fr * sb, NAVY)[0]}</g>')
     open(out, "w").write(document("\n".join(body), W, H))
     print(f"K={k:.3f}  arte: {W/300*2.54:.1f} x {total_h/300*2.54:.1f} cm  "
           f"texto: {bw/300*2.54:.1f} cm de largura")
