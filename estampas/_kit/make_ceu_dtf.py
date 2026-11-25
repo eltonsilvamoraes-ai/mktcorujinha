@@ -12,7 +12,8 @@ Parte da arte que o cliente gerou (referencia_cliente_chatgpt.webp):
      disputar atenção com o pardal sem abrir buracos no desenho;
 4. vetoriza tudo por separação de cores (vetorizar_cores.py).
 
-uso: python3 make_ceu_dtf.py <saida.svg> [largura_ilustracao_cm]
+uso: python3 make_ceu_dtf.py <saida.svg> [largura_ilustracao_cm | prop]
+     prop = pássaro e texto na proporção original (arte ~23 x 36 cm)
      (padrão 28: ilustração na largura toda; menor = sobra altura e o texto cresce)
 """
 import sys
@@ -30,7 +31,8 @@ SPLIT_Y = 900                  # componentes que começam abaixo disso = texto
 FLOWER = (501, 1419, 68)       # florzinha central do ramo de baixo (x, y, raio)
 GARLAND_TOP = 1372             # topo do ramo de baixo (abaixo do "OS SEUS")
 OWL = False                    # corujinha no lugar da flor de baixo
-MUTE = [(372, 338, 90), (432, 812, 95)]   # flores grandes (x, y, raio) -> tons de folha
+MUTE = [(372, 338, 90), (432, 812, 95), (501, 1419, 72)]  # flores (x, y, raio) -> tons de folha
+REMOVE_BOTTOM = False          # True = apaga a flor de baixo (deixa um vazado no ramo)
 OWL_W = 2.3                    # largura da corujinha (x raio da flor)
 OVERLAP = 0.05                 # quanto o texto sobe sobre a ilustração (x altura do texto)
 NAVY = PALETTE["marinho"][0]
@@ -64,6 +66,8 @@ def build(out, top_w_cm=FW):
         circ = (xx0 - cx) ** 2 + (yy0 - cy) ** 2 <= r * r
         a[circ & cls["creme"]] = (0x84, 0xA5, 0xBB)
         a[circ & (cls["vermelho"] | cls["laranja"])] = (0x4D, 0x61, 0x73)
+    if top_w_cm == "prop":
+        return build_prop(out, a)
     # tira a florzinha central de baixo (lugar da corujinha)
     fx, fy, fr = FLOWER
     yy, xx = np.ogrid[:a.shape[0], :a.shape[1]]
@@ -73,6 +77,8 @@ def build(out, top_w_cm=FW):
     else:   # só a flor
         rx, ry = fr * 1.22, fr * 1.12
     hole = ((xx - fx) / rx) ** 2 + ((yy - fy) / ry) ** 2 <= 1
+    if not (OWL or REMOVE_BOTTOM):
+        hole[:] = False
     # protege as letras (componentes grandes que começam acima do ramo)
     lab0, n0 = nd.label(bm, structure=np.ones((3, 3)))
     sz0 = nd.sum(bm, lab0, range(1, n0 + 1))
@@ -130,5 +136,27 @@ def build(out, top_w_cm=FW):
           f"texto: {bw/300*2.54:.1f} cm de largura")
 
 
+def build_prop(out, a):
+    """Pássaro e texto na proporção original: a arte inteira escala junto
+    até caber em FW x FH (a altura manda: ~23 x 36 cm)."""
+    ink = np.asarray(Image.fromarray(a).convert("L")) < 235
+    ys, xs = np.where(ink)
+    im = Image.fromarray(a).crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+    W, H = round(cm(FW)), round(cm(FH))
+    s = min(W / im.width, H / im.height)
+    aw, ah = round(im.width * s), round(im.height * s)
+    canvas = Image.new("RGB", (W, H), "white")
+    canvas.paste(im.resize((aw, ah), Image.LANCZOS), ((W - aw) // 2, (H - ah) // 2))
+    masks = separate(canvas)
+    body = []
+    for n in ORDER:
+        tr, inner = trace(masks[n], 1, 0, 0)
+        inner = re.sub(r'fill="[^"]*"', "", inner)
+        body.append(f'<g id="{n}" fill="{PALETTE[n][0]}"><g transform="{tr}">{inner}</g></g>')
+    open(out, "w").write(document("\n".join(body), W, H))
+    print(f"proporcional: arte {aw/300*2.54:.1f} x {ah/300*2.54:.1f} cm")
+
+
 if __name__ == "__main__":
-    build(sys.argv[1], float(sys.argv[2]) if len(sys.argv) > 2 else FW)
+    arg = sys.argv[2] if len(sys.argv) > 2 else str(FW)
+    build(sys.argv[1], arg if arg == "prop" else float(arg))
