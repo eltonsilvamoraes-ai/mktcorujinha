@@ -1,14 +1,15 @@
-"""NÃO TEMAS — 2 Reis 6:15-17 — prévia (camiseta preta).
+"""NÃO TEMAS — 2 Reis 6:15-17 — prévia v2 (camiseta preta).
 
-Diagramação da referência 1 (3 faixas): título enorme itálico pesado no
-topo com arco terminando numa chama; monte em fogo no meio; cavalos de fogo
-na base. O fogo do monte passa POR CIMA da base das letras (camadas
-encaixadas). Linha pequena embaixo: "ALÉM DO QUE SE VÊ · 2 REIS 6:16".
-A ilustração é raster (gerada no Figma) nesta fase; o texto já é vetor.
+Diagramação da referência 1: título enorme em itálico extra-largo e pesado
+no topo (Archivo Expanded Black Italic, a mais próxima do lettering da ref.),
+o monte sobe por trás da base das letras e os riscos de fogo passam por cima;
+cavalos na base. Sem arco e sem estrela (pedido do cliente).
+Embaixo, um bloco de texto diagramado ("lockup") com
+"ALÉM DO QUE SE VÊ" + "2 REIS 6:16".
 
-uso: python3 make_2reis.py <opcao> <saida.svg>
-  1 = Archivo Black Italic   2 = Barlow Black Italic
-  3 = Saira Black Italic     4 = Russo One (inclinada 12°)
+uso: python3 make_2reis.py <lockup> <saida.svg>
+  lockup A = centralizado em 2 níveis com filetes
+  lockup B = bloco à esquerda + referência à direita, separados por fio vertical
 """
 import base64
 import io
@@ -19,13 +20,15 @@ from PIL import Image
 
 from corujinha_art import Font, Text, cm, document
 
-ILUS = "../2-reis-6/ilustracao/cavalos_fogo_v1_figma.png"
+ILUS = "../2-reis-6/ilustracao/cavalos_fogo_v2a_figma.png"
 W, H = round(cm(28)), round(cm(36))
-WHITE, CREAM = "#FFFFFF", "#E9E2CF"
-FONTS = {1: ("Archivo-900i", 0), 2: ("Barlow-900i", 0), 3: ("Saira-900i", 0),
-         4: ("RussoOne-Regular", 12)}
+WHITE, CREAM, GOLD, RED = "#FFFFFF", "#E9E2CF", "#E3A83B", "#B4483C"
 TITLE = "NÃO TEMAS"
-TITLE_W = cm(25.5)
+TITLE_W = cm(26.0)
+T_TOP = cm(3.0)
+ILU_W = cm(27.0)
+SKEW = 7                  # inclinação extra além do itálico da fonte (como na ref.)
+BASE_ROW = 300 / 1280     # linha da imagem que encosta na base do título
 
 
 def png_uri(im):
@@ -34,80 +37,95 @@ def png_uri(im):
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-def flame(cx, cy, h, color):
-    """Chama estilizada de 3 línguas (vetor próprio), base em (cx, cy)."""
-    s = h / 100
-    p = lambda x, y: f"{cx + x * s:.1f} {cy - y * s:.1f}"
-    d = (f"M{p(0, 0)} "
-         f"C{p(-26, 0)} {p(-36, 22)} {p(-30, 44)} "          # bojo esquerdo
-         f"C{p(-27, 54)} {p(-30, 62)} {p(-36, 72)} "         # língua esquerda
-         f"C{p(-20, 66)} {p(-14, 56)} {p(-12, 50)} "
-         f"C{p(-10, 70)} {p(-2, 84)} {p(2, 100)} "           # língua central (alta)
-         f"C{p(8, 84)} {p(16, 74)} {p(14, 58)} "
-         f"C{p(20, 64)} {p(26, 68)} {p(30, 76)} "            # língua direita
-         f"C{p(36, 54)} {p(32, 0)} {p(0, 0)} Z "
-         f"M{p(2, 12)} C{p(-12, 12)} {p(-14, 28)} {p(-6, 40)} "  # miolo vazado
-         f"C{p(-4, 34)} {p(2, 30)} {p(4, 24)} C{p(8, 30)} {p(12, 26)} {p(12, 20)} "
-         f"C{p(12, 14)} {p(8, 12)} {p(2, 12)} Z")
-    return f'<path fill="{color}" fill-rule="evenodd" d="{d}"/>'
+def rule(x0, x1, y, w, color):
+    return (f'<rect x="{x0:.1f}" y="{y - w / 2:.1f}" width="{x1 - x0:.1f}" '
+            f'height="{w:.1f}" fill="{color}"/>')
 
 
-def build(opt, out):
-    fname, skew = FONTS[opt]
-    f = Font(fname)
-    b = f.ink(TITLE, 1000)
-    size = 1000 * TITLE_W / (b[2] - b[0])
-    title = Text(f, TITLE, size, WHITE, tracking=-15, skew=skew)
-    size *= TITLE_W / title.w
-    title = Text(f, TITLE, size, WHITE, tracking=-15, skew=skew)
-    t_top = cm(4.3)
-    title.place(cx=W / 2, top=t_top)
+def lockup_A(cx, top):
+    """ALÉM DO QUE SE VÊ (itálico largo) / —— 2 REIS 6:16 —— (espaçado)."""
+    ex = Font("ArchivoExpanded-900i")
+    m = Font("Montserrat-600")
+    l1 = Text(ex, "ALÉM DO QUE SE VÊ", cm(1.05), CREAM, tracking=40).place(cx=cx, top=top)
+    b1 = l1.box()
+    l2 = Text(m, "2 REIS 6:16", cm(0.42), GOLD, tracking=600).place(cx=cx, top=b1[3] + cm(0.45))
+    b2 = l2.box()
+    y = (b2[1] + b2[3]) / 2
+    gap = cm(0.5)
+    parts = [l1.svg(), l2.svg(),
+             rule(b1[0], b2[0] - gap, y, cm(0.06), CREAM),
+             rule(b2[2] + gap, b1[2], y, cm(0.06), CREAM)]
+    return parts, b2[3]
+
+
+def lockup_B(cx, top, width):
+    """Bloco: ALÉM DO / QUE SE VÊ (itálico largo, 2 linhas) | fio | 2 REIS
+    6:16 + microtexto do versículo, alinhado como uma etiqueta."""
+    ex = Font("ArchivoExpanded-900i")
+    m6 = Font("Montserrat-600")
+    m5 = Font("Montserrat-500")
+    x0 = cx - width / 2
+    a1 = Text(ex, "ALÉM DO", cm(1.15), CREAM, tracking=20).place(left=x0, top=top)
+    a2 = Text(ex, "QUE SE VÊ", cm(1.15), CREAM, tracking=20)
+    a2.place(left=x0, top=a1.box()[3] + cm(0.28))
+    bl = max(a1.box()[2], a2.box()[2])
+    bottom = a2.box()[3]
+    vx = bl + cm(0.75)
+    rx = vx + cm(0.75)
+    r1 = Text(m6, "2 REIS 6:16", cm(0.5), GOLD, tracking=420).place(left=rx, top=top + cm(0.05))
+    micro = ["NÃO TEMAS, PORQUE MAIS SÃO", "OS QUE ESTÃO CONOSCO DO QUE", "OS QUE ESTÃO COM ELES."]
+    parts = [a1.svg(), a2.svg(), r1.svg(),
+             rule(vx - cm(0.03), vx + cm(0.03), 0, 0, CREAM)]
+    parts[-1] = (f'<rect x="{vx - cm(0.03):.1f}" y="{top:.1f}" width="{cm(0.06):.1f}" '
+                 f'height="{bottom - top:.1f}" fill="{CREAM}"/>')
+    y = r1.box()[3] + cm(0.42)
+    for ln in micro:
+        t = Text(m5, ln, cm(0.3), CREAM, tracking=160).place(left=rx, top=y)
+        parts.append(t.svg())
+        y = t.box()[3] + cm(0.2)
+    # centraliza o bloco inteiro
+    right = max(r1.box()[2], max(Text(m5, ln, cm(0.3), CREAM, tracking=160).w for ln in micro) + rx)
+    shift = cx - (x0 + right) / 2
+    return [f'<g transform="translate({shift:.1f} 0)">' + "".join(parts) + "</g>"], max(bottom, y)
+
+
+def build(lock, out):
+    f = Font("ArchivoExpanded-900i")
+    title = Text(f, TITLE, 1000, WHITE, tracking=-25, skew=SKEW)
+    title = Text(f, TITLE, 1000 * TITLE_W / title.w, WHITE, tracking=-25, skew=SKEW)
+    title.place(cx=W / 2, top=T_TOP)
     tb = title.box()
 
-    # ilustração: 25,5 cm de largura; os picos do fogo sobem até o meio do título
     ilu = Image.open(ILUS).convert("RGB")
-    iw = round(cm(24.5))
+    iw = round(ILU_W)
     ih = round(ilu.height * iw / ilu.width)
     ix = (W - iw) // 2
-    # crista do monte (~17% da imagem) encosta na base do título: os picos e
-    # o fogo sobem por trás/por cima das letras, como na referência
-    iy = round(tb[3] - ih * 0.20)
-    ilu_r = ilu.resize((iw, ih), Image.LANCZOS)
-    a = np.asarray(ilu_r).astype(int)
-    # fundo preto -> transparente (é o tecido)
-    lum = a.max(axis=2)
-    alpha = np.clip((lum - 18) * 6, 0, 255).astype(np.uint8)
+    iy = round(tb[3] - ih * BASE_ROW)
+    a = np.asarray(ilu.resize((iw, ih), Image.LANCZOS)).astype(int)
+    alpha = np.clip((a.max(axis=2) - 22) * 5, 0, 255).astype(np.uint8)
     rgba = Image.fromarray(np.dstack([a.astype(np.uint8), alpha]), "RGBA")
-    # fogo (laranja/amarelo saturado) volta POR CIMA do título
-    r, g, bl = a[..., 0], a[..., 1], a[..., 2]
-    fire = (r > 170) & (r - bl > 90) & (g > 60)
-    fire_a = np.where(fire, alpha, 0).astype(np.uint8)
-    fire_rgba = Image.fromarray(np.dstack([a.astype(np.uint8), fire_a]), "RGBA")
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    fire = (r > 170) & (g > 100) & (r - b > 90)
+    fire_rgba = Image.fromarray(np.dstack([a.astype(np.uint8), np.where(fire, alpha, 0).astype(np.uint8)]), "RGBA")
 
-    body = [f'<rect width="{W}" height="{H}" fill="#0B0B0B"/>']  # só na prévia
+    body = [f'<rect width="{W}" height="{H}" fill="#0B0B0B"/>']   # só na prévia
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(rgba)}"/>')
     body.append(title.svg())
     body.append(f'<image x="{ix}" y="{iy}" width="{iw}" height="{ih}" href="{png_uri(fire_rgba)}"/>')
 
-    # arco fino por cima do título terminando numa chama (como o arco+estrela da ref.)
-    ax0, ay0 = tb[0] + (tb[2] - tb[0]) * 0.08, tb[1] - cm(0.35)
-    ax1, ay1 = tb[2] - cm(2.2), tb[1] - cm(1.5)
-    body.append(
-        f'<path fill="{WHITE}" d="M{ax0:.1f} {ay0:.1f} '
-        f'Q{(ax0 + ax1) / 2:.1f} {ay1 - cm(0.9):.1f} {ax1:.1f} {ay1:.1f} '
-        f'L{ax1 + cm(0.1):.1f} {ay1 + cm(0.32):.1f} '
-        f'Q{(ax0 + ax1) / 2:.1f} {ay1 - cm(0.45):.1f} {ax0:.1f} {ay0:.1f} Z"/>')
-    body.append(flame(ax1 + cm(0.95), ay1 + cm(0.7), cm(2.6), WHITE))
-
-    # linha pequena embaixo
-    mont = Font("Montserrat-600")
-    line = Text(mont, "ALÉM DO QUE SE VÊ  ·  2 REIS 6:16", cm(0.62), CREAM, tracking=260)
-    line.place(cx=W / 2, top=iy + ih + cm(0.2))
-    body.append(line.svg())
+    # fim real da tinta da ilustração (poeira)
+    rows = np.where((alpha > 40).any(axis=1))[0]
+    ink_bottom = iy + rows.max()
+    top = ink_bottom + cm(0.6)
+    if lock == "A":
+        parts, end = lockup_A(W / 2, top)
+    else:
+        parts, end = lockup_B(W / 2, top, cm(20))
+    body += parts
     open(out, "w").write(document("\n".join(body), W, H))
-    lb = line.box()
-    print(f"opção {opt}: título {(tb[2]-tb[0])/300*2.54:.1f} cm; arte até {lb[3]/300*2.54:.1f} cm")
+    print(f"lockup {lock}: título {(tb[2]-tb[0])/300*2.54:.1f} x {(tb[3]-tb[1])/300*2.54:.1f} cm; "
+          f"arte de {tb[1]/300*2.54:.1f} até {end/300*2.54:.1f} cm")
 
 
 if __name__ == "__main__":
-    build(int(sys.argv[1]), sys.argv[2])
+    build(sys.argv[1], sys.argv[2])
