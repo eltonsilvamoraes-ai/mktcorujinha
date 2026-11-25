@@ -1,0 +1,24 @@
+MT 6:26 — O CÉU NÃO ESQUECE OS SEUS
+====================================
+
+ARQUIVOS
+- MT6-26_COSTAS.svg / .png  -> quadro 28 x 36 cm (arte 23,2 x 36 cm centralizada), 300 dpi
+- MT6-26_FRENTE.svg / .png  -> 10 x 5,2 cm (só a frase), 300 dpi
+SVG = vetor (abre no Illustrator/Corel). PNG = fundo transparente, pronto para DTF.
+
+CAMADAS (cada cor separada, para trocar depois)
+Cada arquivo tem grupos por PARTE e, dentro, um grupo por COR:
+
+COSTAS
+  ILUSTRACAO  -> marinho #0B2540 | vermelho #CE2A1F | creme #EEDFD2 | azul #84A5BB | laranja #E1745C
+  TEXTO       -> marinho #0B2540 | vermelho #CE2A1F      ("MT 6:26" + a frase)
+  RAMO        -> marinho #0B2540 | vermelho #CE2A1F | creme #EEDFD2 | azul #84A5BB
+FRENTE
+  TEXTO       -> marinho #0B2540 | vermelho #CE2A1F
+
+O branco não é tinta: ali aparece a cor da camiseta.
+
+SUGESTÃO PARA CAMISETA PRETA / MARROM
+- FRENTE: texto__marinho -> creme #EFE8D8 (o vermelho fica).
+- COSTAS (versão "negativo"): todas as camadas *__marinho -> #EFE8D8
+  e ocultar/apagar ilustracao__creme (o tecido aparece no lugar).
