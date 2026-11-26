@@ -17,17 +17,17 @@ def build(opt, color, out):
     f = Font(SCRIPT)
     W = round(cm(12)); H = round(cm(8))
     if opt == 1:
-        t = Text(f, "Não temas", 1000, color)
-        t = Text(f, "Não temas", 1000 * cm(9.6) / t.w, color)
+        t = Text(f, "Não Temas", 1000, color)
+        t = Text(f, "Não Temas", 1000 * cm(9.6) / t.w, color)
         t.place(cx=W / 2, cy=H / 2)
         parts = [t]
     else:
         s1 = Text(f, "Não", cm(3.2), color)
-        s2 = Text(f, "temas", cm(3.2), color)
+        s2 = Text(f, "Temas", cm(3.2), color)
         gap = cm(0.5)
         tot = s1.w + gap + s2.w
         sc = cm(8.6) / tot
-        s1 = Text(f, "Não", cm(3.2) * sc, color); s2 = Text(f, "temas", cm(3.2) * sc, color)
+        s1 = Text(f, "Não", cm(3.2) * sc, color); s2 = Text(f, "Temas", cm(3.2) * sc, color)
         x0 = (W - (s1.w + gap * sc + s2.w)) / 2
         s1.place(left=x0, top=cm(1.6))
         s2.place(left=x0 + s1.w + gap * sc, top=s1.box()[3] - s1.h * 0.42)
