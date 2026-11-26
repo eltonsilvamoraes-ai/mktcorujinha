@@ -193,7 +193,7 @@ ILU4_W = 26.5              # largura da ilustração (cm) na v4+
 
 
 def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise",
-             bg="#0B0B0B", base=False, text=None):
+             bg="#0B0B0B", base=False, text=None, ilu_rgba=None):
     """bg = cor do tecido (só prévia; None = transparente);
     base = True põe tinta preta por baixo da ilustração (para tecidos
     coloridos/claros); text = cor do rodapé (padrão creme)."""
@@ -222,6 +222,14 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise",
     # só a ponta do pico (azul + fogo) passa na frente, entre "Não" e "temas"
     peak = (yy > py) & (yy < 0.29 * ih) & (np.abs(xx - px) < (yy - py) * 0.75 + 6)
     front = Image.fromarray(np.dstack([a.astype(np.uint8), np.where(peak, alpha, 0).astype(np.uint8)]), "RGBA")
+    if ilu_rgba is not None:   # ilustração pronta (ex.: retícula), qualquer resolução
+        rgba = ilu_rgba
+        hh, ww = ilu_rgba.height, ilu_rgba.width
+        y2, x2 = np.mgrid[0:hh, 0:ww]
+        pk = (y2 > 0.19 * hh) & (y2 < 0.29 * hh) & (np.abs(x2 - 0.5 * ww) < (y2 - 0.19 * hh) * 0.75 + 6 * ww / iw)
+        fa = np.array(ilu_rgba)
+        fa[..., 3] = np.where(pk, fa[..., 3], 0)
+        front = Image.fromarray(fa, "RGBA")
 
     # título: "Não" / "temas" em diagonal
     f = Font(script)
