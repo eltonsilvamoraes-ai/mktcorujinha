@@ -187,6 +187,7 @@ if __name__ == "__main__":
 # vermelho bold itálico. "2 REIS / 6:16" pequeno ao lado do título (como
 # o "EST 2025") e a corujinha no lugar do ®.
 
+LAST = {}
 SHIFT_UP = 0.8             # sobe título + ilustração (cm) para o rodapé caber
 FOOT_W = cm(12.0)          # largura do versículo no rodapé
 ILU4_W = 26.5              # largura da ilustração (cm) na v4+
@@ -273,6 +274,9 @@ def build_v4(out, color="#ECE29A", script="MonsieurLaDoulaise",
     ref = Text(Font("Montserrat-800"), "2 REIS 6:15-17", cm(0.42) * k, text, tracking=150)
     ref.place(cx=W / 2, top=y + cm(0.3) * k)
     body.append(ref.svg())
+    # peças separadas para o arquivo de produção (make_2reis_final.py)
+    LAST.update(rgba=rgba, front=front, tex=tex, ix=ix, iy=iy, iw=iw, ih=ih,
+                footer=[b for b in body if b.startswith("<path")])
     red = ref
     open(out, "w").write(document("\n".join(body), W, H))
     print(f"v4: arte até {red.box()[3]/300*2.54:.1f} cm")
