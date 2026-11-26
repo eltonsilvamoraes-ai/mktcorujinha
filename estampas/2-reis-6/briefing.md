@@ -53,3 +53,13 @@ A referência encaixa quase literalmente: **monte + cavalos + fogo/raios**.
 - Linha pequena embaixo: `MAIS SÃO OS QUE ESTÃO CONOSCO — 2 RS 6:16`.
 - Paleta sugerida (camiseta preta): branco, creme, azul-claro, laranja-fogo,
   amarelo, vermelho-brasa.
+
+## Decisões (costas aprovadas — v9)
+- Título "Não temas" em cursiva (Monsieur La Doulaise), amarelo-palha `#ECE29A`,
+  com textura gasta, entrelaçado com o monte (pico sobe no vão entre as palavras).
+- Rodapé: versículo em 3 linhas, Montserrat ExtraBold caixa alta creme, 12 cm de
+  largura, entrelinha curta, sem ponto final; "2 REIS 6:15-17" embaixo. Sem logo
+  (cliente coloca depois). Ilustração 26,5 cm; arte ~28 x 35,5 cm.
+- Técnica: CHAPADO (cores sólidas). Cromia/retícula testada (elíptica 45°, 40 lpi)
+  e REPROVADA — perde o traço de gravura.
+- Off-white: ilustração com base preta granulada, título vermelho, rodapé preto.
