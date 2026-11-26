@@ -44,7 +44,7 @@ def threshold_map(h, w, cell):
     d = np.sqrt(fu ** 2 + (fv / ELLIPSE) ** 2)
     # equaliza: transforma distância em "área coberta" (0..1 uniforme)
     s = np.sort(d[: min(h, 400), : min(w, 400)].ravel())
-    return (np.searchsorted(s, d) / s.size).astype(np.float32)
+    return (np.searchsorted(s, d) / s.size * 0.995).astype(np.float32)  # < 1: 100% cobre tudo
 
 
 def separate_soft(img):
@@ -57,7 +57,16 @@ def separate_soft(img):
     return w.reshape(a.shape[0], a.shape[1], len(INKS)).astype(np.float32)
 
 
-def build(out, dpi=450):
+# ordem dentro de cada célula (centro -> borda): claras no miolo, preto por fora
+NEST = ["branco", "creme", "dourado", "laranja", "vermelho", "azul", "preto"]
+MIN_INK = 0.18      # fração mínima de uma tinta dentro da célula para entrar
+MIN_TOTAL = 0.10     # DTF: abaixo disso não imprime (pontos minúsculos soltam)
+
+
+def build(out, dpi=450, mode="dtf"):
+    """mode "dtf": ponto-dentro-de-ponto (as tintas dividem a mesma célula em
+    anéis, cobertura total = 100% dentro do desenho, sem tecido entre pontos);
+    mode "sobreposto": cada tinta reticulada por cima da anterior (teste 1)."""
     ilu = Image.open(m.ILUS).convert("RGB")
     iw = round(m.ILU4_W / 2.54 * dpi)
     ih = round(ilu.height * iw / ilu.width)
@@ -72,13 +81,31 @@ def build(out, dpi=450):
     cell = dpi / LPI
     thr = threshold_map(ih, iw, cell)
     outimg = np.zeros((ih, iw, 4), np.uint8)
-    for k, (name, ink, _) in enumerate(INKS):
-        c = np.asarray(Image.fromarray((cov[..., k] * 255).astype(np.uint8)).resize((iw, ih), Image.BILINEAR), np.float32) / 255
-        dots = c > thr
-        outimg[dots] = (*rgb(ink).astype(np.uint8), 255)
-        print(name, f"{dots.mean()*100:.1f}% de cobertura")
+    full = [np.asarray(Image.fromarray((cov[..., k] * 255).astype(np.uint8)).resize((iw, ih), Image.BILINEAR), np.float32) / 255
+            for k in range(len(INKS))]
+    if mode == "sobreposto":
+        for k, (name, ink, _) in enumerate(INKS):
+            dots = full[k] > thr
+            outimg[dots] = (*rgb(ink).astype(np.uint8), 255)
+            print(name, f"{dots.mean()*100:.1f}%")
+    else:
+        idx = {n: k for k, (n, _, _) in enumerate(INKS)}
+        total = sum(full)
+        total = np.where(total < MIN_TOTAL, 0, total)
+        # tira as "sobras" de cada tinta (evita anéis coloridos finos)
+        full = [np.where(f < MIN_INK * np.maximum(total, 1e-6), 0, f) for f in full]
+        lo = np.zeros((ih, iw), np.float32)
+        scale = np.where(sum(full) > 0, total / np.maximum(sum(full), 1e-6), 0)
+        for name in NEST:
+            k = idx[name]
+            hi = lo + full[k] * scale
+            dots = (thr >= lo) & (thr < hi)
+            outimg[dots] = (*rgb(INKS[k][1]).astype(np.uint8), 255)
+            print(name, f"{dots.mean()*100:.1f}%")
+            lo = hi
     Image.fromarray(outimg, "RGBA").save(out)
 
 
 if __name__ == "__main__":
-    build(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 450)
+    build(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 450,
+          sys.argv[3] if len(sys.argv) > 3 else "dtf")
