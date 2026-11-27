@@ -1,0 +1,12 @@
+JO 3:30 — QUE ELE CRESÇA E EU DIMINUA
+=====================================
+Arte VAZADA, 1 cor: só as letras são tinta; os riscos da textura de giz e o
+fundo ficam sem tinta (aparece a cor da camiseta).
+
+- JO3-30_COSTAS.svg/.png  -> quadro 28 x 36 cm, arte 28 x 35,3 cm (com "Jo 3:30")
+- JO3-30_FRENTE.svg/.png  -> "Que ele Cresça", 8 x 5,2 cm
+SVG = vetor (Illustrator/Corel). PNG = 300 dpi, fundo transparente (DTF).
+
+Cor da tinta: off-white #F2EEE3 (camisetas escuras: verde escuro, bordô, preta, marinho).
+Para camiseta OFF-WHITE: troque a cor da camada (grupo "costas_F2EEE3" / "frente_F2EEE3")
+para azul-marinho #14233A ou bordô #6B1F2B.
