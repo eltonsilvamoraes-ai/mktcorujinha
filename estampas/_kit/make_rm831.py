@@ -25,7 +25,8 @@ def hexrgb(h):
     return np.array([int(h[i:i + 2], 16) for i in (1, 3, 5)], np.uint8)
 
 
-def ink_mask(seed=7):
+def ink_mask(seed=7, wear=1.0):
+    """wear: 1.0 = desgaste da v1 | 0.4 = leve | 0.15 = mínimo"""
     src = Image.open(SRC).convert("RGBA")
     im = Image.new("RGBA", src.size, "white"); im.alpha_composite(src)   # fundo transparente -> branco
     im = im.convert("RGB")
@@ -47,8 +48,8 @@ def ink_mask(seed=7):
     # desgaste vintage: manchas grandes suaves + riscos finos
     blot = rng.random((h // 6, w // 6))
     blot = np.asarray(Image.fromarray((blot * 255).astype(np.uint8)).resize((w * UP, h * UP), Image.BICUBIC), float) / 255
-    ink &= ~((blot > 0.80) & (grain > 0.55))
-    for _ in range(900):
+    ink &= ~((blot > 1 - 0.20 * wear) & (grain > 0.55))
+    for _ in range(int(900 * wear)):
         x = rng.integers(0, w * UP); y = rng.integers(0, h * UP)
         L = rng.integers(8, 60); ang = rng.normal(0, 0.25)
         xs = (x + np.arange(L) * np.sin(ang)).astype(int).clip(0, w * UP - 1)
@@ -58,8 +59,8 @@ def ink_mask(seed=7):
     return ink
 
 
-def build(ink_hex, tee_hex, out, transp=None):
-    m = ink_mask()
+def build(ink_hex, tee_hex, out, transp=None, wear=1.0):
+    m = ink_mask(wear=float(wear))
     H, W = m.shape
     img = np.zeros((H, W, 3), np.uint8); img[:] = hexrgb(tee_hex)
     img[m] = hexrgb(ink_hex)
