@@ -18,7 +18,7 @@ from corujinha_art import cm, document, render
 from vetorizar_cores import re, trace
 
 PREV = "../jo-3-30/previas/"
-THRESH = 215    # nível do vazado: 128 leve | 185 médio | 215 forte (escolhido)
+THRESH = 185    # nível do vazado: 128 leve | 185 médio (escolhido) | 215 forte
 
 
 def vector(png, width_cm, ink, gid, out_base, frame=None):
