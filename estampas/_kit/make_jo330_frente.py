@@ -18,7 +18,7 @@ KEEP_MAX_TOP = 800        # componentes que começam acima disso = "Que ele Cres
 UP = 2
 
 
-def build(out, verse_size=95, gap=35):
+def build(out, verse_size=95, gap=35, verse=True):
     src = np.array(Image.open(jo.SRC).convert("RGB"))
     ink = src.max(2) > 60
     lab, n = nd.label(ink, np.ones((3, 3)))
@@ -47,7 +47,7 @@ def build(out, verse_size=95, gap=35):
     patch = np.asarray(Image.fromarray(patch).resize((patch.shape[1] * UP, patch.shape[0] * UP), Image.LANCZOS)).astype(float)
     tile = np.concatenate([patch, patch[:, ::-1]], 1); tile = np.concatenate([tile, tile[::-1]], 0)
     tex = np.tile(tile, ((H * UP) // tile.shape[0] + 1, (Wd * UP) // tile.shape[1] + 1, 1))[:H * UP, :Wd * UP]
-    vm = jo.text_mask("Jo 3:30", verse_size * UP, Wd * UP, H * UP, Wd * UP / 2,
+    vm = np.zeros((H * UP, Wd * UP)) if not verse else jo.text_mask("Jo 3:30", verse_size * UP, Wd * UP, H * UP, Wd * UP / 2,
                       (pad + (y1 - y0) + gap) * UP, -6)
     if vm.shape != a.shape[:2]:
         vm = np.asarray(Image.fromarray((vm * 255).astype(np.uint8)).resize((a.shape[1], a.shape[0]))) / 255
@@ -62,4 +62,4 @@ def build(out, verse_size=95, gap=35):
 
 
 if __name__ == "__main__":
-    build(sys.argv[1])
+    build(sys.argv[1], verse="--sem-versiculo" not in sys.argv)
