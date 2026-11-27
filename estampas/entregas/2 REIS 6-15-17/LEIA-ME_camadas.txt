@@ -1,0 +1,22 @@
+2 REIS 6:15-17 — NÃO TEMAS
+==========================
+
+ARQUIVOS (SVG = vetor, abre no Illustrator/Corel | PNG = 300 dpi, fundo transparente, DTF)
+- 2REIS6-15-17_COSTAS_PRETA     -> quadro 28 x 36 cm (arte ~28 x 35,5 cm)
+- 2REIS6-15-17_COSTAS_OFFWHITE  -> idem, com base preta na ilustração, título vermelho, rodapé preto
+- 2REIS6-15-17_FRENTE_PRETA     -> "Não temas" ~8,6 x 2,8 cm (amarelo-palha)
+- 2REIS6-15-17_FRENTE_OFFWHITE  -> idem em vermelho
+- _previa_*.png                 -> só para visualizar sobre a cor da camiseta (não imprimir)
+
+CAMADAS (cada cor separada, para trocar depois)
+COSTAS
+  ILUSTRACAO  -> marrom #4C3630 | cinza #6A675F | azul #6A98B2 | vermelho #A84B3A
+                 dourado #E0A53C | bege #C4AB86 | creme #E3D2B0
+                 (+ preto #0B0B0B só na OFFWHITE = base da ilustração)
+  TITULO      -> "Não temas" (amarelo #ECE29A na preta | vermelho #C83438 na off-white)
+  PICO_FRENTE -> ponta do monte que passa POR CIMA do título (mesmas cores da ilustração)
+  RODAPE      -> versículo + "2 REIS 6:15-17" (creme #E9E2CF na preta | #1A1A1A na off-white)
+FRENTE
+  TEXTO       -> "Não temas" (1 cor)
+
+Na camiseta PRETA o preto não é tinta: as sombras são o próprio tecido.
