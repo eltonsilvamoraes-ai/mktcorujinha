@@ -12,17 +12,19 @@ import sys
 
 import numpy as np
 from PIL import Image
+from scipy import ndimage as nd
 
 from corujinha_art import cm, document, render
 from vetorizar_cores import re, trace
 
 PREV = "../jo-3-30/previas/"
+THRESH = 215    # nível do vazado: 128 leve | 185 médio | 215 forte (escolhido)
 
 
 def vector(png, width_cm, ink, gid, out_base, frame=None):
     a = np.asarray(Image.open(png).convert("RGB")).astype(float)
     lum = a.mean(axis=2)
-    m = lum > 128
+    m = lum > THRESH
     ys, xs = np.where(m)
     x0, y0, x1, y1 = xs.min(), ys.min(), xs.max() + 1, ys.max() + 1
     m = m[y0:y1, x0:x1]
