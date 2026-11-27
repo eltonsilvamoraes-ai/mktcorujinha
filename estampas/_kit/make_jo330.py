@@ -57,9 +57,9 @@ def build(opt, out):
     reps = (H // tile.shape[0] + 1, W // tile.shape[1] + 1, 1)
     tex = np.tile(tile, reps)[:H, :W]
 
-    size, rot = {"A": (150, -6), "B": (130, -6), "C": (130, -6)}[opt]
+    size, rot = {"A": (115, -6), "B": (130, -6), "C": (130, -6)}[opt]
     size *= UP
-    pos = {"A": (W * 0.50, 1300 * UP), "B": (W * 0.50, 150 * UP), "C": (W * 0.66, 1290 * UP)}[opt]
+    pos = {"A": (W * 0.50, 1305 * UP), "B": (W * 0.50, 150 * UP), "C": (W * 0.66, 1290 * UP)}[opt]
     m = text_mask("Jo 3:30", size, W, H, pos[0], pos[1], rot)
     bg = np.array([11, 22, 34], float)
     out_img = base * (1 - m[..., None]) + (bg * (1 - m[..., None]) * 0 + tex * m[..., None])
